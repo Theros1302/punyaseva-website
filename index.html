@@ -1,1 +1,797 @@
-placeholder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PunyaSeva — Faith-Powered Healing for Hospital Families</title>
+<meta name="description" content="PunyaSeva connects hospital caregivers with spiritual healing services — temple pujas, gaushala seva, bhandara — delivered with real-time proof.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ===== RESET & GLOBALS ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #B85042;
+  --primary-dark: #8B3A30;
+  --accent: #D4763A;
+  --sage: #7BA085;
+  --sage-dark: #5F7E67;
+  --cream: #FAF5F0;
+  --dark: #2D1B14;
+  --body-text: #4A3728;
+  --muted: #8B7355;
+  --white: #FFFFFF;
+  --light-card: #F5EDE6;
+  --border: #E8DDD3;
+  --shadow: 0 4px 24px rgba(45,27,20,0.08);
+  --shadow-lg: 0 12px 48px rgba(45,27,20,0.12);
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'Inter', sans-serif; color: var(--body-text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--dark); line-height: 1.3; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; border: none; transition: var(--transition); font-family: 'Inter', sans-serif; }
+.btn-primary { background: var(--primary); color: var(--white); }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.btn-outline:hover { background: var(--primary); color: var(--white); }
+.btn-sage { background: var(--sage); color: var(--white); }
+.btn-sage:hover { background: var(--sage-dark); transform: translateY(-2px); }
+.section-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+.section-title { font-size: 2.5rem; margin-bottom: 16px; }
+.section-subtitle { font-size: 1.1rem; color: var(--muted); max-width: 600px; line-height: 1.7; }
+
+/* ===== NAVBAR ===== */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(250,245,240,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: var(--transition); }
+.navbar.scrolled { box-shadow: var(--shadow); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+.nav-logo span { color: var(--dark); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--body-text); transition: var(--transition); position: relative; }
+.nav-links a:hover { color: var(--primary); }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: var(--transition); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta { padding: 10px 24px; font-size: 0.85rem; }
+.mobile-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--dark); cursor: pointer; }
+
+/* ===== HERO ===== */
+.hero { padding: 140px 0 100px; background: linear-gradient(135deg, var(--cream) 0%, #F5EDE6 50%, #EDE3D8 100%); position: relative; overflow: hidden; min-height: 90vh; display: flex; align-items: center; }
+.hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(184,80,66,0.06) 0%, transparent 70%); }
+.hero::after { content: 'ॐ'; position: absolute; top: 50%; right: 8%; font-size: 20rem; color: rgba(184,80,66,0.04); font-family: serif; transform: translateY(-50%); }
+.hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.hero-text h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.15; }
+.hero-text h1 .highlight { color: var(--primary); position: relative; }
+.hero-text p { font-size: 1.15rem; color: var(--muted); margin-bottom: 36px; max-width: 500px; line-height: 1.8; }
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero-visual { position: relative; }
+.hero-card { background: var(--white); border-radius: 16px; padding: 32px; box-shadow: var(--shadow-lg); position: relative; }
+.hero-card .stat-row { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.hero-card .stat-row:last-child { border-bottom: none; }
+.hero-card .stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--white); }
+.hero-card .stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+.hero-card .stat-label { font-size: 0.85rem; color: var(--muted); }
+.trust-badge { position: absolute; bottom: -20px; right: -20px; background: var(--sage); color: var(--white); padding: 12px 20px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; box-shadow: var(--shadow); }
+
+/* ===== IMPACT STATS ===== */
+.impact-bar { background: var(--dark); padding: 40px 0; }
+.impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; }
+.impact-item .impact-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--accent); }
+.impact-item .impact-label { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 4px; }
+
+/* ===== SERVICES ===== */
+.services { padding: 100px 0; background: var(--cream); }
+.services-header { text-align: center; margin-bottom: 60px; }
+.services-header .section-subtitle { margin: 0 auto; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.service-card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); cursor: pointer; }
+.service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.service-header { padding: 24px 28px; color: var(--white); position: relative; }
+.service-header h3 { font-size: 1.3rem; margin-bottom: 4px; color: var(--white); }
+.service-header .price { font-size: 0.9rem; opacity: 0.85; }
+.service-body { padding: 24px 28px; }
+.service-body p { font-size: 0.95rem; color: var(--body-text); margin-bottom: 16px; line-height: 1.7; }
+.service-features { list-style: none; }
+.service-features li { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 0.88rem; color: var(--muted); }
+.service-features li i { color: var(--sage); margin-top: 3px; }
+.service-cta { padding: 0 28px 24px; }
+
+/* ===== HOW IT WORKS ===== */
+.how-it-works { padding: 100px 0; background: var(--white); }
+.how-header { text-align: center; margin-bottom: 60px; }
+.how-header .section-subtitle { margin: 0 auto; }
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+.steps-grid::before { content: ''; position: absolute; top: 40px; left: 12.5%; right: 12.5%; height: 2px; background: var(--border); z-index: 0; }
+.step-card { text-align: center; position: relative; z-index: 1; }
+.step-num { width: 80px; height: 80px; border-radius: 50%; background: var(--primary); color: var(--white); font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: var(--shadow); }
+.step-card h4 { font-size: 1.1rem; margin-bottom: 8px; }
+.step-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; padding: 0 8px; }
+
+/* ===== EVIDENCE ===== */
+.evidence { padding: 100px 0; background: var(--dark); color: var(--white); }
+.evidence-header { text-align: center; margin-bottom: 60px; }
+.evidence-header .section-label { color: var(--accent); }
+.evidence-header .section-title { color: var(--white); }
+.evidence-header .section-subtitle { color: rgba(255,255,255,0.6); margin: 0 auto; }
+.evidence-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.evidence-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 28px; transition: var(--transition); }
+.evidence-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+.evidence-card .ev-stat { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.evidence-card .ev-desc { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+.evidence-card .ev-source { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 12px; font-style: italic; }
+
+/* ===== BOOKING SECTION ===== */
+.booking { padding: 100px 0; background: var(--cream); }
+.booking-header { text-align: center; margin-bottom: 48px; }
+.booking-header .section-subtitle { margin: 0 auto; }
+.booking-form-container { max-width: 700px; margin: 0 auto; background: var(--white); border-radius: 16px; padding: 48px; box-shadow: var(--shadow-lg); }
+.form-group { margin-bottom: 24px; }
+.form-group label { display: block; font-size: 0.88rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--dark); background: var(--cream); transition: var(--transition); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(184,80,66,0.1); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-submit { width: 100%; padding: 16px; font-size: 1rem; }
+.form-note { text-align: center; margin-top: 16px; font-size: 0.82rem; color: var(--muted); }
+
+/* ===== TESTIMONIALS ===== */
+.testimonials { padding: 100px 0; background: var(--white); }
+.testimonials-header { text-align: center; margin-bottom: 60px; }
+.testimonials-header .section-subtitle { margin: 0 auto; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.testimonial-card { background: var(--cream); border-radius: 16px; padding: 32px; position: relative; transition: var(--transition); }
+.testimonial-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.testimonial-card .quote-icon { font-size: 2rem; color: var(--primary); opacity: 0.3; margin-bottom: 12px; }
+.testimonial-card p { font-size: 0.95rem; color: var(--body-text); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; }
+.author-info .author-name { font-weight: 600; font-size: 0.9rem; color: var(--dark); }
+.author-info .author-role { font-size: 0.8rem; color: var(--muted); }
+
+/* ===== PARTNERS ===== */
+.partners { padding: 80px 0; background: var(--light-card); }
+.partners-header { text-align: center; margin-bottom: 40px; }
+.partners-grid { display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap; opacity: 0.5; }
+.partner-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--dark); }
+
+/* ===== CTA ===== */
+.cta-section { padding: 100px 0; background: var(--primary); color: var(--white); text-align: center; position: relative; overflow: hidden; }
+.cta-section::before { content: 'ॐ'; position: absolute; top: 50%; left: 50%; font-size: 30rem; color: rgba(255,255,255,0.04); transform: translate(-50%, -50%); }
+.cta-section h2 { font-size: 2.8rem; color: var(--white); margin-bottom: 16px; position: relative; }
+.cta-section p { font-size: 1.15rem; opacity: 0.85; margin-bottom: 36px; max-width: 600px; margin-left: auto; margin-right: auto; position: relative; }
+.cta-buttons { display: flex; gap: 16px; justify-content: center; position: relative; flex-wrap: wrap; }
+.btn-white { background: var(--white); color: var(--primary); }
+.btn-white:hover { background: var(--cream); transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.5); }
+.btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+/* ===== FOOTER ===== */
+.footer { padding: 60px 0 30px; background: var(--dark); color: rgba(255,255,255,0.6); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand .nav-logo { margin-bottom: 16px; display: inline-block; }
+.footer-brand p { font-size: 0.9rem; line-height: 1.7; max-width: 300px; }
+.footer-col h4 { color: var(--white); font-size: 1rem; margin-bottom: 16px; font-family: 'Inter', sans-serif; font-weight: 600; }
+.footer-col a { display: block; font-size: 0.88rem; padding: 4px 0; transition: var(--transition); }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
+.footer-socials { display: flex; gap: 16px; }
+.footer-socials a { color: rgba(255,255,255,0.5); font-size: 1.2rem; transition: var(--transition); }
+.footer-socials a:hover { color: var(--accent); }
+
+/* ===== MODAL ===== */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(45,27,20,0.6); backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+.modal-overlay.active { display: flex; }
+.modal { background: var(--white); border-radius: 16px; max-width: 480px; width: 90%; padding: 48px; text-align: center; position: relative; box-shadow: var(--shadow-lg); animation: modalIn 0.3s ease; }
+@keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.5rem; color: var(--muted); cursor: pointer; }
+.modal h3 { font-size: 1.5rem; margin-bottom: 12px; }
+.modal p { font-size: 0.95rem; color: var(--muted); margin-bottom: 24px; }
+.modal .success-icon { width: 80px; height: 80px; border-radius: 50%; background: var(--sage); color: var(--white); font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+
+/* ===== ADMIN PANEL ===== */
+.admin-panel { display: none; padding: 100px 0 60px; background: var(--cream); min-height: 100vh; }
+.admin-panel.active { display: block; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
+.admin-stat-card { background: var(--white); border-radius: 12px; padding: 24px; box-shadow: var(--shadow); }
+.admin-stat-card .stat-value { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--primary); }
+.admin-stat-card .stat-desc { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+.admin-table { width: 100%; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.admin-table th { background: var(--dark); color: var(--white); padding: 14px 16px; font-size: 0.85rem; font-weight: 600; text-align: left; }
+.admin-table td { padding: 14px 16px; font-size: 0.88rem; border-bottom: 1px solid var(--border); }
+.admin-table tr:hover td { background: var(--light-card); }
+.status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+.status-badge.pending { background: #FEF3C7; color: #92400E; }
+.status-badge.confirmed { background: #D1FAE5; color: #065F46; }
+.status-badge.completed { background: #DBEAFE; color: #1E40AF; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-text p { margin: 0 auto 36px; }
+  .hero-buttons { justify-content: center; }
+  .hero-visual { max-width: 500px; margin: 0 auto; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  .steps-grid::before { display: none; }
+  .evidence-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .admin-stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .mobile-toggle { display: block; }
+  .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--cream); padding: 24px; border-bottom: 1px solid var(--border); box-shadow: var(--shadow); }
+  .hero-text h1 { font-size: 2.5rem; }
+  .section-title { font-size: 2rem; }
+  .impact-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 12px; }
+  .admin-stats { grid-template-columns: 1fr; }
+  .cta-section h2 { font-size: 2rem; }
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+
+/* ===== NOTIFICATION TOAST ===== */
+.toast { position: fixed; top: 90px; right: 24px; background: var(--sage); color: var(--white); padding: 16px 24px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 3000; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+.toast.show { transform: translateX(0); }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+<div class="container nav-inner">
+  <a href="#" class="nav-logo" onclick="showMain()">Punya<span>Seva</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#services" onclick="showMain()">Services</a>
+    <a href="#how-it-works" onclick="showMain()">How It Works</a>
+    <a href="#evidence" onclick="showMain()">Evidence</a>
+    <a href="#testimonials" onclick="showMain()">Stories</a>
+    <a href="#booking" onclick="showMain()" class="btn btn-primary nav-cta">Book a Seva</a>
+    <a href="#" onclick="toggleAdmin(event)" style="font-size:0.8rem; opacity:0.5;">Admin</a>
+  </div>
+  <button class="mobile-toggle" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+</div>
+</nav>
+
+<!-- ===== MAIN SITE ===== -->
+<div id="mainSite">
+
+<!-- HERO -->
+<section class="hero">
+<div class="container hero-content">
+  <div class="hero-text fade-in">
+    <p class="section-label">Faith-Powered Caregiver Wellness</p>
+    <h1>When Medicine Heals the Body, <span class="highlight">PunyaSeva</span> Heals the Heart</h1>
+    <p>Connecting hospital caregivers with sacred healing services — temple pujas, gaushala seva, bhandara — delivered with real-time proof and blessings.</p>
+    <div class="hero-buttons">
+      <a href="#booking" class="btn btn-primary"><i class="fas fa-hands-praying"></i> Book a Seva</a>
+      <a href="#how-it-works" class="btn btn-outline"><i class="fas fa-play-circle"></i> See How It Works</a>
+    </div>
+  </div>
+  <div class="hero-visual fade-in delay-2">
+    <div class="hero-card">
+      <div class="stat-row">
+        <div class="stat-icon" style="background:var(--primary)"><i class="fas fa-om"></i></div>
+        <div><div class="stat-num">2,847</div><div class="stat-label">Sevas completed this month</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon" style="background:var(--sage)"><i class="fas fa-heart"></i></div>
+        <div><div class="stat-num">98.2%</div><div class="stat-label">Families felt more hopeful</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon" style="background:var(--accent)"><i class="fas fa-gopuram"></i></div>
+        <div><div class="stat-num">150+</div><div class="stat-label">Temple & gaushala partners</div></div>
+      </div>
+    </div>
+    <div class="trust-badge"><i class="fas fa-shield-halved"></i> &nbsp;Evidence-Backed</div>
+  </div>
+</div>
+</section>
+
+<!-- IMPACT BAR -->
+<section class="impact-bar">
+<div class="container">
+  <div class="impact-grid">
+    <div class="impact-item fade-in"><div class="impact-num" data-count="12000">0</div><div class="impact-label">Families Served</div></div>
+    <div class="impact-item fade-in delay-1"><div class="impact-num" data-count="150">0</div><div class="impact-label">Temple Partners</div></div>
+    <div class="impact-item fade-in delay-2"><div class="impact-num" data-count="50">0</div><div class="impact-label">Hospital Partners</div></div>
+    <div class="impact-item fade-in delay-3"><div class="impact-num" data-count="42">0</div><div class="impact-label">% Anxiety Reduction</div></div>
+  </div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+<div class="container">
+  <div class="services-header fade-in">
+    <p class="section-label">Our Sacred Services</p>
+    <h2 class="section-title">Choose a Seva for Your Loved One</h2>
+    <p class="section-subtitle">Each service is performed with full traditional protocols at verified partner institutions, with real-time proof shared to your phone.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-header" style="background: var(--primary)">
+        <h3><i class="fas fa-om"></i> &nbsp;Temple Puja</h3>
+        <span class="price">Starting ₹1,100</span>
+      </div>
+      <div class="service-body">
+        <p>Sacred prayers conducted by dedicated pandits at our partner temples across India — Mahakal, Kashi Vishwanath, Tirupati, and more.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check"></i> Real-time photo & video proof</li>
+          <li><i class="fas fa-check"></i> Digital blessing certificate</li>
+          <li><i class="fas fa-check"></i> Choice of specific pujas (Maha Mrityunjaya, Navagraha, etc.)</li>
+          <li><i class="fas fa-check"></i> Conducted within 24 hours of booking</li>
+        </ul>
+      </div>
+      <div class="service-cta"><a href="#booking" class="btn btn-primary" style="width:100%;justify-content:center;">Book This Seva</a></div>
+    </div>
+    <div class="service-card fade-in delay-1">
+      <div class="service-header" style="background: var(--sage)">
+        <h3><i class="fas fa-cow"></i> &nbsp;Gaushala Seva</h3>
+        <span class="price">Starting ₹500</span>
+      </div>
+      <div class="service-body">
+        <p>Feed and care for 40+ cows at certified gaushalas. A deeply meaningful act of dharma that grounds the family in purpose during crisis.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check"></i> Feed 40+ cows in family's name</li>
+          <li><i class="fas fa-check"></i> Photo proof of feeding</li>
+          <li><i class="fas fa-check"></i> Certificate of seva completion</li>
+          <li><i class="fas fa-check"></i> Available daily at verified gaushalas</li>
+        </ul>
+      </div>
+      <div class="service-cta"><a href="#booking" class="btn btn-sage" style="width:100%;justify-content:center;">Book This Seva</a></div>
+    </div>
+    <div class="service-card fade-in delay-2">
+      <div class="service-header" style="background: var(--accent)">
+        <h3><i class="fas fa-utensils"></i> &nbsp;Bhandara</h3>
+        <span class="price">Starting ₹5,100</span>
+      </div>
+      <div class="service-body">
+        <p>108-person community meal organized in the family's name. Each person fed offers a heartfelt prayer for the patient's recovery.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-check"></i> 108 people fed & praying</li>
+          <li><i class="fas fa-check"></i> Full event documentation</li>
+          <li><i class="fas fa-check"></i> Letters of blessing from recipients</li>
+          <li><i class="fas fa-check"></i> Cross-religious, community-powered</li>
+        </ul>
+      </div>
+      <div class="service-cta"><a href="#booking" class="btn btn-primary" style="width:100%;justify-content:center;background:var(--accent);">Book This Seva</a></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how-it-works">
+<div class="container">
+  <div class="how-header fade-in">
+    <p class="section-label">Simple & Sacred</p>
+    <h2 class="section-title">How PunyaSeva Works</h2>
+    <p class="section-subtitle">From booking to blessings — in just four steps.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card fade-in"><div class="step-num">1</div><h4>Choose a Seva</h4><p>Browse our services and select one that resonates with your faith and the patient's needs.</p></div>
+    <div class="step-card fade-in delay-1"><div class="step-num">2</div><h4>Share Details</h4><p>Tell us the patient's name, your relationship, the hospital, and any specific prayers you'd like.</p></div>
+    <div class="step-card fade-in delay-2"><div class="step-num">3</div><h4>Seva is Performed</h4><p>Our partner temple or gaushala performs the seva with full protocols. You receive real-time updates.</p></div>
+    <div class="step-card fade-in delay-3"><div class="step-num">4</div><h4>Receive Blessings</h4><p>Get photo/video proof, a digital blessing certificate, and the peace of knowing you did something sacred.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- EVIDENCE -->
+<section class="evidence" id="evidence">
+<div class="container">
+  <div class="evidence-header fade-in">
+    <p class="section-label">Backed by Science</p>
+    <h2 class="section-title">Evidence-Based, Not Just Faith-Based</h2>
+    <p class="section-subtitle">Our approach is grounded in peer-reviewed clinical research spanning psychiatry, oncology, and critical care.</p>
+  </div>
+  <div class="evidence-grid">
+    <div class="evidence-card fade-in"><div class="ev-stat">42%</div><div class="ev-desc">Reduction in caregiver anxiety within just 2 weeks of spiritual intervention programs.</div><div class="ev-source">RML Hospital Study, 2024</div></div>
+    <div class="evidence-card fade-in delay-1"><div class="ev-stat">30–50%</div><div class="ev-desc">Improvement in patient adherence and post-discharge compliance when caregivers are emotionally supported.</div><div class="ev-source">2025 Meta-Analysis, Journal of Integrative Medicine</div></div>
+    <div class="evidence-card fade-in delay-2"><div class="ev-stat">15–25%</div><div class="ev-desc">Reduction in ICU readmissions when hospitals address caregiver distress as part of the care protocol.</div><div class="ev-source">2024 SCCM Guidelines</div></div>
+    <div class="evidence-card fade-in delay-3"><div class="ev-stat">50+</div><div class="ev-desc">Peer-reviewed citations across psychiatry, spirituality, Ayurveda, and oncology journals supporting our approach.</div><div class="ev-source">PunyaSeva Research Library</div></div>
+  </div>
+</div>
+</section>
+
+<!-- BOOKING FORM -->
+<section class="booking" id="booking">
+<div class="container">
+  <div class="booking-header fade-in">
+    <p class="section-label">Book a Seva</p>
+    <h2 class="section-title">Begin the Healing Journey</h2>
+    <p class="section-subtitle">Fill in the details below and our team will coordinate the seva within 24 hours.</p>
+  </div>
+  <div class="booking-form-container fade-in">
+    <form id="bookingForm" onsubmit="handleBooking(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="caregiverName">Your Name *</label>
+          <input type="text" id="caregiverName" name="caregiver_name" required placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label for="caregiverPhone">Phone Number *</label>
+          <input type="tel" id="caregiverPhone" name="caregiver_phone" required placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="patientName">Patient Name *</label>
+          <input type="text" id="patientName" name="patient_name" required placeholder="Patient's full name">
+        </div>
+        <div class="form-group">
+          <label for="hospital">Hospital Name *</label>
+          <input type="text" id="hospital" name="hospital" required placeholder="Hospital & city">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sevaType">Select Seva *</label>
+        <select id="sevaType" name="seva_type" required>
+          <option value="">Choose a seva...</option>
+          <option value="Temple Puja - Maha Mrityunjaya">Temple Puja — Maha Mrityunjaya Jap (₹2,100)</option>
+          <option value="Temple Puja - Navagraha">Temple Puja — Navagraha Shanti (₹1,500)</option>
+          <option value="Temple Puja - Rudrabhishek">Temple Puja — Rudrabhishek (₹3,100)</option>
+          <option value="Temple Puja - Custom">Temple Puja — Custom (₹1,100+)</option>
+          <option value="Gaushala Seva - Standard">Gaushala Seva — Feed 40+ Cows (₹500)</option>
+          <option value="Gaushala Seva - Premium">Gaushala Seva — Premium (₹1,100)</option>
+          <option value="Bhandara - 108 Meals">Bhandara — 108-Person Meal (₹5,100)</option>
+          <option value="Bhandara - Premium">Bhandara — Premium with Blessing Letters (₹8,500)</option>
+          <option value="Combo - Weekly">Combo — Weekly Wellness Package (₹8,000)</option>
+          <option value="Combo - Monthly">Combo — Monthly Recovery Support (₹21,000)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="caregiverEmail">Email (for blessing certificate)</label>
+        <input type="email" id="caregiverEmail" name="caregiver_email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label for="specialInstructions">Special Instructions or Prayers</label>
+        <textarea id="specialInstructions" name="special_instructions" placeholder="Any specific prayers, gotra, nakshatra, or special requests..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary form-submit"><i class="fas fa-hands-praying"></i> Submit Seva Request</button>
+      <p class="form-note">Our team will contact you within 2 hours to confirm details and payment. No charges until you confirm.</p>
+    </form>
+  </div>
+</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+<div class="container">
+  <div class="testimonials-header fade-in">
+    <p class="section-label">Stories of Hope</p>
+    <h2 class="section-title">Families Who Found Peace</h2>
+    <p class="section-subtitle">Real stories from caregivers who found strength through PunyaSeva during their most difficult days.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card fade-in">
+      <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+      <p>"When my father was in the ICU, I felt so helpless. PunyaSeva organized a Maha Mrityunjaya Jap at Mahakal temple. Watching the video of pandits praying for him — I can't describe the peace it gave our family."</p>
+      <div class="testimonial-author"><div class="author-avatar">RA</div><div class="author-info"><div class="author-name">Ritu Agarwal</div><div class="author-role">Daughter, AIIMS Delhi</div></div></div>
+    </div>
+    <div class="testimonial-card fade-in delay-1">
+      <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+      <p>"108 people were fed and each one prayed for my wife's recovery. When I showed her the photos after she woke up from surgery, she cried tears of joy. This is what healing looks like."</p>
+      <div class="testimonial-author"><div class="author-avatar">SK</div><div class="author-info"><div class="author-name">Suresh Kumar</div><div class="author-role">Husband, Apollo Hyderabad</div></div></div>
+    </div>
+    <div class="testimonial-card fade-in delay-2">
+      <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+      <p>"As a nurse, I see families break down every day. Since we started referring to PunyaSeva, the atmosphere in our ICU waiting area has completely changed. Families are calmer, more hopeful."</p>
+      <div class="testimonial-author"><div class="author-avatar">PM</div><div class="author-info"><div class="author-name">Priya Menon</div><div class="author-role">Head Nurse, Fortis Mumbai</div></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+<div class="container">
+  <div class="partners-header"><p class="section-label" style="color:var(--muted)">Trusted By</p></div>
+  <div class="partners-grid">
+    <span class="partner-logo">Mahakal Temple</span>
+    <span class="partner-logo">Kashi Vishwanath</span>
+    <span class="partner-logo">Tirupati Balaji</span>
+    <span class="partner-logo">AIIMS Delhi</span>
+    <span class="partner-logo">Apollo Hospitals</span>
+    <span class="partner-logo">Fortis Healthcare</span>
+  </div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+<div class="container">
+  <h2>Your Loved One Deserves Every Prayer</h2>
+  <p>When medicine does its part, let faith do the rest. Book a seva today and give your family the strength to heal.</p>
+  <div class="cta-buttons">
+    <a href="#booking" class="btn btn-white"><i class="fas fa-hands-praying"></i> Book a Seva Now</a>
+    <a href="tel:+919876543210" class="btn btn-ghost"><i class="fas fa-phone"></i> Call Us: +91 98765 43210</a>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo">Punya<span style="color:var(--white)">Seva</span></a>
+      <p>Faith-powered healing for hospital families. Bridging modern medicine and sacred traditions through technology and compassion.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#services">Temple Puja</a>
+      <a href="#services">Gaushala Seva</a>
+      <a href="#services">Bhandara</a>
+      <a href="#services">Combo Packages</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#evidence">Our Research</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#testimonials">Stories</a>
+      <a href="#">Partner With Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:contact@punyaseva.in"><i class="fas fa-envelope"></i> &nbsp;contact@punyaseva.in</a>
+      <a href="tel:+919876543210"><i class="fas fa-phone"></i> &nbsp;+91 98765 43210</a>
+      <a href="#"><i class="fas fa-map-marker-alt"></i> &nbsp;Hyderabad, India</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 PunyaSeva. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+</div>
+</footer>
+</div><!-- /mainSite -->
+
+<!-- ===== ADMIN PANEL ===== -->
+<div class="admin-panel" id="adminPanel">
+<div class="container">
+  <div class="admin-header">
+    <div><h2>PunyaSeva Admin Dashboard</h2><p style="color:var(--muted);font-size:0.9rem;">Manage bookings, track sevas, and monitor performance.</p></div>
+    <div style="display:flex;gap:12px;">
+      <button class="btn btn-outline" onclick="showMain()"><i class="fas fa-arrow-left"></i> Back to Site</button>
+      <button class="btn btn-primary" onclick="exportBookings()"><i class="fas fa-download"></i> Export CSV</button>
+    </div>
+  </div>
+  <div class="admin-stats" id="adminStats"></div>
+  <h3 style="margin-bottom:16px;">Recent Bookings</h3>
+  <div style="overflow-x:auto;">
+    <table class="admin-table">
+      <thead><tr><th>ID</th><th>Caregiver</th><th>Patient</th><th>Hospital</th><th>Seva</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+      <tbody id="bookingsTable"></tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+<div class="modal">
+  <button class="modal-close" onclick="closeModal()">&times;</button>
+  <div class="success-icon"><i class="fas fa-check"></i></div>
+  <h3>Seva Booked Successfully!</h3>
+  <p>Your seva request has been received. Our team will contact you within 2 hours to confirm details.</p>
+  <p style="font-size:0.85rem; color:var(--primary); font-weight:600;">Booking ID: <span id="bookingId"></span></p>
+  <button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px;">Close</button>
+</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== LOCAL BACKEND (IndexedDB-like localStorage with full CRUD) =====
+const DB = {
+  _key: 'punyaseva_bookings',
+  _getAll() { 
+    try { return JSON.parse(localStorage.getItem(this._key) || '[]'); } 
+    catch { return []; } 
+  },
+  _saveAll(data) { localStorage.setItem(this._key, JSON.stringify(data)); },
+  
+  create(booking) {
+    const all = this._getAll();
+    booking.id = 'PS-' + Date.now().toString(36).toUpperCase();
+    booking.status = 'pending';
+    booking.createdAt = new Date().toISOString();
+    booking.updatedAt = new Date().toISOString();
+    all.unshift(booking);
+    this._saveAll(all);
+    return booking;
+  },
+  readAll() { return this._getAll(); },
+  readById(id) { return this._getAll().find(b => b.id === id); },
+  update(id, updates) {
+    const all = this._getAll();
+    const idx = all.findIndex(b => b.id === id);
+    if (idx === -1) return null;
+    all[idx] = { ...all[idx], ...updates, updatedAt: new Date().toISOString() };
+    this._saveAll(all);
+    return all[idx];
+  },
+  delete(id) {
+    const all = this._getAll();
+    this._saveAll(all.filter(b => b.id !== id));
+  },
+  getStats() {
+    const all = this._getAll();
+    return {
+      total: all.length,
+      pending: all.filter(b => b.status === 'pending').length,
+      confirmed: all.filter(b => b.status === 'confirmed').length,
+      completed: all.filter(b => b.status === 'completed').length,
+    };
+  }
+};
+
+// Seed demo data if empty
+if (DB.readAll().length === 0) {
+  const demoBookings = [
+    { caregiverName: 'Ritu Agarwal', caregiverPhone: '+91 98765 43210', patientName: 'Ramesh Agarwal', hospital: 'AIIMS Delhi', sevaType: 'Temple Puja - Maha Mrityunjaya', email: 'ritu@email.com', instructions: 'Gotra: Kashyap', status: 'completed' },
+    { caregiverName: 'Suresh Kumar', caregiverPhone: '+91 87654 32109', patientName: 'Meena Kumar', hospital: 'Apollo Hyderabad', sevaType: 'Bhandara - 108 Meals', email: 'suresh@email.com', instructions: '', status: 'completed' },
+    { caregiverName: 'Priya Sharma', caregiverPhone: '+91 76543 21098', patientName: 'Anil Sharma', hospital: 'Fortis Mumbai', sevaType: 'Gaushala Seva - Premium', email: 'priya@email.com', instructions: 'Please send video', status: 'confirmed' },
+    { caregiverName: 'Arjun Reddy', caregiverPhone: '+91 65432 10987', patientName: 'Lakshmi Reddy', hospital: 'KIMS Secunderabad', sevaType: 'Combo - Weekly', email: '', instructions: 'Nakshatra: Ashwini', status: 'pending' },
+    { caregiverName: 'Kavita Singh', caregiverPhone: '+91 54321 09876', patientName: 'Rajesh Singh', hospital: 'Medanta Gurgaon', sevaType: 'Temple Puja - Rudrabhishek', email: 'kavita@email.com', instructions: '', status: 'pending' },
+  ];
+  demoBookings.forEach(b => {
+    b.id = 'PS-' + (Date.now() + Math.random() * 1000).toString(36).toUpperCase().slice(0,10);
+    b.createdAt = new Date(Date.now() - Math.random() * 7 * 86400000).toISOString();
+    b.updatedAt = b.createdAt;
+    const all = DB.readAll();
+    all.push(b);
+    localStorage.setItem('punyaseva_bookings', JSON.stringify(all));
+  });
+}
+
+// ===== BOOKING HANDLER =====
+function handleBooking(e) {
+  e.preventDefault();
+  const booking = DB.create({
+    caregiverName: document.getElementById('caregiverName').value,
+    caregiverPhone: document.getElementById('caregiverPhone').value,
+    patientName: document.getElementById('patientName').value,
+    hospital: document.getElementById('hospital').value,
+    sevaType: document.getElementById('sevaType').value,
+    email: document.getElementById('caregiverEmail').value,
+    instructions: document.getElementById('specialInstructions').value,
+  });
+  document.getElementById('bookingId').textContent = booking.id;
+  document.getElementById('successModal').classList.add('active');
+  document.getElementById('bookingForm').reset();
+  showToast('Seva booked! ID: ' + booking.id);
+}
+
+// ===== ADMIN FUNCTIONS =====
+function renderAdmin() {
+  const stats = DB.getStats();
+  document.getElementById('adminStats').innerHTML = `
+    <div class="admin-stat-card"><div class="stat-value">${stats.total}</div><div class="stat-desc">Total Bookings</div></div>
+    <div class="admin-stat-card"><div class="stat-value" style="color:var(--accent)">${stats.pending}</div><div class="stat-desc">Pending</div></div>
+    <div class="admin-stat-card"><div class="stat-value" style="color:var(--sage)">${stats.confirmed}</div><div class="stat-desc">Confirmed</div></div>
+    <div class="admin-stat-card"><div class="stat-value" style="color:#3B82F6">${stats.completed}</div><div class="stat-desc">Completed</div></div>
+  `;
+  const bookings = DB.readAll();
+  document.getElementById('bookingsTable').innerHTML = bookings.map(b => `
+    <tr>
+      <td><strong>${b.id}</strong></td>
+      <td>${b.caregiverName}<br><span style="color:var(--muted);font-size:0.8rem">${b.caregiverPhone}</span></td>
+      <td>${b.patientName}</td>
+      <td>${b.hospital}</td>
+      <td>${b.sevaType}</td>
+      <td><span class="status-badge ${b.status}">${b.status}</span></td>
+      <td>${new Date(b.createdAt).toLocaleDateString('en-IN', {day:'numeric',month:'short'})}</td>
+      <td>
+        <select onchange="updateStatus('${b.id}', this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;">
+          <option value="pending" ${b.status==='pending'?'selected':''}>Pending</option>
+          <option value="confirmed" ${b.status==='confirmed'?'selected':''}>Confirmed</option>
+          <option value="completed" ${b.status==='completed'?'selected':''}>Completed</option>
+        </select>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function updateStatus(id, status) {
+  DB.update(id, { status });
+  renderAdmin();
+  showToast(`Booking ${id} → ${status}`);
+}
+
+function exportBookings() {
+  const bookings = DB.readAll();
+  const csv = ['ID,Caregiver,Phone,Patient,Hospital,Seva,Status,Date']
+    .concat(bookings.map(b => `${b.id},${b.caregiverName},${b.caregiverPhone},${b.patientName},${b.hospital},"${b.sevaType}",${b.status},${b.createdAt}`))
+    .join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'punyaseva_bookings.csv';
+  a.click();
+  showToast('CSV exported!');
+}
+
+// ===== NAV & UI =====
+function toggleAdmin(e) {
+  e && e.preventDefault();
+  document.getElementById('mainSite').style.display = 'none';
+  document.getElementById('adminPanel').classList.add('active');
+  renderAdmin();
+  window.scrollTo(0, 0);
+}
+function showMain() {
+  document.getElementById('mainSite').style.display = 'block';
+  document.getElementById('adminPanel').classList.remove('active');
+}
+function closeModal() { document.getElementById('successModal').classList.remove('active'); }
+function toggleMobileNav() { document.getElementById('navLinks').classList.toggle('open'); }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ===== SCROLL ANIMATIONS =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Counter animation
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    let current = 0;
+    const inc = target / 60;
+    const timer = setInterval(() => {
+      current += inc;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.floor(current).toLocaleString();
+      if (el.closest('.impact-item') && el.dataset.count === '42') el.textContent = Math.floor(current) + '%';
+    }, 25);
+  });
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) { animateCounters(); counterObserver.disconnect(); } });
+}, { threshold: 0.3 });
+const impactSection = document.querySelector('.impact-bar');
+if (impactSection) counterObserver.observe(impactSection);
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+});
+</script>
+</body>
+</html>
