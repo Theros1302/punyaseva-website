@@ -191,6 +191,20 @@ img { max-width: 100%; display: block; }
 .modal p { font-size: 0.95rem; color: var(--muted); margin-bottom: 24px; }
 .modal .success-icon { width: 80px; height: 80px; border-radius: 50%; background: var(--sage); color: var(--white); font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
 
+/* ===== ADMIN LOGIN ===== */
+.admin-login { display: none; padding: 140px 0 60px; background: linear-gradient(135deg, var(--cream) 0%, #F5EDE6 100%); min-height: 100vh; }
+.admin-login.active { display: flex; align-items: center; justify-content: center; }
+.login-card { background: var(--white); border-radius: 20px; padding: 48px 40px; box-shadow: var(--shadow-lg); max-width: 420px; width: 100%; text-align: center; }
+.login-card h2 { font-size: 1.8rem; margin-bottom: 8px; }
+.login-card .login-subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 32px; }
+.login-card .login-icon { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--white); font-size: 1.8rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+.login-field { width: 100%; padding: 14px 18px; border: 2px solid var(--border); border-radius: 10px; font-size: 1rem; font-family: 'Inter', sans-serif; transition: var(--transition); margin-bottom: 16px; background: var(--cream); }
+.login-field:focus { outline: none; border-color: var(--primary); background: var(--white); }
+.login-error { color: #DC2626; font-size: 0.85rem; margin-bottom: 12px; display: none; }
+.login-error.show { display: block; }
+.login-btn { width: 100%; padding: 16px; font-size: 1rem; }
+.login-footer { margin-top: 24px; font-size: 0.8rem; color: var(--muted); }
+
 /* ===== ADMIN PANEL ===== */
 .admin-panel { display: none; padding: 100px 0 60px; background: var(--cream); min-height: 100vh; }
 .admin-panel.active { display: block; }
@@ -248,6 +262,12 @@ img { max-width: 100%; display: block; }
 /* ===== NOTIFICATION TOAST ===== */
 .toast { position: fixed; top: 90px; right: 24px; background: var(--sage); color: var(--white); padding: 16px 24px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 3000; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
 .toast.show { transform: translateX(0); }
+
+/* ===== LANGUAGE TOGGLE ===== */
+.lang-toggle { display: inline-flex; align-items: center; background: var(--light-card); border-radius: 20px; padding: 3px; gap: 0; border: 1px solid var(--border); cursor: pointer; }
+.lang-btn { padding: 5px 12px; border-radius: 17px; font-size: 0.75rem; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); background: transparent; color: var(--muted); font-family: 'Inter', sans-serif; }
+.lang-btn.active { background: var(--primary); color: var(--white); }
+.lang-btn:hover:not(.active) { color: var(--primary); }
 </style>
 </head>
 <body>
@@ -257,12 +277,16 @@ img { max-width: 100%; display: block; }
 <div class="container nav-inner">
   <a href="#" class="nav-logo" onclick="showMain()">Punya<span>Seva</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="#services" onclick="showMain()">Services</a>
-    <a href="#how-it-works" onclick="showMain()">How It Works</a>
-    <a href="#evidence" onclick="showMain()">Evidence</a>
-    <a href="#testimonials" onclick="showMain()">Stories</a>
-    <a href="#booking" onclick="showMain()" class="btn btn-primary nav-cta">Book a Seva</a>
+    <a href="#services" onclick="showMain()" data-i18n="nav_services">Services</a>
+    <a href="#how-it-works" onclick="showMain()" data-i18n="nav_how">How It Works</a>
+    <a href="#evidence" onclick="showMain()" data-i18n="nav_evidence">Evidence</a>
+    <a href="#testimonials" onclick="showMain()" data-i18n="nav_stories">Stories</a>
+    <a href="#booking" onclick="showMain()" class="btn btn-primary nav-cta" data-i18n="nav_book">Book a Seva</a>
     <a href="#" onclick="toggleAdmin(event)" style="font-size:0.8rem; opacity:0.5;">Admin</a>
+    <div class="lang-toggle" id="langToggle">
+      <button class="lang-btn active" onclick="switchLang('en')" id="langEn">EN</button>
+      <button class="lang-btn" onclick="switchLang('hi')" id="langHi">हि</button>
+    </div>
   </div>
   <button class="mobile-toggle" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
 </div>
@@ -275,30 +299,30 @@ img { max-width: 100%; display: block; }
 <section class="hero">
 <div class="container hero-content">
   <div class="hero-text fade-in">
-    <p class="section-label">Faith-Powered Caregiver Wellness</p>
-    <h1>When Medicine Heals the Body, <span class="highlight">PunyaSeva</span> Heals the Heart</h1>
-    <p>Connecting hospital caregivers with sacred healing services — temple pujas, gaushala seva, bhandara — delivered with real-time proof and blessings.</p>
+    <p class="section-label" data-i18n="hero_label">Faith-Powered Caregiver Wellness</p>
+    <h1 data-i18n="hero_title">When Medicine Heals the Body, <span class="highlight">PunyaSeva</span> Heals the Heart</h1>
+    <p data-i18n="hero_desc">Connecting hospital caregivers with sacred healing services — temple pujas, gaushala seva, bhandara — delivered with real-time proof and blessings.</p>
     <div class="hero-buttons">
-      <a href="#booking" class="btn btn-primary"><i class="fas fa-hands-praying"></i> Book a Seva</a>
-      <a href="#how-it-works" class="btn btn-outline"><i class="fas fa-play-circle"></i> See How It Works</a>
+      <a href="#booking" class="btn btn-primary"><i class="fas fa-hands-praying"></i> <span data-i18n="hero_btn_book">Book a Seva</span></a>
+      <a href="#how-it-works" class="btn btn-outline"><i class="fas fa-play-circle"></i> <span data-i18n="hero_btn_how">See How It Works</span></a>
     </div>
   </div>
   <div class="hero-visual fade-in delay-2">
     <div class="hero-card">
       <div class="stat-row">
         <div class="stat-icon" style="background:var(--primary)"><i class="fas fa-om"></i></div>
-        <div><div class="stat-num">2,847</div><div class="stat-label">Sevas completed this month</div></div>
+        <div><div class="stat-num">2,847</div><div class="stat-label" data-i18n="hero_stat1">Sevas completed this month</div></div>
       </div>
       <div class="stat-row">
         <div class="stat-icon" style="background:var(--sage)"><i class="fas fa-heart"></i></div>
-        <div><div class="stat-num">98.2%</div><div class="stat-label">Families felt more hopeful</div></div>
+        <div><div class="stat-num">98.2%</div><div class="stat-label" data-i18n="hero_stat2">Families felt more hopeful</div></div>
       </div>
       <div class="stat-row">
         <div class="stat-icon" style="background:var(--accent)"><i class="fas fa-gopuram"></i></div>
-        <div><div class="stat-num">150+</div><div class="stat-label">Temple & gaushala partners</div></div>
+        <div><div class="stat-num">150+</div><div class="stat-label" data-i18n="hero_stat3">Temple & gaushala partners</div></div>
       </div>
     </div>
-    <div class="trust-badge"><i class="fas fa-shield-halved"></i> &nbsp;Evidence-Backed</div>
+    <div class="trust-badge"><i class="fas fa-shield-halved"></i> &nbsp;<span data-i18n="hero_badge">Evidence-Backed</span></div>
   </div>
 </div>
 </section>
@@ -307,10 +331,10 @@ img { max-width: 100%; display: block; }
 <section class="impact-bar">
 <div class="container">
   <div class="impact-grid">
-    <div class="impact-item fade-in"><div class="impact-num" data-count="12000">0</div><div class="impact-label">Families Served</div></div>
-    <div class="impact-item fade-in delay-1"><div class="impact-num" data-count="150">0</div><div class="impact-label">Temple Partners</div></div>
-    <div class="impact-item fade-in delay-2"><div class="impact-num" data-count="50">0</div><div class="impact-label">Hospital Partners</div></div>
-    <div class="impact-item fade-in delay-3"><div class="impact-num" data-count="42">0</div><div class="impact-label">% Anxiety Reduction</div></div>
+    <div class="impact-item fade-in"><div class="impact-num" data-count="12000">0</div><div class="impact-label" data-i18n="impact_families">Families Served</div></div>
+    <div class="impact-item fade-in delay-1"><div class="impact-num" data-count="150">0</div><div class="impact-label" data-i18n="impact_temples">Temple Partners</div></div>
+    <div class="impact-item fade-in delay-2"><div class="impact-num" data-count="50">0</div><div class="impact-label" data-i18n="impact_hospitals">Hospital Partners</div></div>
+    <div class="impact-item fade-in delay-3"><div class="impact-num" data-count="42">0</div><div class="impact-label" data-i18n="impact_anxiety">% Anxiety Reduction</div></div>
   </div>
 </div>
 </section>
@@ -319,9 +343,9 @@ img { max-width: 100%; display: block; }
 <section class="services" id="services">
 <div class="container">
   <div class="services-header fade-in">
-    <p class="section-label">Our Sacred Services</p>
-    <h2 class="section-title">Choose a Seva for Your Loved One</h2>
-    <p class="section-subtitle">Each service is performed with full traditional protocols at verified partner institutions, with real-time proof shared to your phone.</p>
+    <p class="section-label" data-i18n="svc_label">Our Sacred Services</p>
+    <h2 class="section-title" data-i18n="svc_title">Choose a Seva for Your Loved One</h2>
+    <p class="section-subtitle" data-i18n="svc_subtitle">Each service is performed with full traditional protocols at verified partner institutions, with real-time proof shared to your phone.</p>
   </div>
   <div class="services-grid">
     <div class="service-card fade-in">
@@ -330,12 +354,12 @@ img { max-width: 100%; display: block; }
         <span class="price">Starting ₹1,100</span>
       </div>
       <div class="service-body">
-        <p>Sacred prayers conducted by dedicated pandits at our partner temples across India — Mahakal, Kashi Vishwanath, Tirupati, and more.</p>
+        <p data-i18n="svc_puja_desc">Sacred prayers conducted by dedicated pandits at our partner temples across India — Mahakal, Kashi Vishwanath, Tirupati, and more.</p>
         <ul class="service-features">
-          <li><i class="fas fa-check"></i> Real-time photo & video proof</li>
-          <li><i class="fas fa-check"></i> Digital blessing certificate</li>
-          <li><i class="fas fa-check"></i> Choice of specific pujas (Maha Mrityunjaya, Navagraha, etc.)</li>
-          <li><i class="fas fa-check"></i> Conducted within 24 hours of booking</li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_puja_f1">Real-time photo & video proof</span></li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_puja_f2">Digital blessing certificate</span></li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_puja_f3">Choice of specific pujas (Maha Mrityunjaya, Navagraha, etc.)</span></li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_puja_f4">Conducted within 24 hours of booking</span></li>
         </ul>
       </div>
       <div class="service-cta"><a href="#booking" class="btn btn-primary" style="width:100%;justify-content:center;">Book This Seva</a></div>
@@ -346,12 +370,12 @@ img { max-width: 100%; display: block; }
         <span class="price">Starting ₹500</span>
       </div>
       <div class="service-body">
-        <p>Feed and care for 40+ cows at certified gaushalas. A deeply meaningful act of dharma that grounds the family in purpose during crisis.</p>
+        <p data-i18n="svc_gaushala_desc">Feed and care for 40+ cows at certified gaushalas. A deeply meaningful act of dharma that grounds the family in purpose during crisis.</p>
         <ul class="service-features">
-          <li><i class="fas fa-check"></i> Feed 40+ cows in family's name</li>
-          <li><i class="fas fa-check"></i> Photo proof of feeding</li>
-          <li><i class="fas fa-check"></i> Certificate of seva completion</li>
-          <li><i class="fas fa-check"></i> Available daily at verified gaushalas</li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_gau_f1">Feed 40+ cows in family's name</span></li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_gau_f2">Photo proof of feeding</span></li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_gau_f3">Certificate of seva completion</span></li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_gau_f4">Available daily at verified gaushalas</span></li>
         </ul>
       </div>
       <div class="service-cta"><a href="#booking" class="btn btn-sage" style="width:100%;justify-content:center;">Book This Seva</a></div>
@@ -362,12 +386,12 @@ img { max-width: 100%; display: block; }
         <span class="price">Starting ₹5,100</span>
       </div>
       <div class="service-body">
-        <p>108-person community meal organized in the family's name. Each person fed offers a heartfelt prayer for the patient's recovery.</p>
+        <p data-i18n="svc_bhandara_desc">108-person community meal organized in the family's name. Each person fed offers a heartfelt prayer for the patient's recovery.</p>
         <ul class="service-features">
-          <li><i class="fas fa-check"></i> 108 people fed & praying</li>
-          <li><i class="fas fa-check"></i> Full event documentation</li>
-          <li><i class="fas fa-check"></i> Letters of blessing from recipients</li>
-          <li><i class="fas fa-check"></i> Cross-religious, community-powered</li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_bh_f1">108 people fed & praying</span></li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_bh_f2">Full event documentation</span></li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_bh_f3">Letters of blessing from recipients</span></li>
+          <li><i class="fas fa-check"></i> <span data-i18n="svc_bh_f4">Cross-religious, community-powered</span></li>
         </ul>
       </div>
       <div class="service-cta"><a href="#booking" class="btn btn-primary" style="width:100%;justify-content:center;background:var(--accent);">Book This Seva</a></div>
@@ -380,15 +404,15 @@ img { max-width: 100%; display: block; }
 <section class="how-it-works" id="how-it-works">
 <div class="container">
   <div class="how-header fade-in">
-    <p class="section-label">Simple & Sacred</p>
-    <h2 class="section-title">How PunyaSeva Works</h2>
-    <p class="section-subtitle">From booking to blessings — in just four steps.</p>
+    <p class="section-label" data-i18n="how_label">Simple & Sacred</p>
+    <h2 class="section-title" data-i18n="how_title">How PunyaSeva Works</h2>
+    <p class="section-subtitle" data-i18n="how_subtitle">From booking to blessings — in just four steps.</p>
   </div>
   <div class="steps-grid">
-    <div class="step-card fade-in"><div class="step-num">1</div><h4>Choose a Seva</h4><p>Browse our services and select one that resonates with your faith and the patient's needs.</p></div>
-    <div class="step-card fade-in delay-1"><div class="step-num">2</div><h4>Share Details</h4><p>Tell us the patient's name, your relationship, the hospital, and any specific prayers you'd like.</p></div>
-    <div class="step-card fade-in delay-2"><div class="step-num">3</div><h4>Seva is Performed</h4><p>Our partner temple or gaushala performs the seva with full protocols. You receive real-time updates.</p></div>
-    <div class="step-card fade-in delay-3"><div class="step-num">4</div><h4>Receive Blessings</h4><p>Get photo/video proof, a digital blessing certificate, and the peace of knowing you did something sacred.</p></div>
+    <div class="step-card fade-in"><div class="step-num">1</div><h4 data-i18n="step1_title">Choose a Seva</h4><p data-i18n="step1_desc">Browse our services and select one that resonates with your faith and the patient's needs.</p></div>
+    <div class="step-card fade-in delay-1"><div class="step-num">2</div><h4 data-i18n="step2_title">Share Details</h4><p data-i18n="step2_desc">Tell us the patient's name, your relationship, the hospital, and any specific prayers you'd like.</p></div>
+    <div class="step-card fade-in delay-2"><div class="step-num">3</div><h4 data-i18n="step3_title">Seva is Performed</h4><p data-i18n="step3_desc">Our partner temple or gaushala performs the seva with full protocols. You receive real-time updates.</p></div>
+    <div class="step-card fade-in delay-3"><div class="step-num">4</div><h4 data-i18n="step4_title">Receive Blessings</h4><p data-i18n="step4_desc">Get photo/video proof, a digital blessing certificate, and the peace of knowing you did something sacred.</p></div>
   </div>
 </div>
 </section>
@@ -397,15 +421,15 @@ img { max-width: 100%; display: block; }
 <section class="evidence" id="evidence">
 <div class="container">
   <div class="evidence-header fade-in">
-    <p class="section-label">Backed by Science</p>
-    <h2 class="section-title">Evidence-Based, Not Just Faith-Based</h2>
-    <p class="section-subtitle">Our approach is grounded in peer-reviewed clinical research spanning psychiatry, oncology, and critical care.</p>
+    <p class="section-label" data-i18n="ev_label">Backed by Science</p>
+    <h2 class="section-title" data-i18n="ev_title">Evidence-Based, Not Just Faith-Based</h2>
+    <p class="section-subtitle" data-i18n="ev_subtitle">Our approach is grounded in peer-reviewed clinical research spanning psychiatry, oncology, and critical care.</p>
   </div>
   <div class="evidence-grid">
-    <div class="evidence-card fade-in"><div class="ev-stat">42%</div><div class="ev-desc">Reduction in caregiver anxiety within just 2 weeks of spiritual intervention programs.</div><div class="ev-source">RML Hospital Study, 2024</div></div>
-    <div class="evidence-card fade-in delay-1"><div class="ev-stat">30–50%</div><div class="ev-desc">Improvement in patient adherence and post-discharge compliance when caregivers are emotionally supported.</div><div class="ev-source">2025 Meta-Analysis, Journal of Integrative Medicine</div></div>
-    <div class="evidence-card fade-in delay-2"><div class="ev-stat">15–25%</div><div class="ev-desc">Reduction in ICU readmissions when hospitals address caregiver distress as part of the care protocol.</div><div class="ev-source">2024 SCCM Guidelines</div></div>
-    <div class="evidence-card fade-in delay-3"><div class="ev-stat">50+</div><div class="ev-desc">Peer-reviewed citations across psychiatry, spirituality, Ayurveda, and oncology journals supporting our approach.</div><div class="ev-source">PunyaSeva Research Library</div></div>
+    <div class="evidence-card fade-in"><div class="ev-stat">42%</div><div class="ev-desc" data-i18n="ev_desc1">Reduction in caregiver anxiety within just 2 weeks of spiritual intervention programs.</div><div class="ev-source">RML Hospital Study, 2024</div></div>
+    <div class="evidence-card fade-in delay-1"><div class="ev-stat">30–50%</div><div class="ev-desc" data-i18n="ev_desc2">Improvement in patient adherence and post-discharge compliance when caregivers are emotionally supported.</div><div class="ev-source">2025 Meta-Analysis, Journal of Integrative Medicine</div></div>
+    <div class="evidence-card fade-in delay-2"><div class="ev-stat">15–25%</div><div class="ev-desc" data-i18n="ev_desc3">Reduction in ICU readmissions when hospitals address caregiver distress as part of the care protocol.</div><div class="ev-source">2024 SCCM Guidelines</div></div>
+    <div class="evidence-card fade-in delay-3"><div class="ev-stat">50+</div><div class="ev-desc" data-i18n="ev_desc4">Peer-reviewed citations across psychiatry, spirituality, Ayurveda, and oncology journals supporting our approach.</div><div class="ev-source">PunyaSeva Research Library</div></div>
   </div>
 </div>
 </section>
@@ -414,34 +438,34 @@ img { max-width: 100%; display: block; }
 <section class="booking" id="booking">
 <div class="container">
   <div class="booking-header fade-in">
-    <p class="section-label">Book a Seva</p>
-    <h2 class="section-title">Begin the Healing Journey</h2>
-    <p class="section-subtitle">Fill in the details below and our team will coordinate the seva within 24 hours.</p>
+    <p class="section-label" data-i18n="book_label">Book a Seva</p>
+    <h2 class="section-title" data-i18n="book_title">Begin the Healing Journey</h2>
+    <p class="section-subtitle" data-i18n="book_subtitle">Fill in the details below and our team will coordinate the seva within 24 hours.</p>
   </div>
   <div class="booking-form-container fade-in">
     <form id="bookingForm" onsubmit="handleBooking(event)">
       <div class="form-row">
         <div class="form-group">
-          <label for="caregiverName">Your Name *</label>
+          <label for="caregiverName" data-i18n="form_name">Your Name *</label>
           <input type="text" id="caregiverName" name="caregiver_name" required placeholder="Enter your full name">
         </div>
         <div class="form-group">
-          <label for="caregiverPhone">Phone Number *</label>
+          <label for="caregiverPhone" data-i18n="form_phone">Phone Number *</label>
           <input type="tel" id="caregiverPhone" name="caregiver_phone" required placeholder="+91 XXXXX XXXXX">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label for="patientName">Patient Name *</label>
+          <label for="patientName" data-i18n="form_patient">Patient Name *</label>
           <input type="text" id="patientName" name="patient_name" required placeholder="Patient's full name">
         </div>
         <div class="form-group">
-          <label for="hospital">Hospital Name *</label>
+          <label for="hospital" data-i18n="form_hospital">Hospital Name *</label>
           <input type="text" id="hospital" name="hospital" required placeholder="Hospital & city">
         </div>
       </div>
       <div class="form-group">
-        <label for="sevaType">Select Seva *</label>
+        <label for="sevaType" data-i18n="form_seva">Select Seva *</label>
         <select id="sevaType" name="seva_type" required>
           <option value="">Choose a seva...</option>
           <option value="Temple Puja - Maha Mrityunjaya">Temple Puja — Maha Mrityunjaya Jap (₹2,100)</option>
@@ -457,15 +481,15 @@ img { max-width: 100%; display: block; }
         </select>
       </div>
       <div class="form-group">
-        <label for="caregiverEmail">Email (for blessing certificate)</label>
+        <label for="caregiverEmail" data-i18n="form_email">Email (for blessing certificate)</label>
         <input type="email" id="caregiverEmail" name="caregiver_email" placeholder="your@email.com">
       </div>
       <div class="form-group">
-        <label for="specialInstructions">Special Instructions or Prayers</label>
+        <label for="specialInstructions" data-i18n="form_special">Special Instructions or Prayers</label>
         <textarea id="specialInstructions" name="special_instructions" placeholder="Any specific prayers, gotra, nakshatra, or special requests..."></textarea>
       </div>
-      <button type="submit" class="btn btn-primary form-submit"><i class="fas fa-hands-praying"></i> Submit Seva Request</button>
-      <p class="form-note">Our team will contact you within 2 hours to confirm details and payment. No charges until you confirm.</p>
+      <button type="submit" class="btn btn-primary form-submit"><i class="fas fa-hands-praying"></i> <span data-i18n="form_submit">Submit Seva Request</span></button>
+      <p class="form-note" data-i18n="form_note">Our team will contact you within 2 hours to confirm details and payment. No charges until you confirm.</p>
     </form>
   </div>
 </div>
@@ -475,9 +499,9 @@ img { max-width: 100%; display: block; }
 <section class="testimonials" id="testimonials">
 <div class="container">
   <div class="testimonials-header fade-in">
-    <p class="section-label">Stories of Hope</p>
-    <h2 class="section-title">Families Who Found Peace</h2>
-    <p class="section-subtitle">Real stories from caregivers who found strength through PunyaSeva during their most difficult days.</p>
+    <p class="section-label" data-i18n="test_label">Stories of Hope</p>
+    <h2 class="section-title" data-i18n="test_title">Families Who Found Peace</h2>
+    <p class="section-subtitle" data-i18n="test_subtitle">Real stories from caregivers who found strength through PunyaSeva during their most difficult days.</p>
   </div>
   <div class="testimonials-grid">
     <div class="testimonial-card fade-in">
@@ -517,11 +541,11 @@ img { max-width: 100%; display: block; }
 <!-- CTA -->
 <section class="cta-section">
 <div class="container">
-  <h2>Your Loved One Deserves Every Prayer</h2>
-  <p>When medicine does its part, let faith do the rest. Book a seva today and give your family the strength to heal.</p>
+  <h2 data-i18n="cta_title">Your Loved One Deserves Every Prayer</h2>
+  <p data-i18n="cta_desc">When medicine does its part, let faith do the rest. Book a seva today and give your family the strength to heal.</p>
   <div class="cta-buttons">
-    <a href="#booking" class="btn btn-white"><i class="fas fa-hands-praying"></i> Book a Seva Now</a>
-    <a href="tel:+919876543210" class="btn btn-ghost"><i class="fas fa-phone"></i> Call Us: +91 98765 43210</a>
+    <a href="#booking" class="btn btn-white"><i class="fas fa-hands-praying"></i> <span data-i18n="cta_book">Book a Seva Now</span></a>
+    <a href="tel:+919876543210" class="btn btn-ghost"><i class="fas fa-phone"></i> <span data-i18n="cta_call">Call Us: +91 98765 43210</span></a>
   </div>
 </div>
 </section>
@@ -532,7 +556,7 @@ img { max-width: 100%; display: block; }
   <div class="footer-grid">
     <div class="footer-brand">
       <a class="nav-logo">Punya<span style="color:var(--white)">Seva</span></a>
-      <p>Faith-powered healing for hospital families. Bridging modern medicine and sacred traditions through technology and compassion.</p>
+      <p data-i18n="footer_desc">Faith-powered healing for hospital families. Bridging modern medicine and sacred traditions through technology and compassion.</p>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
@@ -568,12 +592,30 @@ img { max-width: 100%; display: block; }
 </footer>
 </div><!-- /mainSite -->
 
+<!-- ===== ADMIN LOGIN ===== -->
+<div class="admin-login" id="adminLogin">
+<div class="login-card">
+  <div class="login-icon"><i class="fas fa-shield-alt"></i></div>
+  <h2>Admin Access</h2>
+  <p class="login-subtitle">Enter your credentials to access the dashboard</p>
+  <form onsubmit="handleLogin(event)">
+    <input type="text" class="login-field" id="adminUsername" placeholder="Username" autocomplete="username" required>
+    <input type="password" class="login-field" id="adminPassword" placeholder="Password" autocomplete="current-password" required>
+    <p class="login-error" id="loginError">Invalid username or password. Please try again.</p>
+    <button type="submit" class="btn btn-primary login-btn"><i class="fas fa-lock"></i> Sign In</button>
+  </form>
+  <p class="login-footer"><i class="fas fa-info-circle"></i> Contact the PunyaSeva team if you need access</p>
+  <button class="btn btn-outline" onclick="showMain()" style="margin-top:16px;width:100%;justify-content:center;"><i class="fas fa-arrow-left"></i> Back to Site</button>
+</div>
+</div>
+
 <!-- ===== ADMIN PANEL ===== -->
 <div class="admin-panel" id="adminPanel">
 <div class="container">
   <div class="admin-header">
     <div><h2>PunyaSeva Admin Dashboard</h2><p style="color:var(--muted);font-size:0.9rem;">Manage bookings, track sevas, and monitor performance.</p></div>
     <div style="display:flex;gap:12px;">
+      <button class="btn btn-outline" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
       <button class="btn btn-outline" onclick="showMain()"><i class="fas fa-arrow-left"></i> Back to Site</button>
       <button class="btn btn-primary" onclick="exportBookings()"><i class="fas fa-download"></i> Export CSV</button>
     </div>
@@ -735,17 +777,73 @@ function exportBookings() {
   showToast('CSV exported!');
 }
 
+// ===== ADMIN AUTH =====
+const ADMIN_CREDS = [
+  { user: 'admin', hash: '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9' },
+  { user: 'prashant', hash: 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f' }
+];
+// Default credentials: admin/admin123 and prashant/password123
+// To change: generate SHA-256 hash of new password and update above
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const user = document.getElementById('adminUsername').value.trim().toLowerCase();
+  const pass = document.getElementById('adminPassword').value;
+  const hash = await sha256(pass);
+  const match = ADMIN_CREDS.find(c => c.user === user && c.hash === hash);
+  if (match) {
+    sessionStorage.setItem('punyaseva_admin', JSON.stringify({ user: match.user, ts: Date.now() }));
+    document.getElementById('loginError').classList.remove('show');
+    document.getElementById('adminLogin').classList.remove('active');
+    document.getElementById('adminPanel').classList.add('active');
+    renderAdmin();
+    window.scrollTo(0, 0);
+  } else {
+    document.getElementById('loginError').classList.add('show');
+    document.getElementById('adminPassword').value = '';
+  }
+}
+
+function isAdminLoggedIn() {
+  try {
+    const s = JSON.parse(sessionStorage.getItem('punyaseva_admin'));
+    // Session expires after 4 hours
+    return s && (Date.now() - s.ts < 4 * 60 * 60 * 1000);
+  } catch { return false; }
+}
+
+function adminLogout() {
+  sessionStorage.removeItem('punyaseva_admin');
+  document.getElementById('adminPanel').classList.remove('active');
+  document.getElementById('mainSite').style.display = 'block';
+  showToast('Logged out successfully');
+  window.scrollTo(0, 0);
+}
+
 // ===== NAV & UI =====
 function toggleAdmin(e) {
   e && e.preventDefault();
   document.getElementById('mainSite').style.display = 'none';
-  document.getElementById('adminPanel').classList.add('active');
-  renderAdmin();
+  if (isAdminLoggedIn()) {
+    document.getElementById('adminPanel').classList.add('active');
+    renderAdmin();
+  } else {
+    document.getElementById('adminLogin').classList.add('active');
+    document.getElementById('adminUsername').value = '';
+    document.getElementById('adminPassword').value = '';
+    document.getElementById('loginError').classList.remove('show');
+  }
   window.scrollTo(0, 0);
 }
 function showMain() {
   document.getElementById('mainSite').style.display = 'block';
   document.getElementById('adminPanel').classList.remove('active');
+  document.getElementById('adminLogin').classList.remove('active');
 }
 function closeModal() { document.getElementById('successModal').classList.remove('active'); }
 function toggleMobileNav() { document.getElementById('navLinks').classList.toggle('open'); }
@@ -792,6 +890,78 @@ if (impactSection) counterObserver.observe(impactSection);
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
 });
+
+// ===== LANGUAGE / i18n =====
+const i18n = {
+  hi: {
+    nav_services: 'सेवाएँ', nav_how: 'कैसे काम करता है', nav_evidence: 'प्रमाण', nav_stories: 'कहानियाँ', nav_book: 'सेवा बुक करें',
+    hero_label: 'आस्था-आधारित देखभालकर्ता कल्याण',
+    hero_title: 'जब दवाई शरीर को ठीक करती है, <span class="highlight">पुण्यसेवा</span> दिल को सँभालती है',
+    hero_desc: 'अस्पताल में देखभाल करने वालों को पवित्र सेवाओं से जोड़ना — मंदिर पूजा, गौशाला सेवा, भंडारा — रियल-टाइम प्रमाण और आशीर्वाद के साथ।',
+    hero_btn_book: 'सेवा बुक करें', hero_btn_how: 'कैसे काम करता है देखें',
+    hero_stat1: 'इस महीने पूर्ण सेवाएँ', hero_stat2: 'परिवारों ने आशा महसूस की', hero_stat3: 'मंदिर और गौशाला भागीदार',
+    hero_badge: 'प्रमाण-आधारित',
+    impact_families: 'परिवारों की सेवा', impact_temples: 'मंदिर भागीदार', impact_hospitals: 'अस्पताल भागीदार', impact_anxiety: '% चिंता में कमी',
+    svc_label: 'हमारी पवित्र सेवाएँ', svc_title: 'अपने प्रियजन के लिए सेवा चुनें',
+    svc_subtitle: 'प्रत्येक सेवा सत्यापित भागीदार संस्थानों में पूर्ण पारंपरिक विधि से की जाती है, रियल-टाइम प्रमाण आपके फोन पर।',
+    svc_puja_desc: 'भारत भर के हमारे सहयोगी मंदिरों — महाकाल, काशी विश्वनाथ, तिरुपति आदि — में समर्पित पंडितों द्वारा पवित्र पूजा।',
+    svc_puja_f1: 'रियल-टाइम फोटो और वीडियो प्रमाण', svc_puja_f2: 'डिजिटल आशीर्वाद प्रमाणपत्र',
+    svc_puja_f3: 'विशेष पूजा का चयन (महामृत्युंजय, नवग्रह, आदि)', svc_puja_f4: 'बुकिंग के 24 घंटे के भीतर',
+    svc_gaushala_desc: 'प्रमाणित गौशालाओं में 40+ गायों को चारा खिलाएँ। संकट के समय परिवार को धर्म में स्थिरता देने वाला गहन कार्य।',
+    svc_gau_f1: 'परिवार के नाम से 40+ गायों को भोजन', svc_gau_f2: 'भोजन का फोटो प्रमाण',
+    svc_gau_f3: 'सेवा पूर्णता प्रमाणपत्र', svc_gau_f4: 'सत्यापित गौशालाओं में प्रतिदिन उपलब्ध',
+    svc_bhandara_desc: 'परिवार के नाम से 108 व्यक्तियों का सामुदायिक भोजन। प्रत्येक व्यक्ति रोगी की स्वस्थता के लिए प्रार्थना करता है।',
+    svc_bh_f1: '108 लोगों को भोजन और प्रार्थना', svc_bh_f2: 'पूर्ण कार्यक्रम दस्तावेज़',
+    svc_bh_f3: 'प्राप्तकर्ताओं के आशीर्वाद पत्र', svc_bh_f4: 'सर्व-धर्म, समुदाय-संचालित',
+    how_label: 'सरल और पवित्र', how_title: 'पुण्यसेवा कैसे काम करती है', how_subtitle: 'बुकिंग से आशीर्वाद तक — केवल चार चरणों में।',
+    step1_title: 'सेवा चुनें', step1_desc: 'हमारी सेवाओं को देखें और अपनी आस्था और रोगी की आवश्यकता के अनुसार चुनें।',
+    step2_title: 'विवरण साझा करें', step2_desc: 'रोगी का नाम, आपका रिश्ता, अस्पताल, और कोई विशेष प्रार्थना बताएँ।',
+    step3_title: 'सेवा संपन्न होती है', step3_desc: 'हमारा सहयोगी मंदिर या गौशाला पूर्ण विधि से सेवा करता है। आपको रियल-टाइम अपडेट मिलते हैं।',
+    step4_title: 'आशीर्वाद प्राप्त करें', step4_desc: 'फोटो/वीडियो प्रमाण, डिजिटल आशीर्वाद प्रमाणपत्र, और यह शांति कि आपने कुछ पवित्र किया।',
+    ev_label: 'विज्ञान द्वारा समर्थित', ev_title: 'प्रमाण-आधारित, केवल आस्था नहीं',
+    ev_subtitle: 'हमारा दृष्टिकोण मनोचिकित्सा, ऑन्कोलॉजी और क्रिटिकल केयर के शोध पर आधारित है।',
+    ev_desc1: 'आध्यात्मिक हस्तक्षेप कार्यक्रमों के केवल 2 सप्ताह में देखभालकर्ता चिंता में कमी।',
+    ev_desc2: 'देखभालकर्ताओं को भावनात्मक सहारा मिलने पर रोगी अनुपालन में सुधार।',
+    ev_desc3: 'जब अस्पताल देखभालकर्ता तनाव को प्रोटोकॉल में शामिल करते हैं तो ICU पुनः भर्ती में कमी।',
+    ev_desc4: 'मनोचिकित्सा, आध्यात्मिकता, आयुर्वेद और ऑन्कोलॉजी पत्रिकाओं में शोध प्रकाशन।',
+    book_label: 'सेवा बुक करें', book_title: 'उपचार यात्रा शुरू करें',
+    book_subtitle: 'नीचे विवरण भरें और हमारी टीम 24 घंटे में सेवा का समन्वय करेगी।',
+    form_name: 'आपका नाम *', form_phone: 'फोन नंबर *', form_patient: 'रोगी का नाम *',
+    form_hospital: 'अस्पताल का नाम *', form_seva: 'सेवा चुनें *',
+    form_email: 'ईमेल (आशीर्वाद प्रमाणपत्र के लिए)', form_special: 'विशेष निर्देश या प्रार्थना',
+    form_submit: 'सेवा अनुरोध भेजें',
+    form_note: 'हमारी टीम विवरण और भुगतान की पुष्टि के लिए 2 घंटे में संपर्क करेगी। पुष्टि तक कोई शुल्क नहीं।',
+    test_label: 'आशा की कहानियाँ', test_title: 'जिन परिवारों को शांति मिली',
+    test_subtitle: 'उन देखभालकर्ताओं की सच्ची कहानियाँ जिन्होंने अपने सबसे कठिन दिनों में पुण्यसेवा से शक्ति पाई।',
+    cta_title: 'आपके प्रियजन हर प्रार्थना के हकदार हैं',
+    cta_desc: 'जब दवाई अपना काम करे, तो आस्था को बाकी करने दें। आज ही सेवा बुक करें।',
+    cta_book: 'अभी सेवा बुक करें', cta_call: 'कॉल करें: +91 98765 43210',
+    footer_desc: 'अस्पताल परिवारों के लिए आस्था-आधारित उपचार। तकनीक और करुणा से आधुनिक चिकित्सा और पवित्र परंपराओं को जोड़ना।'
+  }
+};
+
+let currentLang = localStorage.getItem('punyaseva_lang') || 'en';
+const englishOriginals = {};
+
+function switchLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('punyaseva_lang', lang);
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  document.getElementById('langHi').classList.toggle('active', lang === 'hi');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (!englishOriginals[key]) englishOriginals[key] = el.innerHTML;
+    if (lang === 'hi' && i18n.hi[key]) {
+      el.innerHTML = i18n.hi[key];
+    } else if (englishOriginals[key]) {
+      el.innerHTML = englishOriginals[key];
+    }
+  });
+  document.documentElement.lang = lang === 'hi' ? 'hi' : 'en';
+}
+
+// Apply saved language on load
+if (currentLang === 'hi') { switchLang('hi'); }
 </script>
 </body>
 </html>
