@@ -339,9 +339,6 @@ img { max-width: 100%; display: block; }
 .lang-btn.active { background: var(--primary); color: var(--white); }
 .lang-btn:hover:not(.active) { color: var(--primary); }
 </style>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 </head>
 <body>
 
@@ -843,6 +840,9 @@ img { max-width: 100%; display: block; }
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 <script>
 // ===== FIREBASE INITIALIZATION =====
 // NOTE: Firestore test mode rules expire in 30 days. Update security rules before expiry.
@@ -928,8 +928,8 @@ const ProofDB = {
     return proof;
   },
   async getByBooking(bookingId) {
-    const snap = await db.collection('proofs').where('bookingId', '==', bookingId).orderBy('uploadedAt', 'desc').get();
-    return snap.docs.map(d => d.data());
+    const snap = await db.collection('proofs').where('bookingId', '==', bookingId).get();
+    return snap.docs.map(d => d.data()).sort((a,b) => b.uploadedAt.localeCompare(a.uploadedAt));
   },
   async getByVendor(vendorId) {
     const snap = await db.collection('proofs').where('vendorId', '==', vendorId).get();
@@ -974,27 +974,33 @@ async function renderAdmin() {
     const vendors = await VendorDB.readAll();
     const activeVendors = vendors.filter(v => v.status === 'active');
 
-    document.getElementById('bookingsTable').innerHTML = bookings.map(b => `
-      <tr>
-        <td><strong>${b.id}</strong></td>
-        <td>${b.caregiverName}<br><span style="color:var(--muted);font-size:0.8rem">${b.caregiverPhone}</span></td>
-        <td>${b.patientName}</td>
-        <td>${b.hospital}</td>
-        <td>${b.sevaType}</td>
-        <td>${b.vendorName ? '<span style="color:var(--sage);font-weight:600;">'+b.vendorName+'</span>' : '<select onchange="assignVendor(\''+b.id+'\',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;"><option value="">Assign...</option>${activeVendors.map(v=>'<option value="'+v.id+'|'+v.name+'">'+v.name+'</option>').join('')}</select>'}</td>
-        <td><span class="status-badge ${b.status}">${b.status}</span></td>
-        <td>${new Date(b.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}</td>
-        <td>
-          <select onchange="updateStatus('${b.id}',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;">
-            <option value="pending" ${b.status==='pending'?'selected':''}>Pending</option>
-            <option value="confirmed" ${b.status==='confirmed'?'selected':''}>Confirmed</option>
-            <option value="assigned" ${b.status==='assigned'?'selected':''}>Assigned</option>
-            <option value="completed" ${b.status==='completed'?'selected':''}>Completed</option>
-          </select>
-          <button onclick="viewProofs('${b.id}')" style="margin-left:4px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:var(--cream);"><i class="fas fa-camera"></i></button>
-        </td>
-      </tr>
-    `).join('');
+    function buildVendorCell(b) {
+      if (b.vendorName) return '<span style="color:var(--sage);font-weight:600;">' + b.vendorName + '</span>';
+      var opts = activeVendors.map(function(v) { return '<option value="' + v.id + '|' + v.name + '">' + v.name + '</option>'; }).join('');
+      return '<select onchange="assignVendor(\'' + b.id + '\',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;"><option value="">Assign...</option>' + opts + '</select>';
+    }
+
+    document.getElementById('bookingsTable').innerHTML = bookings.map(function(b) {
+      return '<tr>' +
+        '<td><strong>' + b.id + '</strong></td>' +
+        '<td>' + b.caregiverName + '<br><span style="color:var(--muted);font-size:0.8rem">' + b.caregiverPhone + '</span></td>' +
+        '<td>' + b.patientName + '</td>' +
+        '<td>' + b.hospital + '</td>' +
+        '<td>' + b.sevaType + '</td>' +
+        '<td>' + buildVendorCell(b) + '</td>' +
+        '<td><span class="status-badge ' + b.status + '">' + b.status + '</span></td>' +
+        '<td>' + new Date(b.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) + '</td>' +
+        '<td>' +
+          '<select onchange="updateStatus(\'' + b.id + '\',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;">' +
+            '<option value="pending"' + (b.status==='pending'?' selected':'') + '>Pending</option>' +
+            '<option value="confirmed"' + (b.status==='confirmed'?' selected':'') + '>Confirmed</option>' +
+            '<option value="assigned"' + (b.status==='assigned'?' selected':'') + '>Assigned</option>' +
+            '<option value="completed"' + (b.status==='completed'?' selected':'') + '>Completed</option>' +
+          '</select>' +
+          ' <button onclick="viewProofs(\'' + b.id + '\')" style="margin-left:4px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:var(--cream);"><i class="fas fa-camera"></i></button>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
 
     // Render vendors table
     document.getElementById('vendorsTable').innerHTML = vendors.map(v => `
