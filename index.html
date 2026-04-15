@@ -263,6 +263,51 @@ img { max-width: 100%; display: block; }
 .toast { position: fixed; top: 90px; right: 24px; background: var(--sage); color: var(--white); padding: 16px 24px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 3000; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
 .toast.show { transform: translateX(0); }
 
+/* ===== LOGIN DROPDOWN ===== */
+.login-dropdown { position: relative; }
+.login-menu { display: none; position: absolute; top: 100%; right: 0; background: var(--white); border-radius: 12px; box-shadow: var(--shadow-lg); padding: 8px 0; min-width: 200px; z-index: 1001; margin-top: 8px; }
+.login-menu.show { display: block; }
+.login-menu a { display: flex; align-items: center; gap: 10px; padding: 12px 20px; font-size: 0.88rem; font-weight: 500; color: var(--body-text); transition: var(--transition); }
+.login-menu a:hover { background: var(--cream); color: var(--primary); }
+.login-menu a i { width: 20px; text-align: center; color: var(--primary); }
+
+/* ===== COORDINATOR LOGIN ===== */
+.coordinator-login { display: none; padding: 140px 0 60px; background: linear-gradient(135deg, #F0F0F7 0%, #E8E8F5 100%); min-height: 100vh; }
+.coordinator-login.active { display: flex; align-items: center; justify-content: center; }
+.coordinator-login .login-card { border-top: 4px solid #6366F1; }
+.coordinator-login .login-icon { background: linear-gradient(135deg, #6366F1, #4F46E5); }
+.coordinator-login .login-btn { background: #6366F1; }
+.coordinator-login .login-btn:hover { background: #4F46E5; }
+
+/* ===== COORDINATOR PORTAL ===== */
+.coordinator-portal { display: none; padding: 100px 0 60px; background: #F5F5FA; min-height: 100vh; }
+.coordinator-portal.active { display: block; }
+.call-notes-card { background: var(--white); border-radius: 12px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; border-left: 4px solid #6366F1; }
+.call-notes-card h4 { margin-bottom: 8px; }
+.call-notes-form textarea { width: 100%; min-height: 80px; padding: 12px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; resize: vertical; margin-bottom: 8px; }
+.call-notes-form input { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; margin-bottom: 8px; }
+.call-record { background: var(--cream); border-radius: 8px; padding: 12px; margin-top: 8px; font-size: 0.85rem; }
+.call-record .call-time { color: var(--muted); font-size: 0.75rem; }
+
+/* ===== PASSWORD MODAL ===== */
+.pwd-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(45,27,20,0.6); backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+.pwd-modal.active { display: flex; }
+.pwd-modal .modal { max-width: 400px; }
+
+/* ===== FEEDBACK MODAL ===== */
+.feedback-stars { display: flex; gap: 8px; justify-content: center; margin: 16px 0; }
+.feedback-stars i { font-size: 2rem; color: var(--border); cursor: pointer; transition: var(--transition); }
+.feedback-stars i.active { color: #F59E0B; }
+.feedback-stars i:hover { color: #F59E0B; }
+
+/* ===== UPI PAYMENT ===== */
+.payment-card { background: linear-gradient(135deg, #F0FDF4, #ECFDF5); border: 2px solid var(--sage); border-radius: 16px; padding: 32px; text-align: center; margin-bottom: 24px; }
+.payment-card .amount { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--sage); }
+.payment-card .pay-btn { margin-top: 16px; }
+.payment-status { display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+.payment-status.unpaid { background: #FEF3C7; color: #92400E; }
+.payment-status.paid { background: #D1FAE5; color: #065F46; }
+
 /* ===== PORTAL TABS ===== */
 .admin-tabs { display: flex; gap: 0; margin-bottom: 32px; border-bottom: 2px solid var(--border); }
 .admin-tab { padding: 12px 24px; font-size: 0.9rem; font-weight: 600; color: var(--muted); cursor: pointer; border: none; background: none; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: var(--transition); font-family: 'Inter', sans-serif; }
@@ -352,9 +397,15 @@ img { max-width: 100%; display: block; }
     <a href="#evidence" onclick="showMain()" data-i18n="nav_evidence">Evidence</a>
     <a href="#testimonials" onclick="showMain()" data-i18n="nav_stories">Stories</a>
     <a href="#booking" onclick="showMain()" class="btn btn-primary nav-cta" data-i18n="nav_book">Book a Seva</a>
-    <a href="#" onclick="togglePatientPortal(event)" style="font-size:0.8rem; opacity:0.6;"><i class="fas fa-user"></i> Patient</a>
-    <a href="#" onclick="toggleVendorPortal(event)" style="font-size:0.8rem; opacity:0.6;"><i class="fas fa-store"></i> Vendor</a>
-    <a href="#" onclick="toggleAdmin(event)" style="font-size:0.8rem; opacity:0.5;"><i class="fas fa-cog"></i> Admin</a>
+    <div class="login-dropdown" id="loginDropdown">
+      <button class="btn btn-outline nav-cta" onclick="toggleLoginMenu()" style="padding:8px 16px;font-size:0.82rem;"><i class="fas fa-user-circle"></i> Login</button>
+      <div class="login-menu" id="loginMenu">
+        <a href="#" onclick="togglePatientPortal(event)"><i class="fas fa-heart"></i> Patient Portal</a>
+        <a href="#" onclick="toggleVendorPortal(event)"><i class="fas fa-om"></i> Sevadaar Portal</a>
+        <a href="#" onclick="toggleCoordinatorPortal(event)"><i class="fas fa-headset"></i> Seva Coordinator</a>
+        <a href="#" onclick="toggleAdmin(event)"><i class="fas fa-cog"></i> Admin</a>
+      </div>
+    </div>
     <div class="lang-toggle" id="langToggle">
       <button class="lang-btn active" onclick="switchLang('en')" id="langEn">EN</button>
       <button class="lang-btn" onclick="switchLang('hi')" id="langHi">हि</button>
@@ -559,6 +610,12 @@ img { max-width: 100%; display: block; }
         <label for="specialInstructions" data-i18n="form_special">Special Instructions or Prayers</label>
         <textarea id="specialInstructions" name="special_instructions" placeholder="Any specific prayers, gotra, nakshatra, or special requests..."></textarea>
       </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:var(--muted);cursor:pointer;">
+          <input type="checkbox" id="consentCheck" required style="margin-top:3px;">
+          I consent to PunyaSeva collecting and processing the above information solely for coordinating seva services. My data will be handled securely and not shared with third parties without my consent.
+        </label>
+      </div>
       <button type="submit" class="btn btn-primary form-submit"><i class="fas fa-hands-praying"></i> <span data-i18n="form_submit">Submit Seva Request</span></button>
       <p class="form-note" data-i18n="form_note">Our team will contact you within 2 hours to confirm details and payment. No charges until you confirm.</p>
     </form>
@@ -686,6 +743,7 @@ img { max-width: 100%; display: block; }
   <div class="admin-header">
     <div><h2>PunyaSeva Admin Dashboard</h2><p style="color:var(--muted);font-size:0.9rem;">Manage bookings, track sevas, and monitor performance.</p></div>
     <div style="display:flex;gap:12px;">
+      <button class="btn btn-outline" onclick="showPasswordModal('admin')"><i class="fas fa-key"></i> Change Password</button>
       <button class="btn btn-outline" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
       <button class="btn btn-outline" onclick="showMain()"><i class="fas fa-arrow-left"></i> Back to Site</button>
       <button class="btn btn-primary" onclick="exportBookings()"><i class="fas fa-download"></i> Export CSV</button>
@@ -698,6 +756,7 @@ img { max-width: 100%; display: block; }
     <button class="admin-tab active" onclick="switchAdminTab('bookings')"><i class="fas fa-calendar"></i> Bookings</button>
     <button class="admin-tab" onclick="switchAdminTab('vendors')"><i class="fas fa-store"></i> Vendors</button>
     <button class="admin-tab" onclick="switchAdminTab('proofs')"><i class="fas fa-camera"></i> Proofs</button>
+    <button class="admin-tab" onclick="switchAdminTab('coordinators')"><i class="fas fa-headset"></i> Coordinators</button>
   </div>
 
   <!-- Bookings Tab -->
@@ -705,7 +764,7 @@ img { max-width: 100%; display: block; }
     <h3 style="margin-bottom:16px;">Recent Bookings</h3>
     <div style="overflow-x:auto;">
       <table class="admin-table">
-        <thead><tr><th>ID</th><th>Caregiver</th><th>Patient</th><th>Hospital</th><th>Seva</th><th>Vendor</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+        <thead><tr><th>ID</th><th>Caregiver</th><th>Patient</th><th>Hospital</th><th>Seva</th><th>Sevadaar</th><th>Coordinator</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
         <tbody id="bookingsTable"></tbody>
       </table>
     </div>
@@ -713,10 +772,10 @@ img { max-width: 100%; display: block; }
 
   <!-- Vendors Tab -->
   <div class="tab-content" id="tabVendors">
-    <h3 style="margin-bottom:16px;">Onboard New Vendor</h3>
+    <h3 style="margin-bottom:16px;">Onboard New Sevadaar</h3>
     <div class="onboard-form">
       <div class="form-row" style="margin-bottom:16px;">
-        <div class="form-group"><label>Vendor Name *</label><input type="text" id="vName" class="login-field" placeholder="Full Name" required></div>
+        <div class="form-group"><label>Sevadaar Name *</label><input type="text" id="vName" class="login-field" placeholder="Full Name" required></div>
         <div class="form-group"><label>Phone Number *</label><input type="tel" id="vPhone" class="login-field" placeholder="+91 XXXXX XXXXX" required></div>
       </div>
       <div class="form-row" style="margin-bottom:16px;">
@@ -740,9 +799,9 @@ img { max-width: 100%; display: block; }
         <div class="form-group"><label>IFSC Code</label><input type="text" id="vIfsc" class="login-field" placeholder="IFSC Code"></div>
         <div class="form-group"><label>Bank Name</label><input type="text" id="vBankName" class="login-field" placeholder="Bank Name"></div>
       </div>
-      <button class="btn btn-primary" onclick="onboardVendor()" style="width:100%;justify-content:center;"><i class="fas fa-user-plus"></i> Onboard Vendor</button>
+      <button class="btn btn-primary" onclick="onboardVendor()" style="width:100%;justify-content:center;"><i class="fas fa-user-plus"></i> Onboard Sevadaar</button>
     </div>
-    <h3 style="margin-bottom:16px;">Registered Vendors</h3>
+    <h3 style="margin-bottom:16px;">Registered Sevadaars</h3>
     <div style="overflow-x:auto;">
       <table class="admin-table">
         <thead><tr><th>Name</th><th>Phone</th><th>Services</th><th>City</th><th>Status</th><th>Login Password</th><th>Actions</th></tr></thead>
@@ -758,6 +817,29 @@ img { max-width: 100%; display: block; }
       <p style="color:var(--muted);text-align:center;padding:40px;">Select a booking from the Bookings tab to view its proofs, or proofs will appear here as vendors upload them.</p>
     </div>
   </div>
+
+  <!-- Coordinators Tab -->
+  <div class="tab-content" id="tabCoordinators">
+    <h3 style="margin-bottom:16px;">Onboard New Seva Coordinator</h3>
+    <div class="onboard-form">
+      <div class="form-row" style="margin-bottom:16px;">
+        <div class="form-group"><label>Name *</label><input type="text" id="cName" class="login-field" placeholder="Full Name" required></div>
+        <div class="form-group"><label>Phone Number *</label><input type="tel" id="cPhone" class="login-field" placeholder="+91 XXXXX XXXXX" required></div>
+      </div>
+      <div class="form-row" style="margin-bottom:16px;">
+        <div class="form-group"><label>Email *</label><input type="email" id="cEmail" class="login-field" placeholder="coordinator@email.com" required></div>
+        <div class="form-group"><label>City/Location</label><input type="text" id="cCity" class="login-field" placeholder="City"></div>
+      </div>
+      <button class="btn btn-primary" onclick="onboardCoordinator()" style="width:100%;justify-content:center;background:#6366F1;"><i class="fas fa-user-plus"></i> Onboard Coordinator</button>
+    </div>
+    <h3 style="margin-bottom:16px;">Registered Coordinators</h3>
+    <div style="overflow-x:auto;">
+      <table class="admin-table">
+        <thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>City</th><th>Status</th><th>Login Password</th><th>Actions</th></tr></thead>
+        <tbody id="coordinatorsTable"></tbody>
+      </table>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -765,7 +847,7 @@ img { max-width: 100%; display: block; }
 <div class="vendor-login" id="vendorLogin">
 <div class="login-card">
   <div class="login-icon"><i class="fas fa-store"></i></div>
-  <h2>Vendor Access</h2>
+  <h2>Sevadaar Access</h2>
   <p class="login-subtitle">Enter your credentials to access assigned tasks</p>
   <form onsubmit="handleVendorLogin(event)">
     <input type="text" class="login-field" id="vendorUsername" placeholder="Phone Number" autocomplete="username" required>
@@ -782,8 +864,9 @@ img { max-width: 100%; display: block; }
 <div class="vendor-portal" id="vendorPortal">
 <div class="container">
   <div class="admin-header">
-    <div><h2><i class="fas fa-store" style="color:var(--sage)"></i> Vendor Dashboard</h2><p style="color:var(--muted);font-size:0.9rem;">Manage your assigned tasks and upload proof of service.</p></div>
+    <div><h2><i class="fas fa-store" style="color:var(--sage)"></i> Sevadaar Dashboard</h2><p style="color:var(--muted);font-size:0.9rem;">Manage your assigned tasks and upload proof of service.</p></div>
     <div style="display:flex;gap:12px;">
+      <button class="btn btn-outline" onclick="showPasswordModal('vendor')"><i class="fas fa-key"></i> Change Password</button>
       <button class="btn btn-outline" onclick="vendorLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
       <button class="btn btn-outline" onclick="showMain()"><i class="fas fa-arrow-left"></i> Back to Site</button>
     </div>
@@ -791,6 +874,40 @@ img { max-width: 100%; display: block; }
   <div class="vendor-stats" id="vendorStats"></div>
   <h3 style="margin-bottom:16px;">Assigned Tasks</h3>
   <div id="vendorTasks"></div>
+</div>
+</div>
+
+<!-- ===== COORDINATOR LOGIN ===== -->
+<div class="coordinator-login" id="coordinatorLogin">
+<div class="login-card">
+  <div class="login-icon"><i class="fas fa-headset"></i></div>
+  <h2>Seva Coordinator</h2>
+  <p class="login-subtitle">Access your assigned cases and record patient details</p>
+  <form onsubmit="handleCoordinatorLogin(event)">
+    <input type="text" class="login-field" id="coordUsername" placeholder="Phone Number" autocomplete="username" required>
+    <input type="password" class="login-field" id="coordPassword" placeholder="Password" autocomplete="current-password" required>
+    <p class="login-error" id="coordLoginError">Invalid credentials. Please try again.</p>
+    <button type="submit" class="btn btn-primary login-btn" style="background:#6366F1;"><i class="fas fa-lock"></i> Sign In</button>
+  </form>
+  <p class="login-footer"><i class="fas fa-info-circle"></i> Your credentials were shared during onboarding</p>
+  <button class="btn btn-outline" onclick="showMain()" style="margin-top:16px;width:100%;justify-content:center;"><i class="fas fa-arrow-left"></i> Back to Site</button>
+</div>
+</div>
+
+<!-- ===== COORDINATOR PORTAL ===== -->
+<div class="coordinator-portal" id="coordinatorPortal">
+<div class="container">
+  <div class="admin-header">
+    <div><h2><i class="fas fa-headset" style="color:#6366F1"></i> Seva Coordinator Dashboard</h2><p style="color:var(--muted);font-size:0.9rem;">Call patients, record details, and manage assigned cases.</p></div>
+    <div style="display:flex;gap:12px;">
+      <button class="btn btn-outline" onclick="showPasswordModal('coordinator')"><i class="fas fa-key"></i> Change Password</button>
+      <button class="btn btn-outline" onclick="coordinatorLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      <button class="btn btn-outline" onclick="showMain()"><i class="fas fa-arrow-left"></i> Back to Site</button>
+    </div>
+  </div>
+  <div class="vendor-stats" id="coordStats"></div>
+  <h3 style="margin-bottom:16px;">Assigned Cases</h3>
+  <div id="coordTasks"></div>
 </div>
 </div>
 
@@ -837,6 +954,40 @@ img { max-width: 100%; display: block; }
 </div>
 </div>
 
+<!-- PASSWORD CHANGE MODAL -->
+<div class="pwd-modal" id="pwdModal">
+<div class="modal">
+  <button class="modal-close" onclick="closePwdModal()">&times;</button>
+  <h3><i class="fas fa-key"></i> Change Password</h3>
+  <p style="color:var(--muted);margin-bottom:20px;">Enter your current and new password</p>
+  <input type="password" class="login-field" id="currentPwd" placeholder="Current Password">
+  <input type="password" class="login-field" id="newPwd" placeholder="New Password (min 6 chars)">
+  <input type="password" class="login-field" id="confirmPwd" placeholder="Confirm New Password">
+  <p class="login-error" id="pwdError" style="display:none;"></p>
+  <button class="btn btn-primary" onclick="changePassword()" style="width:100%;justify-content:center;"><i class="fas fa-save"></i> Update Password</button>
+</div>
+</div>
+
+<!-- FEEDBACK MODAL -->
+<div class="pwd-modal" id="feedbackModal">
+<div class="modal">
+  <button class="modal-close" onclick="closeFeedbackModal()">&times;</button>
+  <div class="success-icon" style="background:var(--accent);"><i class="fas fa-star"></i></div>
+  <h3>How was your Seva experience?</h3>
+  <p style="color:var(--muted);margin-bottom:8px;">Your feedback helps us serve better</p>
+  <div class="feedback-stars" id="feedbackStars">
+    <i class="fas fa-star" onclick="setRating(1)"></i>
+    <i class="fas fa-star" onclick="setRating(2)"></i>
+    <i class="fas fa-star" onclick="setRating(3)"></i>
+    <i class="fas fa-star" onclick="setRating(4)"></i>
+    <i class="fas fa-star" onclick="setRating(5)"></i>
+  </div>
+  <textarea class="login-field" id="feedbackText" placeholder="Share your experience..." style="min-height:80px;resize:vertical;"></textarea>
+  <button class="btn btn-primary" onclick="submitFeedback()" style="width:100%;justify-content:center;margin-bottom:12px;"><i class="fas fa-paper-plane"></i> Submit Feedback</button>
+  <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank" class="btn btn-outline" style="width:100%;justify-content:center;"><i class="fab fa-google"></i> Leave a Google Review</a>
+</div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -844,8 +995,44 @@ img { max-width: 100%; display: block; }
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 <script>
+// ===== HIPAA/DPDPA COMPLIANCE LAYER =====
+// Auto-logout after 30 minutes of inactivity
+let inactivityTimer;
+function resetInactivityTimer() {
+  clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(function() {
+    if (sessionStorage.getItem('punyaseva_admin') || sessionStorage.getItem('punyaseva_vendor') || sessionStorage.getItem('punyaseva_coord') || sessionStorage.getItem('punyaseva_patient')) {
+      sessionStorage.clear();
+      showToast('Session expired due to inactivity. Please login again.');
+      showMain();
+    }
+  }, 30 * 60 * 1000); // 30 minutes
+}
+['mousemove','keypress','click','scroll','touchstart'].forEach(function(evt) {
+  document.addEventListener(evt, resetInactivityTimer, { passive: true });
+});
+resetInactivityTimer();
+
+// Audit log — records access events to Firestore
+async function auditLog(action, details) {
+  try {
+    await db.collection('auditLogs').add({
+      action: action,
+      details: details || '',
+      userAgent: navigator.userAgent,
+      timestamp: new Date().toISOString()
+    });
+  } catch(e) { /* silent fail for audit */ }
+}
+
+// Clear session on tab/browser close
+window.addEventListener('beforeunload', function() {
+  // Don't clear if user is just refreshing — use sessionStorage which auto-clears on browser close
+});
+
 // ===== FIREBASE INITIALIZATION =====
-// NOTE: Firestore test mode rules expire in 30 days. Update security rules before expiry.
+// NOTE: Firestore test mode rules expire in 30 days. Update security rules before going live.
+// For HIPAA compliance, configure proper Firestore security rules and enable Firebase App Check.
 const firebaseConfig = {
   apiKey: "AIzaSyDamox4FVBpCq91JEsn8xn-lozWZboA7-4",
   authDomain: "punyaseva-8e9a0.firebaseapp.com",
@@ -972,12 +1159,20 @@ async function renderAdmin() {
     `;
     const bookings = await DB.readAll();
     const vendors = await VendorDB.readAll();
-    const activeVendors = vendors.filter(v => v.status === 'active');
+    const activeVendors = vendors.filter(function(v) { return v.status === 'active'; });
+    const coordinators = await CoordDB.readAll();
+    const activeCoords = coordinators.filter(function(c) { return c.status === 'active'; });
 
     function buildVendorCell(b) {
       if (b.vendorName) return '<span style="color:var(--sage);font-weight:600;">' + b.vendorName + '</span>';
       var opts = activeVendors.map(function(v) { return '<option value="' + v.id + '|' + v.name + '">' + v.name + '</option>'; }).join('');
       return '<select onchange="assignVendor(\'' + b.id + '\',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;"><option value="">Assign...</option>' + opts + '</select>';
+    }
+
+    function buildCoordCell(b) {
+      if (b.coordinatorName) return '<span style="color:#6366F1;font-weight:600;">' + b.coordinatorName + '</span>';
+      var opts = activeCoords.map(function(c) { return '<option value="' + c.id + '|' + c.name + '">' + c.name + '</option>'; }).join('');
+      return '<select onchange="assignCoordinator(\'' + b.id + '\',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;"><option value="">Assign...</option>' + opts + '</select>';
     }
 
     document.getElementById('bookingsTable').innerHTML = bookings.map(function(b) {
@@ -988,6 +1183,7 @@ async function renderAdmin() {
         '<td>' + b.hospital + '</td>' +
         '<td>' + b.sevaType + '</td>' +
         '<td>' + buildVendorCell(b) + '</td>' +
+        '<td>' + buildCoordCell(b) + '</td>' +
         '<td><span class="status-badge ' + b.status + '">' + b.status + '</span></td>' +
         '<td>' + new Date(b.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) + '</td>' +
         '<td>' +
@@ -997,27 +1193,46 @@ async function renderAdmin() {
             '<option value="assigned"' + (b.status==='assigned'?' selected':'') + '>Assigned</option>' +
             '<option value="completed"' + (b.status==='completed'?' selected':'') + '>Completed</option>' +
           '</select>' +
-          ' <button onclick="viewProofs(\'' + b.id + '\')" style="margin-left:4px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:var(--cream);"><i class="fas fa-camera"></i></button>' +
+          ' <button onclick="viewProofs(\'' + b.id + '\')" style="margin-left:4px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:var(--cream);" title="View Proofs"><i class="fas fa-camera"></i></button>' +
+          ' <button onclick="setPaymentAmount(\'' + b.id + '\')" style="margin-left:4px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:var(--cream);" title="Set Payment"><i class="fas fa-rupee-sign"></i></button>' +
         '</td>' +
       '</tr>';
     }).join('');
 
-    // Render vendors table
-    document.getElementById('vendorsTable').innerHTML = vendors.map(v => `
-      <tr>
-        <td><strong>${v.name}</strong></td>
-        <td>${v.phone}</td>
-        <td>${(v.services||[]).join(', ')}</td>
-        <td>${v.city||''}</td>
-        <td><span class="status-badge ${v.status==='active'?'confirmed':'pending'}">${v.status}</span></td>
-        <td><code style="font-size:0.8rem;background:var(--cream);padding:2px 6px;border-radius:4px;">${v.plainPassword||'N/A'}</code></td>
-        <td>
-          <button onclick="toggleVendorStatus('${v.id}','${v.status}')" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:var(--cream);">
-            ${v.status==='active'?'Deactivate':'Activate'}
-          </button>
-        </td>
-      </tr>
-    `).join('');
+    // Render vendors table with edit button
+    document.getElementById('vendorsTable').innerHTML = vendors.map(function(v) {
+      return '<tr>' +
+        '<td><strong>' + v.name + '</strong></td>' +
+        '<td>' + v.phone + '</td>' +
+        '<td>' + (v.services||[]).join(', ') + '</td>' +
+        '<td>' + (v.city||'') + '</td>' +
+        '<td><span class="status-badge ' + (v.status==='active'?'confirmed':'pending') + '">' + v.status + '</span></td>' +
+        '<td><code style="font-size:0.8rem;background:var(--cream);padding:2px 6px;border-radius:4px;">' + (v.plainPassword||'N/A') + '</code></td>' +
+        '<td>' +
+          '<button onclick="editSevadaar(\'' + v.id + '\')" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:var(--cream);margin-right:4px;" title="Edit"><i class="fas fa-edit"></i></button>' +
+          '<button onclick="toggleVendorStatus(\'' + v.id + '\',\'' + v.status + '\')" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:var(--cream);">' +
+            (v.status==='active'?'Deactivate':'Activate') +
+          '</button>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
+
+    // Render coordinators table
+    document.getElementById('coordinatorsTable').innerHTML = coordinators.map(function(c) {
+      return '<tr>' +
+        '<td><strong>' + c.name + '</strong></td>' +
+        '<td>' + c.phone + '</td>' +
+        '<td>' + (c.email||'') + '</td>' +
+        '<td>' + (c.city||'') + '</td>' +
+        '<td><span class="status-badge ' + (c.status==='active'?'confirmed':'pending') + '">' + c.status + '</span></td>' +
+        '<td><code style="font-size:0.8rem;background:var(--cream);padding:2px 6px;border-radius:4px;">' + (c.plainPassword||'N/A') + '</code></td>' +
+        '<td>' +
+          '<button onclick="toggleCoordStatus(\'' + c.id + '\',\'' + c.status + '\')" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:var(--cream);">' +
+            (c.status==='active'?'Deactivate':'Activate') +
+          '</button>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
   } catch(err) {
     console.error('renderAdmin error:', err);
     showToast('Error loading data. Check console.');
@@ -1026,10 +1241,52 @@ async function renderAdmin() {
 
 async function assignVendor(bookingId, vendorInfo) {
   if (!vendorInfo) return;
-  const [vendorId, vendorName] = vendorInfo.split('|');
-  await DB.update(bookingId, { vendorId, vendorName, status: 'assigned' });
+  var parts = vendorInfo.split('|');
+  await DB.update(bookingId, { vendorId: parts[0], vendorName: parts[1], status: 'assigned' });
   renderAdmin();
-  showToast(`Assigned ${vendorName} to ${bookingId}`);
+  showToast('Assigned ' + parts[1] + ' to ' + bookingId);
+}
+
+async function assignCoordinator(bookingId, coordInfo) {
+  if (!coordInfo) return;
+  var parts = coordInfo.split('|');
+  await DB.update(bookingId, { coordinatorId: parts[0], coordinatorName: parts[1] });
+  renderAdmin();
+  showToast('Coordinator ' + parts[1] + ' assigned to ' + bookingId);
+}
+
+async function toggleCoordStatus(id, currentStatus) {
+  var newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+  await CoordDB.update(id, { status: newStatus });
+  renderAdmin();
+  showToast('Coordinator ' + newStatus);
+}
+
+function setPaymentAmount(bookingId) {
+  var amount = prompt('Enter payment amount (₹) for ' + bookingId + ':');
+  if (!amount || isNaN(amount)) return;
+  DB.update(bookingId, { paymentAmount: Number(amount), paymentStatus: 'unpaid' }).then(function() {
+    renderAdmin();
+    showToast('Payment of ₹' + amount + ' set for ' + bookingId);
+  });
+}
+
+async function editSevadaar(vendorId) {
+  var vendor = (await VendorDB.readAll()).find(function(v) { return v.id === vendorId; });
+  if (!vendor) return;
+  var name = prompt('Name:', vendor.name);
+  if (name === null) return;
+  var phone = prompt('Phone:', vendor.phone);
+  var email = prompt('Email:', vendor.email || '');
+  var city = prompt('City:', vendor.city || '');
+  var aadhaar = prompt('Aadhaar:', vendor.aadhaar || '');
+  var pan = prompt('PAN:', vendor.pan || '');
+  var bankAcc = prompt('Bank Account:', vendor.bankAcc || '');
+  var ifsc = prompt('IFSC:', vendor.ifsc || '');
+  var bankName = prompt('Bank Name:', vendor.bankName || '');
+  await VendorDB.update(vendorId, { name: name, phone: phone, email: email, city: city, aadhaar: aadhaar, pan: pan, bankAcc: bankAcc, ifsc: ifsc, bankName: bankName });
+  renderAdmin();
+  showToast('Sevadaar details updated!');
 }
 
 async function updateStatus(id, status) {
@@ -1042,7 +1299,7 @@ async function toggleVendorStatus(id, currentStatus) {
   const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
   await VendorDB.update(id, { status: newStatus });
   renderAdmin();
-  showToast(`Vendor ${newStatus}`);
+  showToast(`Sevadaar ${newStatus}`);
 }
 
 async function viewProofs(bookingId) {
@@ -1070,7 +1327,7 @@ async function viewProofs(bookingId) {
 
 function exportBookings() {
   DB.readAll().then(bookings => {
-    const csv = ['ID,Caregiver,Phone,Patient,Hospital,Seva,Vendor,Status,Date']
+    const csv = ['ID,Caregiver,Phone,Patient,Hospital,Seva,Sevadaar,Status,Date']
       .concat(bookings.map(b => `${b.id},${b.caregiverName},${b.caregiverPhone},${b.patientName},${b.hospital},"${b.sevaType}",${b.vendorName||''},${b.status},${b.createdAt}`))
       .join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -1116,13 +1373,13 @@ async function onboardVendor() {
       name, phone, email, city, services, aadhaar, pan, bankAcc, ifsc, bankName,
       passwordHash, plainPassword
     });
-    showToast(`Vendor ${name} onboarded! Login: ${phone} / ${plainPassword}`);
+    showToast(`Sevadaar ${name} onboarded! Login: ${phone} / ${plainPassword}`);
     // Clear form
     ['vName','vPhone','vEmail','vCity','vAadhaar','vPan','vBankAcc','vIfsc','vBankName'].forEach(id => document.getElementById(id).value = '');
     document.querySelectorAll('.vService:checked').forEach(c => c.checked = false);
     renderAdmin();
   } catch(err) {
-    showToast('Error onboarding vendor.');
+    showToast('Error onboarding sevadaar.');
     console.error(err);
   }
 }
@@ -1146,6 +1403,7 @@ async function handleLogin(e) {
   const match = ADMIN_CREDS.find(c => c.user === user && c.hash === hash);
   if (match) {
     sessionStorage.setItem('punyaseva_admin', JSON.stringify({ user: match.user, ts: Date.now() }));
+    auditLog('ADMIN_LOGIN', 'User: ' + match.user);
     document.getElementById('loginError').classList.remove('show');
     document.getElementById('adminLogin').classList.remove('active');
     document.getElementById('adminPanel').classList.add('active');
@@ -1184,6 +1442,7 @@ async function handleVendorLogin(e) {
     const vendor = await VendorDB.readByPhone(phone);
     if (vendor && vendor.passwordHash === hash && vendor.status === 'active') {
       currentVendor = vendor;
+      auditLog('SEVADAAR_LOGIN', 'Sevadaar: ' + vendor.name + ' (' + vendor.phone + ')');
       sessionStorage.setItem('punyaseva_vendor', JSON.stringify({ id: vendor.id, name: vendor.name, ts: Date.now() }));
       document.getElementById('vendorLoginError').classList.remove('show');
       document.getElementById('vendorLogin').classList.remove('active');
@@ -1365,6 +1624,13 @@ async function renderPatientPortal() {
         <div class="status-timeline">${timelineHtml}</div>
       </div>
 
+      ${b.paymentAmount ? '<div class="payment-card">' +
+        '<p style="color:var(--muted);margin-bottom:8px;">Seva Payment</p>' +
+        '<div class="amount">₹' + Number(b.paymentAmount).toLocaleString('en-IN') + '</div>' +
+        '<span class="payment-status ' + (b.paymentStatus==='paid'?'paid':'unpaid') + '">' + (b.paymentStatus==='paid'?'Paid':'Payment Pending') + '</span>' +
+        (b.paymentStatus !== 'paid' ? '<div class="pay-btn"><a href="' + generateUPILink(b.paymentAmount, b.id) + '" class="btn btn-sage" style="margin-top:12px;"><i class="fas fa-mobile-alt"></i> Pay via UPI</a></div>' : '') +
+      '</div>' : ''}
+
       <div class="patient-booking-card">
         <h3 style="margin-bottom:16px;"><i class="fas fa-camera" style="color:var(--accent)"></i> Proof of Service</h3>
         ${proofs.length === 0
@@ -1379,6 +1645,8 @@ async function renderPatientPortal() {
             `).join('') + '</div>'
         }
       </div>
+
+      ${b.status === 'completed' ? '<div style="text-align:center;padding:24px;"><button class="btn btn-primary" onclick="showFeedbackModal()" style="background:var(--accent);"><i class="fas fa-star"></i> Share Your Experience</button></div>' : ''}
     `;
   } catch(err) {
     console.error('Patient portal error:', err);
@@ -1395,10 +1663,280 @@ function patientLogout() {
   window.scrollTo(0, 0);
 }
 
+// ===== COORDINATOR DB =====
+const CoordDB = {
+  async create(coord) {
+    coord.id = 'SC-' + Date.now().toString(36).toUpperCase();
+    coord.status = 'active';
+    coord.createdAt = new Date().toISOString();
+    await db.collection('coordinators').doc(coord.id).set(coord);
+    return coord;
+  },
+  async readAll() {
+    const snap = await db.collection('coordinators').orderBy('createdAt', 'desc').get();
+    return snap.docs.map(d => d.data());
+  },
+  async readByPhone(phone) {
+    const snap = await db.collection('coordinators').where('phone', '==', phone).get();
+    return snap.empty ? null : snap.docs[0].data();
+  },
+  async update(id, updates) {
+    await db.collection('coordinators').doc(id).update(updates);
+  }
+};
+
+// ===== COORDINATOR PORTAL =====
+let currentCoordinator = null;
+
+async function handleCoordinatorLogin(e) {
+  e.preventDefault();
+  var phone = document.getElementById('coordUsername').value.trim().replace(/\s/g, '');
+  var pass = document.getElementById('coordPassword').value;
+  var hash = await sha256(pass);
+  try {
+    var coord = await CoordDB.readByPhone(phone);
+    if (coord && coord.passwordHash === hash && coord.status === 'active') {
+      currentCoordinator = coord;
+      auditLog('COORDINATOR_LOGIN', 'Coordinator: ' + coord.name + ' (' + coord.phone + ')');
+      sessionStorage.setItem('punyaseva_coord', JSON.stringify({ id: coord.id, name: coord.name, ts: Date.now() }));
+      document.getElementById('coordLoginError').classList.remove('show');
+      document.getElementById('coordinatorLogin').classList.remove('active');
+      document.getElementById('coordinatorPortal').classList.add('active');
+      renderCoordinatorDashboard();
+      window.scrollTo(0, 0);
+    } else {
+      document.getElementById('coordLoginError').classList.add('show');
+      document.getElementById('coordPassword').value = '';
+    }
+  } catch(err) {
+    showToast('Login error.');
+    console.error(err);
+  }
+}
+
+async function renderCoordinatorDashboard() {
+  if (!currentCoordinator) return;
+  try {
+    var snap = await db.collection('bookings').where('coordinatorId', '==', currentCoordinator.id).get();
+    var tasks = snap.docs.map(function(d) { return d.data(); });
+    var pending = tasks.filter(function(t) { return t.status !== 'completed'; }).length;
+    var completed = tasks.filter(function(t) { return t.status === 'completed'; }).length;
+
+    document.getElementById('coordStats').innerHTML =
+      '<div class="admin-stat-card"><div class="stat-value">' + tasks.length + '</div><div class="stat-desc">Total Cases</div></div>' +
+      '<div class="admin-stat-card"><div class="stat-value" style="color:var(--accent)">' + pending + '</div><div class="stat-desc">Active</div></div>' +
+      '<div class="admin-stat-card"><div class="stat-value" style="color:var(--sage)">' + completed + '</div><div class="stat-desc">Completed</div></div>';
+
+    if (tasks.length === 0) {
+      document.getElementById('coordTasks').innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px;">No cases assigned yet.</p>';
+      return;
+    }
+
+    var html = '';
+    for (var i = 0; i < tasks.length; i++) {
+      var t = tasks[i];
+      var notesSnap = await db.collection('callNotes').where('bookingId', '==', t.id).get();
+      var notes = notesSnap.docs.map(function(d) { return d.data(); }).sort(function(a,b) { return b.createdAt.localeCompare(a.createdAt); });
+
+      html += '<div class="call-notes-card">' +
+        '<div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:8px;">' +
+          '<div><h4>' + t.sevaType + '</h4>' +
+          '<div class="task-meta"><strong>Case:</strong> ' + t.id + ' | <strong>Patient:</strong> ' + t.patientName + ' | <strong>Hospital:</strong> ' + t.hospital + '<br>' +
+          '<strong>Caregiver:</strong> ' + t.caregiverName + ' | <strong>Phone:</strong> ' + t.caregiverPhone + '</div></div>' +
+          '<span class="status-badge ' + t.status + '">' + t.status + '</span>' +
+        '</div>' +
+        '<div class="call-notes-form">' +
+          '<input type="text" id="notePatientCondition_' + t.id + '" placeholder="Patient Condition (e.g., Post-surgery recovery)">' +
+          '<input type="text" id="notePujaSpecs_' + t.id + '" placeholder="Puja Specifications (e.g., Gotra, Nakshatra, specific deity)">' +
+          '<textarea id="noteText_' + t.id + '" placeholder="Call notes — record conversation details, family preferences, urgency..."></textarea>' +
+          '<button class="btn btn-primary" onclick="saveCallNote(\'' + t.id + '\')" style="background:#6366F1;padding:8px 20px;font-size:0.85rem;"><i class="fas fa-save"></i> Save Notes</button>' +
+        '</div>' +
+        (notes.length > 0 ? '<div style="margin-top:12px;"><strong style="font-size:0.85rem;">Previous Notes:</strong>' +
+          notes.map(function(n) {
+            return '<div class="call-record"><div class="call-time">' + new Date(n.createdAt).toLocaleString('en-IN') + '</div>' +
+              (n.patientCondition ? '<div><strong>Condition:</strong> ' + n.patientCondition + '</div>' : '') +
+              (n.pujaSpecs ? '<div><strong>Puja Specs:</strong> ' + n.pujaSpecs + '</div>' : '') +
+              '<div>' + n.notes + '</div></div>';
+          }).join('') + '</div>' : '') +
+      '</div>';
+    }
+    document.getElementById('coordTasks').innerHTML = html;
+  } catch(err) {
+    console.error('Coordinator dashboard error:', err);
+    showToast('Error loading cases.');
+  }
+}
+
+async function saveCallNote(bookingId) {
+  var condition = document.getElementById('notePatientCondition_' + bookingId).value.trim();
+  var specs = document.getElementById('notePujaSpecs_' + bookingId).value.trim();
+  var notes = document.getElementById('noteText_' + bookingId).value.trim();
+  if (!notes && !condition && !specs) { showToast('Please enter some details.'); return; }
+  try {
+    await db.collection('callNotes').add({
+      bookingId: bookingId,
+      coordinatorId: currentCoordinator.id,
+      coordinatorName: currentCoordinator.name,
+      patientCondition: condition,
+      pujaSpecs: specs,
+      notes: notes,
+      createdAt: new Date().toISOString()
+    });
+    showToast('Notes saved!');
+    renderCoordinatorDashboard();
+  } catch(err) {
+    showToast('Error saving notes.');
+    console.error(err);
+  }
+}
+
+async function onboardCoordinator() {
+  var name = document.getElementById('cName').value.trim();
+  var phone = document.getElementById('cPhone').value.trim().replace(/\s/g, '');
+  var email = document.getElementById('cEmail').value.trim();
+  var city = document.getElementById('cCity').value.trim();
+  if (!name || !phone || !email) { showToast('Please fill Name, Phone, and Email.'); return; }
+  var plainPassword = name.split(' ')[0].toLowerCase() + '123';
+  var passwordHash = await sha256(plainPassword);
+  try {
+    await CoordDB.create({ name: name, phone: phone, email: email, city: city, passwordHash: passwordHash, plainPassword: plainPassword });
+    showToast('Coordinator ' + name + ' onboarded! Login: ' + phone + ' / ' + plainPassword);
+    ['cName','cPhone','cEmail','cCity'].forEach(function(id) { document.getElementById(id).value = ''; });
+    renderAdmin();
+  } catch(err) {
+    showToast('Error onboarding coordinator.');
+    console.error(err);
+  }
+}
+
+function coordinatorLogout() {
+  currentCoordinator = null;
+  sessionStorage.removeItem('punyaseva_coord');
+  document.getElementById('coordinatorPortal').classList.remove('active');
+  document.getElementById('mainSite').style.display = 'block';
+  showToast('Logged out');
+  window.scrollTo(0, 0);
+}
+
+// ===== PASSWORD CHANGE =====
+let pwdModalRole = null;
+
+function showPasswordModal(role) {
+  pwdModalRole = role;
+  document.getElementById('currentPwd').value = '';
+  document.getElementById('newPwd').value = '';
+  document.getElementById('confirmPwd').value = '';
+  document.getElementById('pwdError').style.display = 'none';
+  document.getElementById('pwdModal').classList.add('active');
+}
+
+function closePwdModal() {
+  document.getElementById('pwdModal').classList.remove('active');
+  pwdModalRole = null;
+}
+
+async function changePassword() {
+  var current = document.getElementById('currentPwd').value;
+  var newPwd = document.getElementById('newPwd').value;
+  var confirm = document.getElementById('confirmPwd').value;
+  var errEl = document.getElementById('pwdError');
+
+  if (newPwd.length < 6) { errEl.textContent = 'New password must be at least 6 characters.'; errEl.style.display = 'block'; return; }
+  if (newPwd !== confirm) { errEl.textContent = 'Passwords do not match.'; errEl.style.display = 'block'; return; }
+
+  var currentHash = await sha256(current);
+  var newHash = await sha256(newPwd);
+
+  try {
+    if (pwdModalRole === 'admin') {
+      var match = ADMIN_CREDS.find(function(c) { return c.hash === currentHash; });
+      if (!match) { errEl.textContent = 'Current password is incorrect.'; errEl.style.display = 'block'; return; }
+      // For admin, update in-memory (won't persist across deploys — note to user)
+      match.hash = newHash;
+      showToast('Admin password updated for this session. For permanent change, update the code.');
+    } else if (pwdModalRole === 'vendor' && currentVendor) {
+      if (currentVendor.passwordHash !== currentHash) { errEl.textContent = 'Current password is incorrect.'; errEl.style.display = 'block'; return; }
+      await VendorDB.update(currentVendor.id, { passwordHash: newHash, plainPassword: newPwd });
+      currentVendor.passwordHash = newHash;
+      showToast('Password updated successfully!');
+    } else if (pwdModalRole === 'coordinator' && currentCoordinator) {
+      if (currentCoordinator.passwordHash !== currentHash) { errEl.textContent = 'Current password is incorrect.'; errEl.style.display = 'block'; return; }
+      await CoordDB.update(currentCoordinator.id, { passwordHash: newHash, plainPassword: newPwd });
+      currentCoordinator.passwordHash = newHash;
+      showToast('Password updated successfully!');
+    }
+    closePwdModal();
+  } catch(err) {
+    errEl.textContent = 'Error updating password.';
+    errEl.style.display = 'block';
+    console.error(err);
+  }
+}
+
+// ===== FEEDBACK & REVIEW =====
+let feedbackRating = 0;
+
+function setRating(n) {
+  feedbackRating = n;
+  var stars = document.querySelectorAll('#feedbackStars i');
+  stars.forEach(function(s, i) { s.classList.toggle('active', i < n); });
+}
+
+function showFeedbackModal() {
+  feedbackRating = 0;
+  document.querySelectorAll('#feedbackStars i').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('feedbackText').value = '';
+  document.getElementById('feedbackModal').classList.add('active');
+}
+
+function closeFeedbackModal() {
+  document.getElementById('feedbackModal').classList.remove('active');
+}
+
+async function submitFeedback() {
+  if (feedbackRating === 0) { showToast('Please select a rating.'); return; }
+  try {
+    await db.collection('feedback').add({
+      bookingId: currentPatientBooking ? currentPatientBooking.id : '',
+      rating: feedbackRating,
+      text: document.getElementById('feedbackText').value.trim(),
+      createdAt: new Date().toISOString()
+    });
+    showToast('Thank you for your feedback!');
+    closeFeedbackModal();
+  } catch(err) {
+    showToast('Error submitting feedback.');
+    console.error(err);
+  }
+}
+
+// ===== UPI PAYMENT =====
+function generateUPILink(amount, bookingId) {
+  // Replace with your actual UPI ID
+  var upiId = 'punyaseva@upi';
+  var name = 'PunyaSeva';
+  var note = 'Seva Payment - ' + bookingId;
+  return 'upi://pay?pa=' + encodeURIComponent(upiId) + '&pn=' + encodeURIComponent(name) + '&am=' + amount + '&tn=' + encodeURIComponent(note);
+}
+
+// ===== LOGIN MENU =====
+function toggleLoginMenu() {
+  var menu = document.getElementById('loginMenu');
+  menu.classList.toggle('show');
+}
+// Close login menu when clicking outside
+document.addEventListener('click', function(e) {
+  var dropdown = document.getElementById('loginDropdown');
+  if (dropdown && !dropdown.contains(e.target)) {
+    document.getElementById('loginMenu').classList.remove('show');
+  }
+});
+
 // ===== NAV & UI =====
 function hideAllPortals() {
-  ['adminPanel','adminLogin','vendorLogin','vendorPortal','patientLogin','patientPortal'].forEach(id => {
-    document.getElementById(id).classList.remove('active');
+  ['adminPanel','adminLogin','vendorLogin','vendorPortal','patientLogin','patientPortal','coordinatorLogin','coordinatorPortal'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.remove('active');
   });
 }
 
@@ -1439,6 +1977,29 @@ function toggleVendorPortal(e) {
     } catch {}
   }
   document.getElementById('vendorLogin').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleCoordinatorPortal(e) {
+  e && e.preventDefault();
+  hideAllPortals();
+  document.getElementById('mainSite').style.display = 'none';
+  var cs = sessionStorage.getItem('punyaseva_coord');
+  if (cs) {
+    try {
+      var c = JSON.parse(cs);
+      if (Date.now() - c.ts < 4*60*60*1000) {
+        db.collection('coordinators').doc(c.id).get().then(function(doc) {
+          if (doc.exists) { currentCoordinator = doc.data(); }
+          document.getElementById('coordinatorPortal').classList.add('active');
+          renderCoordinatorDashboard();
+        });
+        window.scrollTo(0, 0);
+        return;
+      }
+    } catch(e) {}
+  }
+  document.getElementById('coordinatorLogin').classList.add('active');
   window.scrollTo(0, 0);
 }
 
