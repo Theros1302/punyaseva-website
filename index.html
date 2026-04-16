@@ -984,7 +984,7 @@ img { max-width: 100%; display: block; }
   </div>
   <textarea class="login-field" id="feedbackText" placeholder="Share your experience..." style="min-height:80px;resize:vertical;"></textarea>
   <button class="btn btn-primary" onclick="submitFeedback()" style="width:100%;justify-content:center;margin-bottom:12px;"><i class="fas fa-paper-plane"></i> Submit Feedback</button>
-  <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank" class="btn btn-outline" style="width:100%;justify-content:center;"><i class="fab fa-google"></i> Leave a Google Review</a>
+  <a href="https://g.page/r/CaFKI9y_9XCaEAI/review" target="_blank" class="btn btn-outline" style="width:100%;justify-content:center;"><i class="fab fa-google"></i> Leave a Google Review</a>
 </div>
 </div>
 
@@ -1628,7 +1628,22 @@ async function renderPatientPortal() {
         '<p style="color:var(--muted);margin-bottom:8px;">Seva Payment</p>' +
         '<div class="amount">₹' + Number(b.paymentAmount).toLocaleString('en-IN') + '</div>' +
         '<span class="payment-status ' + (b.paymentStatus==='paid'?'paid':'unpaid') + '">' + (b.paymentStatus==='paid'?'Paid':'Payment Pending') + '</span>' +
-        (b.paymentStatus !== 'paid' ? '<div class="pay-btn"><a href="' + generateUPILink(b.paymentAmount, b.id) + '" class="btn btn-sage" style="margin-top:12px;"><i class="fas fa-mobile-alt"></i> Pay via UPI</a></div>' : '') +
+        (b.paymentStatus !== 'paid' ?
+          '<div style="margin-top:18px;padding:18px;background:#fff;border-radius:12px;border:1px solid var(--border);text-align:center;">' +
+            '<p style="font-weight:600;color:var(--ink);margin-bottom:10px;">Scan with any UPI app to pay</p>' +
+            '<img src="upi-qr.png" alt="UPI QR Code" style="width:220px;height:220px;margin:0 auto;display:block;border-radius:8px;">' +
+            '<p style="margin-top:10px;font-size:0.9rem;color:var(--muted);">Varsha Agrawal</p>' +
+            '<p style="font-size:0.8rem;color:var(--muted);font-family:monospace;">9869692869@pthdfc</p>' +
+            '<div style="display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap;">' +
+              '<span style="font-size:0.75rem;color:var(--muted);">Works with</span>' +
+              '<span style="font-size:0.75rem;font-weight:600;color:#002970;">Paytm</span>' +
+              '<span style="font-size:0.75rem;font-weight:600;color:#5f259f;">PhonePe</span>' +
+              '<span style="font-size:0.75rem;font-weight:600;color:#4285f4;">GPay</span>' +
+              '<span style="font-size:0.75rem;font-weight:600;color:#ff6600;">BHIM</span>' +
+            '</div>' +
+            '<div class="pay-btn" style="margin-top:14px;"><a href="' + generateUPILink(b.paymentAmount, b.id) + '" class="btn btn-sage"><i class="fas fa-mobile-alt"></i> Or tap to pay on mobile</a></div>' +
+          '</div>'
+        : '') +
       '</div>' : ''}
 
       <div class="patient-booking-card">
@@ -1904,6 +1919,14 @@ async function submitFeedback() {
     });
     showToast('Thank you for your feedback!');
     closeFeedbackModal();
+    // If rating is 4 or 5 stars, prompt for Google review
+    if (feedbackRating >= 4) {
+      setTimeout(function() {
+        if (confirm('Thank you for the wonderful feedback! Would you like to share your blessings on Google to help other families?')) {
+          window.open('https://g.page/r/CaFKI9y_9XCaEAI/review', '_blank');
+        }
+      }, 800);
+    }
   } catch(err) {
     showToast('Error submitting feedback.');
     console.error(err);
@@ -1912,11 +1935,10 @@ async function submitFeedback() {
 
 // ===== UPI PAYMENT =====
 function generateUPILink(amount, bookingId) {
-  // Replace with your actual UPI ID
-  var upiId = 'punyaseva@upi';
-  var name = 'PunyaSeva';
-  var note = 'Seva Payment - ' + bookingId;
-  return 'upi://pay?pa=' + encodeURIComponent(upiId) + '&pn=' + encodeURIComponent(name) + '&am=' + amount + '&tn=' + encodeURIComponent(note);
+  var upiId = '9869692869@pthdfc';
+  var name = 'Varsha Agrawal';
+  var note = 'PunyaSeva - ' + bookingId;
+  return 'upi://pay?pa=' + encodeURIComponent(upiId) + '&pn=' + encodeURIComponent(name) + '&am=' + amount + '&tn=' + encodeURIComponent(note) + '&cu=INR';
 }
 
 // ===== LOGIN MENU =====
