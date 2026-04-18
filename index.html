@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PunyaSeva — Faith-Powered Healing for Hospital Families</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18094295083"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18094295083');
+</script>
 <meta name="description" content="PunyaSeva connects hospital caregivers with spiritual healing services — temple pujas, gaushala seva, bhandara — delivered with real-time proof.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -217,10 +225,54 @@ img { max-width: 100%; display: block; }
 .admin-table th { background: var(--dark); color: var(--white); padding: 14px 16px; font-size: 0.85rem; font-weight: 600; text-align: left; }
 .admin-table td { padding: 14px 16px; font-size: 0.88rem; border-bottom: 1px solid var(--border); }
 .admin-table tr:hover td { background: var(--light-card); }
-.status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+.status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
 .status-badge.pending { background: #FEF3C7; color: #92400E; }
+.status-badge.payment_submitted { background: #FED7AA; color: #9A3412; }
+.status-badge.payment_confirmed { background: #DBEAFE; color: #1E40AF; }
 .status-badge.confirmed { background: #D1FAE5; color: #065F46; }
-.status-badge.completed { background: #DBEAFE; color: #1E40AF; }
+.status-badge.assigned { background: #E0E7FF; color: #3730A3; }
+.status-badge.completed { background: #D1FAE5; color: #065F46; }
+/* ===== FREE SEVA PAGE ===== */
+.free-seva-page { display:none; padding:100px 0 60px; min-height:100vh; background:linear-gradient(135deg,#FEF3C7 0%,#FFF7ED 50%,#FEF3C7 100%); }
+.free-seva-page.active { display:block; }
+.free-seva-hero { text-align:center; margin-bottom:40px; }
+.free-seva-hero h1 { color:#7C2D12; font-size:2.2rem; margin-bottom:8px; }
+.free-seva-hero .hero-hindi { color:#EA580C; font-size:1.3rem; margin-bottom:12px; }
+.free-seva-hero p { color:var(--muted); max-width:600px; margin:0 auto; line-height:1.7; }
+.free-seva-form { max-width:600px; margin:0 auto; background:var(--white); padding:36px; border-radius:16px; box-shadow:var(--shadow-lg); border-top:4px solid #EA580C; }
+.free-seva-form h3 { color:#7C2D12; margin-bottom:20px; font-size:1.3rem; }
+.free-seva-form .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+.free-seva-form .form-group { display:flex; flex-direction:column; gap:4px; }
+.free-seva-form label { font-size:0.85rem; font-weight:600; color:var(--dark); }
+.free-seva-form input, .free-seva-form select, .free-seva-form textarea { padding:10px 14px; border:1px solid var(--border); border-radius:8px; font-size:0.95rem; font-family:'Inter',sans-serif; transition:var(--transition); }
+.free-seva-form input:focus, .free-seva-form select:focus, .free-seva-form textarea:focus { border-color:#EA580C; outline:none; box-shadow:0 0 0 3px rgba(234,88,12,0.12); }
+.free-seva-temples { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px; }
+.free-seva-temples label { display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--cream); border-radius:8px; cursor:pointer; font-size:0.9rem; border:2px solid transparent; transition:var(--transition); }
+.free-seva-temples label:has(input:checked) { border-color:#EA580C; background:#FFF7ED; }
+.free-seva-temples input[type="radio"] { accent-color:#EA580C; }
+.free-seva-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:40px auto; max-width:800px; }
+.free-step { text-align:center; padding:20px 12px; }
+.free-step .step-num { width:40px; height:40px; background:#EA580C; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; margin:0 auto 10px; }
+.free-step h4 { font-size:0.9rem; margin-bottom:6px; color:#7C2D12; }
+.free-step p { font-size:0.8rem; color:var(--muted); }
+.free-seva-success { display:none; text-align:center; padding:40px; }
+.free-seva-success.active { display:block; }
+.free-seva-success i { font-size:4rem; color:#EA580C; margin-bottom:20px; }
+@media (max-width:768px) {
+  .free-seva-form .form-row { grid-template-columns:1fr; }
+  .free-seva-temples { grid-template-columns:1fr; }
+  .free-seva-steps { grid-template-columns:1fr 1fr; }
+  .free-seva-hero h1 { font-size:1.6rem; }
+}
+
+.eta-banner { margin:16px 0; padding:20px; background:linear-gradient(135deg,#FEF3C7,#FED7AA); border-radius:12px; border-left:4px solid #EA580C; }
+.eta-banner .eta-title { font-weight:700; color:#7C2D12; margin-bottom:8px; font-size:1rem; }
+.eta-banner .eta-countdown { font-size:1.8rem; font-weight:700; color:#9A3412; font-family:monospace; }
+.eta-banner .eta-deadline { font-size:0.85rem; color:#7C2D12; margin-top:6px; }
+.notes-from-coord { margin:12px 0; padding:16px; background:#EEF2FF; border-radius:10px; border-left:3px solid #6366F1; }
+.notes-from-coord strong { color:#4338CA; }
+.payment-proof-viewer { text-align:center; margin:12px 0; }
+.payment-proof-viewer img { max-width:280px; max-height:380px; border-radius:10px; border:2px solid var(--border); cursor:pointer; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
@@ -396,6 +448,7 @@ img { max-width: 100%; display: block; }
     <a href="#how-it-works" onclick="showMain()" data-i18n="nav_how">How It Works</a>
     <a href="#evidence" onclick="showMain()" data-i18n="nav_evidence">Evidence</a>
     <a href="#testimonials" onclick="showMain()" data-i18n="nav_stories">Stories</a>
+    <a href="#" onclick="toggleFreeSeva(event)" style="color:#EA580C;font-weight:600;"><i class="fas fa-om"></i> Free Prayer</a>
     <a href="#booking" onclick="showMain()" class="btn btn-primary nav-cta" data-i18n="nav_book">Book a Seva</a>
     <div class="login-dropdown" id="loginDropdown">
       <button class="btn btn-outline nav-cta" onclick="toggleLoginMenu()" style="padding:8px 16px;font-size:0.82rem;"><i class="fas fa-user-circle"></i> Login</button>
@@ -720,6 +773,115 @@ img { max-width: 100%; display: block; }
 </footer>
 </div><!-- /mainSite -->
 
+<!-- ===== FREE SEVA REGISTRATION ===== -->
+<div class="free-seva-page" id="freeSevaPage">
+<div class="container">
+  <div class="free-seva-hero">
+    <p class="hero-hindi">आपके प्रियजन के स्वास्थ्य के लिए हम प्रार्थना करते हैं</p>
+    <h1><i class="fas fa-om" style="color:#EA580C"></i> Free Prayer for Your Loved One</h1>
+    <p>We perform a prayer in your loved one's name at one of India's most sacred temples — absolutely free. You'll receive photo and video proof.</p>
+  </div>
+
+  <div class="free-seva-steps">
+    <div class="free-step"><div class="step-num">1</div><h4>Register</h4><p>Fill in patient details below</p></div>
+    <div class="free-step"><div class="step-num">2</div><h4>We Pray</h4><p>Prayer at sacred temple in their name</p></div>
+    <div class="free-step"><div class="step-num">3</div><h4>Get Proof</h4><p>Photo & video sent to you</p></div>
+    <div class="free-step"><div class="step-num">4</div><h4>Blessings</h4><p>Divine blessings for recovery</p></div>
+  </div>
+
+  <div class="free-seva-form" id="freeSevaFormContainer">
+    <h3><i class="fas fa-hands-praying" style="color:#EA580C;"></i> Register for Free Prayer</h3>
+    <form onsubmit="submitFreeSeva(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Patient Name *</label>
+          <input type="text" id="fsPatientName" placeholder="Patient's full name" required>
+        </div>
+        <div class="form-group">
+          <label>Relative / Caregiver Name *</label>
+          <input type="text" id="fsRelativeName" placeholder="Your name" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Mobile Number *</label>
+          <input type="tel" id="fsMobile" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+        <div class="form-group">
+          <label>Hospital Name *</label>
+          <input type="text" id="fsHospital" placeholder="Where patient is admitted" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>City *</label>
+          <input type="text" id="fsCity" placeholder="City" required>
+        </div>
+        <div class="form-group">
+          <label>Clinical Condition</label>
+          <select id="fsCondition">
+            <option value="">Select condition...</option>
+            <option value="Surgery / Post-Surgery">Surgery / Post-Surgery</option>
+            <option value="Cancer Treatment">Cancer Treatment</option>
+            <option value="ICU / Critical Care">ICU / Critical Care</option>
+            <option value="Cardiac / Heart">Cardiac / Heart</option>
+            <option value="Accident / Trauma">Accident / Trauma</option>
+            <option value="Organ Transplant">Organ Transplant</option>
+            <option value="Pregnancy / Maternity">Pregnancy / Maternity</option>
+            <option value="Neurological">Neurological</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>Choose a Sacred Temple for the Prayer *</label>
+        <div class="free-seva-temples">
+          <label><input type="radio" name="fsTemple" value="Siddhivinayak Temple, Mumbai" required> <i class="fas fa-gopuram" style="color:#EA580C;"></i> Siddhivinayak, Mumbai</label>
+          <label><input type="radio" name="fsTemple" value="Mahalaxmi Temple, Mumbai"> <i class="fas fa-gopuram" style="color:#EA580C;"></i> Mahalaxmi, Mumbai</label>
+          <label><input type="radio" name="fsTemple" value="Kashi Vishwanath, Varanasi"> <i class="fas fa-gopuram" style="color:#EA580C;"></i> Kashi Vishwanath, Varanasi</label>
+          <label><input type="radio" name="fsTemple" value="Tirupati Balaji, Andhra Pradesh"> <i class="fas fa-gopuram" style="color:#EA580C;"></i> Tirupati Balaji, AP</label>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>Any Special Message for the Prayer (Optional)</label>
+        <textarea id="fsMessage" rows="2" placeholder="E.g., Please pray for speedy recovery of my father..."></textarea>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="display:flex;align-items:start;gap:8px;font-size:0.85rem;cursor:pointer;color:var(--muted);">
+          <input type="checkbox" id="fsConsent" required style="margin-top:3px;accent-color:#EA580C;">
+          I consent to sharing the above details with PunyaSeva for the purpose of performing a prayer. I agree to the terms of service and privacy policy under DPDPA 2023.
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;background:#EA580C;font-size:1rem;">
+        <i class="fas fa-pray"></i> Register for Free Prayer
+      </button>
+
+      <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:12px;">
+        <i class="fas fa-lock"></i> 100% Free. No payment. No strings attached.
+      </p>
+    </form>
+  </div>
+
+  <!-- Success screen (shown after submission) -->
+  <div class="free-seva-success" id="freeSevaSuccess">
+    <i class="fas fa-check-circle"></i>
+    <h2 style="color:#7C2D12;margin-bottom:12px;">Prayer Registered!</h2>
+    <p style="font-size:1.1rem;color:var(--body-text);margin-bottom:8px;">Your Case ID: <strong id="freeSevaCase" style="color:#EA580C;font-size:1.3rem;"></strong></p>
+    <p style="color:var(--muted);max-width:480px;margin:0 auto 24px;">Your prayer has been registered. We will perform the prayer at <strong id="freeSevaTempleConfirm"></strong> and send you photo/video proof on your mobile number.</p>
+    <div style="background:#FFF7ED;border-radius:12px;padding:20px;max-width:480px;margin:0 auto 24px;border:1px solid #FED7AA;">
+      <p style="font-weight:700;color:#7C2D12;margin-bottom:8px;"><i class="fas fa-star"></i> Want deeper healing?</p>
+      <p style="font-size:0.9rem;color:var(--body-text);margin-bottom:14px;">Explore our premium sevas: Mahamrityunjay Jap, Rudrabhishek, Navgraha Shanti, Gaushala Seva, and more — all delivered with proof.</p>
+      <a href="#services" onclick="showMain()" class="btn btn-primary" style="background:#7C2D12;font-size:0.9rem;"><i class="fas fa-arrow-right"></i> Explore Premium Sevas</a>
+    </div>
+    <button class="btn btn-outline" onclick="resetFreeSeva()" style="font-size:0.9rem;"><i class="fas fa-plus"></i> Register Another Patient</button>
+  </div>
+</div>
+</div>
+
 <!-- ===== ADMIN LOGIN ===== -->
 <div class="admin-login" id="adminLogin">
 <div class="login-card">
@@ -754,7 +916,8 @@ img { max-width: 100%; display: block; }
   <!-- Admin Tabs -->
   <div class="admin-tabs">
     <button class="admin-tab active" onclick="switchAdminTab('bookings')"><i class="fas fa-calendar"></i> Bookings</button>
-    <button class="admin-tab" onclick="switchAdminTab('vendors')"><i class="fas fa-store"></i> Vendors</button>
+    <button class="admin-tab" onclick="switchAdminTab('freeseva')" style="color:#EA580C;"><i class="fas fa-pray"></i> Free Seva</button>
+    <button class="admin-tab" onclick="switchAdminTab('vendors')"><i class="fas fa-om"></i> Sevadaars</button>
     <button class="admin-tab" onclick="switchAdminTab('proofs')"><i class="fas fa-camera"></i> Proofs</button>
     <button class="admin-tab" onclick="switchAdminTab('coordinators')"><i class="fas fa-headset"></i> Coordinators</button>
   </div>
@@ -770,6 +933,17 @@ img { max-width: 100%; display: block; }
     </div>
   </div>
 
+  <!-- Free Seva Tab -->
+  <div class="tab-content" id="tabFreeseva">
+    <h3 style="margin-bottom:16px;">Free Prayer Registrations</h3>
+    <div style="overflow-x:auto;">
+      <table class="admin-table">
+        <thead><tr><th>Case ID</th><th>Patient</th><th>Relative</th><th>Mobile</th><th>Hospital / City</th><th>Condition</th><th>Temple</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody id="freeSevaTable"></tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- Vendors Tab -->
   <div class="tab-content" id="tabVendors">
     <h3 style="margin-bottom:16px;">Onboard New Sevadaar</h3>
@@ -779,7 +953,7 @@ img { max-width: 100%; display: block; }
         <div class="form-group"><label>Phone Number *</label><input type="tel" id="vPhone" class="login-field" placeholder="+91 XXXXX XXXXX" required></div>
       </div>
       <div class="form-row" style="margin-bottom:16px;">
-        <div class="form-group"><label>Email</label><input type="email" id="vEmail" class="login-field" placeholder="vendor@email.com"></div>
+        <div class="form-group"><label>Email *</label><input type="email" id="vEmail" class="login-field" placeholder="sevadaar@email.com" required></div>
         <div class="form-group"><label>City/Location *</label><input type="text" id="vCity" class="login-field" placeholder="City" required></div>
       </div>
       <div class="form-group" style="margin-bottom:16px;">
@@ -814,7 +988,7 @@ img { max-width: 100%; display: block; }
   <div class="tab-content" id="tabProofs">
     <h3 style="margin-bottom:16px;">Service Proofs</h3>
     <div id="adminProofsContainer">
-      <p style="color:var(--muted);text-align:center;padding:40px;">Select a booking from the Bookings tab to view its proofs, or proofs will appear here as vendors upload them.</p>
+      <p style="color:var(--muted);text-align:center;padding:40px;">Select a booking from the Bookings tab to view its proofs, or proofs will appear here as Sevadaars upload them.</p>
     </div>
   </div>
 
@@ -1151,12 +1325,40 @@ async function handleBooking(e) {
 async function renderAdmin() {
   try {
     const stats = await DB.getStats();
+    // Count free seva registrations
+    var fsSnap = await db.collection('freeRegistrations').get();
+    var freeTotal = fsSnap.size;
+    var freePending = fsSnap.docs.filter(function(d) { return d.data().status === 'pending'; }).length;
     document.getElementById('adminStats').innerHTML = `
-      <div class="admin-stat-card"><div class="stat-value">${stats.total}</div><div class="stat-desc">Total Bookings</div></div>
+      <div class="admin-stat-card"><div class="stat-value">${stats.total}</div><div class="stat-desc">Paid Bookings</div></div>
+      <div class="admin-stat-card"><div class="stat-value" style="color:#EA580C">${freeTotal}</div><div class="stat-desc">Free Seva</div></div>
       <div class="admin-stat-card"><div class="stat-value" style="color:var(--accent)">${stats.pending}</div><div class="stat-desc">Pending</div></div>
       <div class="admin-stat-card"><div class="stat-value" style="color:var(--sage)">${stats.assigned || 0}</div><div class="stat-desc">Assigned</div></div>
       <div class="admin-stat-card"><div class="stat-value" style="color:#3B82F6">${stats.completed}</div><div class="stat-desc">Completed</div></div>
     `;
+    // Render free seva table
+    var freeRegs = fsSnap.docs.map(function(d) { return d.data(); }).sort(function(a,b) { return (b.createdAt||'').localeCompare(a.createdAt||''); });
+    document.getElementById('freeSevaTable').innerHTML = freeRegs.map(function(f) {
+      return '<tr>' +
+        '<td><strong>' + f.id + '</strong></td>' +
+        '<td>' + f.patientName + '</td>' +
+        '<td>' + f.relativeName + '</td>' +
+        '<td><a href="tel:' + f.mobile + '">' + f.mobile + '</a></td>' +
+        '<td>' + f.hospital + '<br><span style="color:var(--muted);font-size:0.8rem;">' + f.city + '</span></td>' +
+        '<td>' + (f.condition || '—') + '</td>' +
+        '<td><span style="color:#EA580C;font-weight:600;">' + f.temple + '</span></td>' +
+        '<td><select onchange="updateFreeSevaStatus(\'' + f.id + '\',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;">' +
+          '<option value="pending"' + (f.status==='pending'?' selected':'') + '>Pending</option>' +
+          '<option value="prayer_done"' + (f.status==='prayer_done'?' selected':'') + '>Prayer Done</option>' +
+          '<option value="proof_sent"' + (f.status==='proof_sent'?' selected':'') + '>Proof Sent</option>' +
+          '<option value="converted"' + (f.status==='converted'?' selected':'') + '>Converted to Paid</option>' +
+        '</select></td>' +
+        '<td>' + new Date(f.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) + '</td>' +
+        '<td>' +
+          '<button onclick="convertFreeToBooking(\'' + f.id + '\')" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;cursor:pointer;background:#FEF3C7;" title="Convert to Paid Booking"><i class="fas fa-arrow-right" style="color:#EA580C;"></i></button>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
     const bookings = await DB.readAll();
     const vendors = await VendorDB.readAll();
     const activeVendors = vendors.filter(function(v) { return v.status === 'active'; });
@@ -1164,7 +1366,11 @@ async function renderAdmin() {
     const activeCoords = coordinators.filter(function(c) { return c.status === 'active'; });
 
     function buildVendorCell(b) {
-      if (b.vendorName) return '<span style="color:var(--sage);font-weight:600;">' + b.vendorName + '</span>';
+      if (b.vendorName) return '<span style="color:var(--sage);font-weight:600;">' + b.vendorName + '</span>' +
+        (b.etaDeadline ? '<br><span style="font-size:0.7rem;color:#EA580C;">ETA: ' + new Date(b.etaDeadline).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit'}) + '</span>' : '');
+      if (b.status !== 'payment_confirmed' && b.status !== 'assigned') {
+        return '<span style="font-size:0.75rem;color:var(--muted);font-style:italic;">Awaiting payment confirmation</span>';
+      }
       var opts = activeVendors.map(function(v) { return '<option value="' + v.id + '|' + v.name + '">' + v.name + '</option>'; }).join('');
       return '<select onchange="assignVendor(\'' + b.id + '\',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;"><option value="">Assign...</option>' + opts + '</select>';
     }
@@ -1189,7 +1395,8 @@ async function renderAdmin() {
         '<td>' +
           '<select onchange="updateStatus(\'' + b.id + '\',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;">' +
             '<option value="pending"' + (b.status==='pending'?' selected':'') + '>Pending</option>' +
-            '<option value="confirmed"' + (b.status==='confirmed'?' selected':'') + '>Confirmed</option>' +
+            '<option value="payment_submitted"' + (b.status==='payment_submitted'?' selected':'') + '>Payment Submitted</option>' +
+            '<option value="payment_confirmed"' + (b.status==='payment_confirmed'?' selected':'') + '>Payment Confirmed</option>' +
             '<option value="assigned"' + (b.status==='assigned'?' selected':'') + '>Assigned</option>' +
             '<option value="completed"' + (b.status==='completed'?' selected':'') + '>Completed</option>' +
           '</select>' +
@@ -1463,7 +1670,11 @@ async function renderVendorDashboard() {
   if (!currentVendor) return;
   try {
     const snap = await db.collection('bookings').where('vendorId', '==', currentVendor.id).get();
-    const tasks = snap.docs.map(d => d.data());
+    const tasks = snap.docs.map(d => d.data()).sort(function(a,b) {
+      // Sort by ETA deadline (urgent first), then by createdAt
+      if (a.etaDeadline && b.etaDeadline) return a.etaDeadline.localeCompare(b.etaDeadline);
+      return (b.createdAt||'').localeCompare(a.createdAt||'');
+    });
     const assigned = tasks.filter(t => t.status === 'assigned').length;
     const completed = tasks.filter(t => t.status === 'completed').length;
 
@@ -1481,6 +1692,39 @@ async function renderVendorDashboard() {
     let tasksHtml = '';
     for (const t of tasks) {
       const proofs = await ProofDB.getByBooking(t.id);
+      const hasProof = proofs.length > 0;
+
+      // Fetch coordinator notes for this booking
+      let coordNotesHtml = '';
+      try {
+        const noteSnap = await db.collection('callNotes').where('bookingId', '==', t.id).get();
+        const notesArr = noteSnap.docs.map(d => d.data()).sort((a,b) => b.createdAt.localeCompare(a.createdAt));
+        if (notesArr.length > 0) {
+          const n = notesArr[0];
+          coordNotesHtml = '<div class="notes-from-coord">' +
+            '<strong><i class="fas fa-headset"></i> Notes from Seva Coordinator' + (n.coordinatorName ? ' (' + n.coordinatorName + ')' : '') + ':</strong>' +
+            (n.patientCondition ? '<div style="margin-top:6px;font-size:0.9rem;"><strong>Patient Condition:</strong> ' + n.patientCondition + '</div>' : '') +
+            (n.pujaSpecs ? '<div style="font-size:0.9rem;"><strong>Puja Specifications:</strong> ' + n.pujaSpecs + '</div>' : '') +
+            (n.notes ? '<div style="font-size:0.9rem;margin-top:4px;"><strong>Notes:</strong> ' + n.notes + '</div>' : '') +
+            '</div>';
+        }
+      } catch(e) { console.error(e); }
+
+      // ETA deadline display
+      let etaHtml = '';
+      if (t.etaDeadline && t.status !== 'completed') {
+        const deadline = new Date(t.etaDeadline);
+        const diff = deadline - new Date();
+        const hrs = Math.floor(Math.abs(diff) / 3600000);
+        const mins = Math.floor((Math.abs(diff) % 3600000) / 60000);
+        const overdue = diff < 0;
+        etaHtml = '<div style="margin:10px 0;padding:10px 14px;background:' + (overdue ? '#FEE2E2' : '#FEF3C7') + ';border-radius:8px;border-left:3px solid ' + (overdue ? '#DC2626' : '#EA580C') + ';font-size:0.9rem;">' +
+          '<i class="fas fa-hourglass-' + (overdue ? 'end' : 'half') + '"></i> ' +
+          (overdue ? '<strong style="color:#991B1B;">OVERDUE by ' + hrs + 'h ' + mins + 'm</strong>' : '<strong style="color:#7C2D12;">Must complete in ' + hrs + 'h ' + mins + 'm</strong>') +
+          ' &middot; Deadline: ' + deadline.toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) +
+          '</div>';
+      }
+
       tasksHtml += `
         <div class="vendor-task-card">
           <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:8px;">
@@ -1488,12 +1732,15 @@ async function renderVendorDashboard() {
               <h4>${t.sevaType}</h4>
               <div class="task-meta">
                 <strong>Case:</strong> ${t.id} &nbsp;|&nbsp; <strong>Patient:</strong> ${t.patientName} &nbsp;|&nbsp; <strong>Hospital:</strong> ${t.hospital}<br>
-                ${t.instructions ? '<strong>Instructions:</strong> '+t.instructions : ''}
+                <strong>Caregiver:</strong> ${t.caregiverName} &nbsp;|&nbsp; <strong>Phone:</strong> <a href="tel:${t.caregiverPhone}">${t.caregiverPhone}</a>
               </div>
             </div>
-            <span class="status-badge ${t.status}">${t.status}</span>
+            <span class="status-badge ${t.status}">${t.status.replace(/_/g,' ')}</span>
           </div>
+          ${etaHtml}
+          ${coordNotesHtml}
           ${proofs.length > 0 ? `
+            <div style="margin-top:12px;"><strong style="font-size:0.9rem;">Uploaded Proofs (${proofs.length}):</strong></div>
             <div class="proof-gallery">
               ${proofs.map(p => `
                 <div class="proof-thumb">
@@ -1505,14 +1752,20 @@ async function renderVendorDashboard() {
               `).join('')}
             </div>
           ` : ''}
-          <div class="upload-area" onclick="document.getElementById('fileInput_${t.id}').click()">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <p>Click to upload photos/videos as proof</p>
-            <input type="file" id="fileInput_${t.id}" accept="image/*,video/*" multiple style="display:none;" onchange="uploadProof('${t.id}', this.files)">
-          </div>
-          <div style="display:flex;gap:8px;">
-            ${t.status !== 'completed' ? '<button class="btn btn-sage" onclick="markComplete(\''+t.id+'\')"><i class="fas fa-check"></i> Mark Complete</button>' : ''}
-          </div>
+          ${t.status !== 'completed' ? `
+            <div class="upload-area" onclick="document.getElementById('fileInput_${t.id}').click()">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>${hasProof ? 'Add more photos/videos' : 'Click to upload photos/videos as proof'}</p>
+              <input type="file" id="fileInput_${t.id}" accept="image/*,video/*" multiple style="display:none;" onchange="uploadProof('${t.id}', this.files)">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              ${hasProof
+                ? '<button class="btn btn-sage" onclick="markComplete(\''+t.id+'\')"><i class="fas fa-check"></i> Mark Complete</button>'
+                : '<button class="btn btn-sage" disabled style="opacity:0.5;cursor:not-allowed;" title="Upload at least one photo or video before marking complete"><i class="fas fa-lock"></i> Upload proof to complete</button>'
+              }
+            </div>
+            ${!hasProof ? '<p style="font-size:0.8rem;color:#DC2626;margin-top:6px;"><i class="fas fa-info-circle"></i> You must upload at least one photo or video of the seva before marking it complete.</p>' : ''}
+          ` : ''}
         </div>
       `;
     }
@@ -1552,9 +1805,25 @@ async function uploadProof(bookingId, files) {
 }
 
 async function markComplete(bookingId) {
-  await DB.update(bookingId, { status: 'completed' });
-  showToast('Task marked as completed!');
-  renderVendorDashboard();
+  // Guard: must have at least one proof uploaded
+  try {
+    const proofs = await ProofDB.getByBooking(bookingId);
+    if (!proofs || proofs.length === 0) {
+      showToast('Please upload at least one photo or video before marking complete.');
+      return;
+    }
+    await DB.update(bookingId, {
+      status: 'completed',
+      completedAt: new Date().toISOString(),
+      completedBy: currentVendor ? currentVendor.name : 'Sevadaar'
+    });
+    auditLog('SEVA_COMPLETED', 'Case: ' + bookingId + ' by ' + (currentVendor ? currentVendor.name : 'Sevadaar'));
+    showToast('Task marked as completed! Patient will be notified.');
+    renderVendorDashboard();
+  } catch(err) {
+    showToast('Error marking complete.');
+    console.error(err);
+  }
 }
 
 function vendorLogout() {
@@ -1595,78 +1864,195 @@ async function handlePatientLogin(e) {
 
 async function renderPatientPortal() {
   if (!currentPatientBooking) return;
+  // Re-fetch booking to get latest state
+  const fresh = await DB.readById(currentPatientBooking.id);
+  if (fresh) currentPatientBooking = fresh;
   const b = currentPatientBooking;
   try {
     const proofs = await ProofDB.getByBooking(b.id);
-    const statuses = ['pending', 'confirmed', 'assigned', 'completed'];
+
+    // Expanded 5-step timeline: Booked → Payment Submitted → Payment Confirmed → Assigned → Completed
+    const statuses = ['pending', 'payment_submitted', 'payment_confirmed', 'assigned', 'completed'];
+    const statusLabels = ['Booked', 'Payment Sent', 'Payment OK', 'Assigned', 'Completed'];
     const currentIdx = statuses.indexOf(b.status);
-    const statusLabels = ['Booked', 'Confirmed', 'Assigned', 'Completed'];
 
     let timelineHtml = '';
     statuses.forEach((s, i) => {
       const cls = i < currentIdx ? 'done' : (i === currentIdx ? 'current' : '');
-      timelineHtml += `<div class="timeline-step ${cls}"><div class="step-dot">${i < currentIdx ? '<i class="fas fa-check" style="font-size:0.7rem"></i>' : (i+1)}</div><div class="step-label">${statusLabels[i]}</div></div>`;
+      timelineHtml += '<div class="timeline-step ' + cls + '"><div class="step-dot">' + (i < currentIdx ? '<i class="fas fa-check" style="font-size:0.7rem"></i>' : (i+1)) + '</div><div class="step-label" style="font-size:0.75rem;">' + statusLabels[i] + '</div></div>';
       if (i < statuses.length - 1) {
-        timelineHtml += `<div class="timeline-line ${i < currentIdx ? 'done' : ''}"></div>`;
+        timelineHtml += '<div class="timeline-line ' + (i < currentIdx ? 'done' : '') + '"></div>';
       }
     });
 
-    document.getElementById('patientContent').innerHTML = `
-      <div class="patient-booking-card">
-        <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:16px;">
-          <div>
-            <h3>${b.sevaType}</h3>
-            <p style="color:var(--muted);margin-top:4px;"><strong>Case ID:</strong> ${b.id} &nbsp;|&nbsp; <strong>Patient:</strong> ${b.patientName} &nbsp;|&nbsp; <strong>Hospital:</strong> ${b.hospital}</p>
-            ${b.vendorName ? '<p style="color:var(--sage);margin-top:4px;"><i class="fas fa-store"></i> Assigned to: <strong>'+b.vendorName+'</strong></p>' : ''}
-          </div>
-          <span class="status-badge ${b.status}" style="font-size:0.9rem;padding:8px 16px;">${b.status.toUpperCase()}</span>
-        </div>
-        <div class="status-timeline">${timelineHtml}</div>
-      </div>
+    // ETA banner HTML (only shown after assignment)
+    let etaHtml = '';
+    if (b.status === 'assigned' && b.etaDeadline) {
+      const deadline = new Date(b.etaDeadline);
+      const now = new Date();
+      const diffMs = deadline - now;
+      if (diffMs > 0) {
+        const hrs = Math.floor(diffMs / 3600000);
+        const mins = Math.floor((diffMs % 3600000) / 60000);
+        etaHtml = '<div class="eta-banner">' +
+          '<div class="eta-title"><i class="fas fa-hourglass-half"></i> Your seva will be performed soon</div>' +
+          '<div class="eta-countdown" id="etaCountdown">' + hrs + 'h ' + mins + 'm remaining</div>' +
+          '<div class="eta-deadline">Expected completion: ' + deadline.toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) + '</div>' +
+          '</div>';
+      } else {
+        etaHtml = '<div class="eta-banner" style="background:linear-gradient(135deg,#D1FAE5,#A7F3D0);border-color:#059669;">' +
+          '<div class="eta-title" style="color:#065F46;"><i class="fas fa-clock"></i> Seva in progress — Sevadaar is performing now</div>' +
+          '</div>';
+      }
+    }
 
-      ${b.paymentAmount ? '<div class="payment-card">' +
-        '<p style="color:var(--muted);margin-bottom:8px;">Seva Payment</p>' +
-        '<div class="amount">₹' + Number(b.paymentAmount).toLocaleString('en-IN') + '</div>' +
-        '<span class="payment-status ' + (b.paymentStatus==='paid'?'paid':'unpaid') + '">' + (b.paymentStatus==='paid'?'Paid':'Payment Pending') + '</span>' +
-        (b.paymentStatus !== 'paid' ?
+    // Payment section
+    let paymentHtml = '';
+    if (b.paymentAmount) {
+      if (b.paymentStatus === 'paid' || b.status === 'payment_confirmed' || b.status === 'assigned' || b.status === 'completed') {
+        paymentHtml = '<div class="payment-card">' +
+          '<p style="color:var(--muted);margin-bottom:8px;">Seva Payment</p>' +
+          '<div class="amount">₹' + Number(b.paymentAmount).toLocaleString('en-IN') + '</div>' +
+          '<span class="payment-status paid"><i class="fas fa-check-circle"></i> Payment Confirmed</span>' +
+          (b.paymentConfirmedAt ? '<p style="font-size:0.8rem;color:var(--muted);margin-top:6px;">Verified on ' + new Date(b.paymentConfirmedAt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) + '</p>' : '') +
+          '</div>';
+      } else if (b.status === 'payment_submitted') {
+        paymentHtml = '<div class="payment-card" style="background:#FFFBEB;border:1px solid #FCD34D;">' +
+          '<p style="color:var(--muted);margin-bottom:8px;">Seva Payment</p>' +
+          '<div class="amount">₹' + Number(b.paymentAmount).toLocaleString('en-IN') + '</div>' +
+          '<span class="payment-status unpaid" style="background:#FED7AA;color:#9A3412;"><i class="fas fa-hourglass-half"></i> Awaiting Verification</span>' +
+          (b.paymentProofUrl ? '<div class="payment-proof-viewer" style="margin-top:14px;"><p style="font-size:0.85rem;color:var(--muted);margin-bottom:8px;">Your uploaded payment screenshot:</p><img src="' + b.paymentProofUrl + '" onclick="window.open(this.src,\'_blank\')"></div>' : '') +
+          '<p style="font-size:0.85rem;color:#7C2D12;margin-top:10px;">Our coordinator will verify your payment shortly and begin your seva.</p>' +
+          '</div>';
+      } else {
+        // pending — show QR + upload
+        paymentHtml = '<div class="payment-card">' +
+          '<p style="color:var(--muted);margin-bottom:8px;">Seva Payment</p>' +
+          '<div class="amount">₹' + Number(b.paymentAmount).toLocaleString('en-IN') + '</div>' +
+          '<span class="payment-status unpaid"><i class="fas fa-exclamation-circle"></i> Payment Pending</span>' +
           '<div style="margin-top:18px;padding:18px;background:#fff;border-radius:12px;border:1px solid var(--border);text-align:center;">' +
-            '<p style="font-weight:600;color:var(--ink);margin-bottom:10px;">Scan with any UPI app to pay</p>' +
+            '<p style="font-weight:600;color:var(--ink);margin-bottom:10px;">Step 1: Scan with any UPI app to pay</p>' +
             '<img src="upi-qr.png" alt="UPI QR Code" style="width:220px;height:220px;margin:0 auto;display:block;border-radius:8px;">' +
             '<p style="margin-top:10px;font-size:0.9rem;color:var(--muted);">Varsha Agrawal</p>' +
             '<p style="font-size:0.8rem;color:var(--muted);font-family:monospace;">9869692869@pthdfc</p>' +
-            '<div style="display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap;">' +
-              '<span style="font-size:0.75rem;color:var(--muted);">Works with</span>' +
-              '<span style="font-size:0.75rem;font-weight:600;color:#002970;">Paytm</span>' +
-              '<span style="font-size:0.75rem;font-weight:600;color:#5f259f;">PhonePe</span>' +
-              '<span style="font-size:0.75rem;font-weight:600;color:#4285f4;">GPay</span>' +
-              '<span style="font-size:0.75rem;font-weight:600;color:#ff6600;">BHIM</span>' +
-            '</div>' +
-            '<div class="pay-btn" style="margin-top:14px;"><a href="' + generateUPILink(b.paymentAmount, b.id) + '" class="btn btn-sage"><i class="fas fa-mobile-alt"></i> Or tap to pay on mobile</a></div>' +
-          '</div>'
-        : '') +
-      '</div>' : ''}
+            '<div class="pay-btn" style="margin-top:10px;"><a href="' + generateUPILink(b.paymentAmount, b.id) + '" class="btn btn-sage"><i class="fas fa-mobile-alt"></i> Or tap to pay on mobile</a></div>' +
+          '</div>' +
+          '<div style="margin-top:14px;padding:18px;background:#FEF3C7;border-radius:12px;border:1px solid #FCD34D;text-align:center;">' +
+            '<p style="font-weight:700;color:#7C2D12;margin-bottom:10px;"><i class="fas fa-upload"></i> Step 2: Upload payment screenshot</p>' +
+            '<p style="font-size:0.85rem;color:#78716C;margin-bottom:12px;">After payment, take a screenshot of your transaction confirmation and upload below. Our coordinator will verify and assign a Sevadaar.</p>' +
+            '<input type="file" id="paymentProofInput" accept="image/*" style="display:none;" onchange="uploadPaymentProof(this.files)">' +
+            '<button class="btn btn-primary" onclick="document.getElementById(\'paymentProofInput\').click()" style="background:#EA580C;"><i class="fas fa-camera"></i> Upload Payment Screenshot</button>' +
+          '</div>' +
+          '</div>';
+      }
+    }
 
-      <div class="patient-booking-card">
-        <h3 style="margin-bottom:16px;"><i class="fas fa-camera" style="color:var(--accent)"></i> Proof of Service</h3>
-        ${proofs.length === 0
-          ? '<p style="color:var(--muted);text-align:center;padding:20px;">No proof uploaded yet. Once your seva is performed, photos and videos will appear here.</p>'
-          : '<div class="proof-gallery">' + proofs.map(p => `
-              <div class="proof-thumb">
-                ${p.fileType && p.fileType.startsWith('video')
-                  ? '<video src="'+p.fileUrl+'" style="width:100%;height:100%;object-fit:cover;" controls></video>'
-                  : '<img src="'+p.fileUrl+'" alt="Proof" onclick="window.open(\''+p.fileUrl+'\',\'_blank\')" style="cursor:pointer;">'}
-                <div class="proof-time">${new Date(p.uploadedAt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
-              </div>
-            `).join('') + '</div>'
+    // Coordinator notes visible to patient after assignment
+    let coordNotesHtml = '';
+    if (b.status === 'assigned' || b.status === 'completed') {
+      try {
+        const noteSnap = await db.collection('callNotes').where('bookingId', '==', b.id).get();
+        const notes = noteSnap.docs.map(d => d.data()).sort((a,b) => b.createdAt.localeCompare(a.createdAt));
+        const latest = notes[0];
+        if (latest && (latest.patientCondition || latest.pujaSpecs || latest.notes)) {
+          coordNotesHtml = '<div class="notes-from-coord">' +
+            '<strong><i class="fas fa-headset"></i> Notes from your Seva Coordinator:</strong>' +
+            (latest.patientCondition ? '<div style="margin-top:6px;font-size:0.9rem;"><strong>Condition:</strong> ' + latest.patientCondition + '</div>' : '') +
+            (latest.pujaSpecs ? '<div style="font-size:0.9rem;"><strong>Puja details:</strong> ' + latest.pujaSpecs + '</div>' : '') +
+            (latest.notes ? '<div style="font-size:0.9rem;margin-top:4px;">' + latest.notes + '</div>' : '') +
+            '</div>';
         }
-      </div>
+      } catch(e) { console.error(e); }
+    }
 
-      ${b.status === 'completed' ? '<div style="text-align:center;padding:24px;"><button class="btn btn-primary" onclick="showFeedbackModal()" style="background:var(--accent);"><i class="fas fa-star"></i> Share Your Experience</button></div>' : ''}
-    `;
+    document.getElementById('patientContent').innerHTML =
+      '<div class="patient-booking-card">' +
+        '<div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:16px;">' +
+          '<div>' +
+            '<h3>' + b.sevaType + '</h3>' +
+            '<p style="color:var(--muted);margin-top:4px;"><strong>Case ID:</strong> ' + b.id + ' &nbsp;|&nbsp; <strong>Patient:</strong> ' + b.patientName + ' &nbsp;|&nbsp; <strong>Hospital:</strong> ' + b.hospital + '</p>' +
+            (b.vendorName ? '<p style="color:var(--sage);margin-top:4px;"><i class="fas fa-om"></i> Your Sevadaar: <strong>'+b.vendorName+'</strong></p>' : '') +
+          '</div>' +
+          '<span class="status-badge ' + b.status + '" style="font-size:0.9rem;padding:8px 16px;">' + b.status.replace(/_/g,' ') + '</span>' +
+        '</div>' +
+        '<div class="status-timeline">' + timelineHtml + '</div>' +
+      '</div>' +
+
+      etaHtml +
+      paymentHtml +
+      coordNotesHtml +
+
+      '<div class="patient-booking-card">' +
+        '<h3 style="margin-bottom:16px;"><i class="fas fa-camera" style="color:var(--accent)"></i> Proof of Service</h3>' +
+        (proofs.length === 0
+          ? '<p style="color:var(--muted);text-align:center;padding:20px;">No proof uploaded yet. Once your seva is performed, photos and videos will appear here.</p>'
+          : '<div class="proof-gallery">' + proofs.map(function(p) {
+              return '<div class="proof-thumb">' +
+                (p.fileType && p.fileType.startsWith('video')
+                  ? '<video src="'+p.fileUrl+'" style="width:100%;height:100%;object-fit:cover;" controls></video>'
+                  : '<img src="'+p.fileUrl+'" alt="Proof" onclick="window.open(\''+p.fileUrl+'\',\'_blank\')" style="cursor:pointer;">') +
+                '<div class="proof-time">' + new Date(p.uploadedAt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) + '</div>' +
+              '</div>';
+            }).join('') + '</div>'
+        ) +
+      '</div>' +
+
+      (b.status === 'completed' ? '<div style="text-align:center;padding:24px;"><button class="btn btn-primary" onclick="showFeedbackModal()" style="background:var(--accent);"><i class="fas fa-star"></i> Share Your Experience</button></div>' : '');
+
+    // Start live countdown if ETA is set
+    if (b.status === 'assigned' && b.etaDeadline) {
+      startEtaCountdown(b.etaDeadline);
+    }
   } catch(err) {
     console.error('Patient portal error:', err);
     showToast('Error loading data.');
   }
+}
+
+// Upload payment proof screenshot
+async function uploadPaymentProof(files) {
+  if (!files || files.length === 0 || !currentPatientBooking) return;
+  const file = files[0];
+  showToast('Uploading payment proof...');
+  try {
+    const ts = Date.now();
+    const path = 'payment_proofs/' + currentPatientBooking.id + '/' + ts + '_' + file.name;
+    const ref = storage.ref(path);
+    await ref.put(file);
+    const url = await ref.getDownloadURL();
+    await DB.update(currentPatientBooking.id, {
+      paymentProofUrl: url,
+      paymentProofUploadedAt: new Date().toISOString(),
+      paymentStatus: 'submitted',
+      status: 'payment_submitted'
+    });
+    auditLog('PATIENT_PAYMENT_PROOF', 'Case: ' + currentPatientBooking.id);
+    showToast('Payment proof uploaded! Awaiting verification.');
+    renderPatientPortal();
+  } catch(err) {
+    showToast('Upload failed. Please try again.');
+    console.error(err);
+  }
+}
+
+// Live ETA countdown
+let etaInterval = null;
+function startEtaCountdown(deadlineIso) {
+  if (etaInterval) clearInterval(etaInterval);
+  etaInterval = setInterval(function() {
+    const el = document.getElementById('etaCountdown');
+    if (!el) { clearInterval(etaInterval); return; }
+    const diff = new Date(deadlineIso) - new Date();
+    if (diff <= 0) {
+      el.textContent = 'Deadline reached';
+      clearInterval(etaInterval);
+      return;
+    }
+    const hrs = Math.floor(diff / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    el.textContent = hrs + 'h ' + mins + 'm ' + secs + 's remaining';
+  }, 1000);
 }
 
 function patientLogout() {
@@ -1733,13 +2119,17 @@ async function renderCoordinatorDashboard() {
   if (!currentCoordinator) return;
   try {
     var snap = await db.collection('bookings').where('coordinatorId', '==', currentCoordinator.id).get();
-    var tasks = snap.docs.map(function(d) { return d.data(); });
-    var pending = tasks.filter(function(t) { return t.status !== 'completed'; }).length;
+    var tasks = snap.docs.map(function(d) { return d.data(); }).sort(function(a,b) { return b.createdAt.localeCompare(a.createdAt); });
+    var awaitingPayment = tasks.filter(function(t) { return t.status === 'payment_submitted'; }).length;
+    var readyToAssign = tasks.filter(function(t) { return t.status === 'payment_confirmed'; }).length;
+    var active = tasks.filter(function(t) { return t.status === 'assigned'; }).length;
     var completed = tasks.filter(function(t) { return t.status === 'completed'; }).length;
 
     document.getElementById('coordStats').innerHTML =
       '<div class="admin-stat-card"><div class="stat-value">' + tasks.length + '</div><div class="stat-desc">Total Cases</div></div>' +
-      '<div class="admin-stat-card"><div class="stat-value" style="color:var(--accent)">' + pending + '</div><div class="stat-desc">Active</div></div>' +
+      '<div class="admin-stat-card"><div class="stat-value" style="color:#EA580C">' + awaitingPayment + '</div><div class="stat-desc">Verify Payment</div></div>' +
+      '<div class="admin-stat-card"><div class="stat-value" style="color:#6366F1">' + readyToAssign + '</div><div class="stat-desc">Ready to Assign</div></div>' +
+      '<div class="admin-stat-card"><div class="stat-value" style="color:var(--accent)">' + active + '</div><div class="stat-desc">In Progress</div></div>' +
       '<div class="admin-stat-card"><div class="stat-value" style="color:var(--sage)">' + completed + '</div><div class="stat-desc">Completed</div></div>';
 
     if (tasks.length === 0) {
@@ -1747,23 +2137,81 @@ async function renderCoordinatorDashboard() {
       return;
     }
 
+    // Load sevadaars for assignment dropdown
+    var vendors = await VendorDB.readAll();
+    var activeVendors = vendors.filter(function(v) { return v.status === 'active'; });
+
     var html = '';
     for (var i = 0; i < tasks.length; i++) {
       var t = tasks[i];
       var notesSnap = await db.collection('callNotes').where('bookingId', '==', t.id).get();
       var notes = notesSnap.docs.map(function(d) { return d.data(); }).sort(function(a,b) { return b.createdAt.localeCompare(a.createdAt); });
 
+      // Payment proof viewer (shown if patient uploaded + not yet confirmed)
+      var paymentBlock = '';
+      if (t.status === 'payment_submitted' && t.paymentProofUrl) {
+        paymentBlock = '<div style="margin-top:14px;padding:16px;background:#FEF3C7;border-radius:10px;border-left:4px solid #EA580C;">' +
+          '<strong style="color:#7C2D12;"><i class="fas fa-receipt"></i> Payment Proof Uploaded by Patient</strong>' +
+          '<div class="payment-proof-viewer" style="margin-top:10px;">' +
+            '<img src="' + t.paymentProofUrl + '" onclick="window.open(this.src,\'_blank\')">' +
+          '</div>' +
+          '<p style="font-size:0.85rem;color:#78716C;margin-top:8px;">Amount claimed: <strong>₹' + Number(t.paymentAmount||0).toLocaleString('en-IN') + '</strong> &nbsp;|&nbsp; Uploaded: ' + (t.paymentProofUploadedAt ? new Date(t.paymentProofUploadedAt).toLocaleString('en-IN') : 'N/A') + '</p>' +
+          '<div style="display:flex;gap:8px;margin-top:12px;">' +
+            '<button class="btn btn-sage" onclick="confirmPayment(\'' + t.id + '\')" style="padding:8px 16px;font-size:0.85rem;"><i class="fas fa-check"></i> Confirm Payment Received</button>' +
+            '<button class="btn btn-outline" onclick="rejectPayment(\'' + t.id + '\')" style="padding:8px 16px;font-size:0.85rem;"><i class="fas fa-times"></i> Reject / Ask Again</button>' +
+          '</div>' +
+        '</div>';
+      } else if (t.status === 'payment_confirmed') {
+        paymentBlock = '<div style="margin-top:14px;padding:12px;background:#D1FAE5;border-radius:8px;color:#065F46;font-size:0.9rem;"><i class="fas fa-check-circle"></i> <strong>Payment confirmed.</strong> Now assign a Sevadaar and set ETA below.</div>';
+      } else if (t.status === 'assigned') {
+        paymentBlock = '<div style="margin-top:14px;padding:12px;background:#E0E7FF;border-radius:8px;color:#3730A3;font-size:0.9rem;"><i class="fas fa-user-check"></i> <strong>Assigned to ' + (t.vendorName || '—') + '</strong>' +
+          (t.etaDeadline ? ' &middot; ETA: ' + new Date(t.etaDeadline).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '') +
+          '</div>';
+      } else if (t.status === 'pending') {
+        paymentBlock = '<div style="margin-top:14px;padding:12px;background:#FEF3C7;border-radius:8px;color:#92400E;font-size:0.9rem;"><i class="fas fa-hourglass-half"></i> Waiting for patient to upload payment screenshot.</div>';
+      }
+
+      // Assignment block (only after payment_confirmed)
+      var assignBlock = '';
+      if (t.status === 'payment_confirmed') {
+        var opts = activeVendors.map(function(v) { return '<option value="' + v.id + '|' + v.name + '">' + v.name + ' (' + (v.city||'') + ')</option>'; }).join('');
+        assignBlock = '<div style="margin-top:14px;padding:16px;background:#EEF2FF;border-radius:10px;border-left:4px solid #6366F1;">' +
+          '<strong style="color:#4338CA;"><i class="fas fa-paper-plane"></i> Assign Sevadaar & Set ETA</strong>' +
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">' +
+            '<div><label style="font-size:0.85rem;color:#4338CA;">Choose Sevadaar</label>' +
+              '<select id="assignSevadaar_' + t.id + '" style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border);margin-top:4px;">' +
+                '<option value="">-- Select --</option>' + opts +
+              '</select>' +
+            '</div>' +
+            '<div><label style="font-size:0.85rem;color:#4338CA;">Expected time to perform</label>' +
+              '<select id="assignEta_' + t.id + '" style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border);margin-top:4px;">' +
+                '<option value="">-- Select --</option>' +
+                '<option value="6">Within 6 hours</option>' +
+                '<option value="10">Within 10 hours</option>' +
+                '<option value="24">Within 1 day (24h)</option>' +
+                '<option value="48">Within 2 days (48h)</option>' +
+                '<option value="72">Within 3 days (72h)</option>' +
+              '</select>' +
+            '</div>' +
+          '</div>' +
+          '<button class="btn btn-primary" onclick="assignAndDispatch(\'' + t.id + '\')" style="background:#6366F1;margin-top:12px;padding:10px 20px;font-size:0.9rem;"><i class="fas fa-check"></i> Assign & Notify Patient</button>' +
+        '</div>';
+      }
+
       html += '<div class="call-notes-card">' +
         '<div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:8px;">' +
           '<div><h4>' + t.sevaType + '</h4>' +
           '<div class="task-meta"><strong>Case:</strong> ' + t.id + ' | <strong>Patient:</strong> ' + t.patientName + ' | <strong>Hospital:</strong> ' + t.hospital + '<br>' +
-          '<strong>Caregiver:</strong> ' + t.caregiverName + ' | <strong>Phone:</strong> ' + t.caregiverPhone + '</div></div>' +
-          '<span class="status-badge ' + t.status + '">' + t.status + '</span>' +
+          '<strong>Caregiver:</strong> ' + t.caregiverName + ' | <strong>Phone:</strong> <a href="tel:' + t.caregiverPhone + '" style="color:#6366F1;">' + t.caregiverPhone + '</a></div></div>' +
+          '<span class="status-badge ' + t.status + '">' + t.status.replace(/_/g,' ') + '</span>' +
         '</div>' +
-        '<div class="call-notes-form">' +
-          '<input type="text" id="notePatientCondition_' + t.id + '" placeholder="Patient Condition (e.g., Post-surgery recovery)">' +
-          '<input type="text" id="notePujaSpecs_' + t.id + '" placeholder="Puja Specifications (e.g., Gotra, Nakshatra, specific deity)">' +
-          '<textarea id="noteText_' + t.id + '" placeholder="Call notes — record conversation details, family preferences, urgency..."></textarea>' +
+        paymentBlock +
+        assignBlock +
+        '<div class="call-notes-form" style="margin-top:14px;">' +
+          '<strong style="font-size:0.85rem;color:#4338CA;"><i class="fas fa-phone"></i> Call the caregiver and record notes (these will be shared with the Sevadaar):</strong>' +
+          '<input type="text" id="notePatientCondition_' + t.id + '" placeholder="Patient Condition (e.g., Post-surgery recovery, Stage 4 cancer)" style="margin-top:8px;">' +
+          '<input type="text" id="notePujaSpecs_' + t.id + '" placeholder="Puja Specifications (Gotra, Nakshatra, specific deity, family members names)">' +
+          '<textarea id="noteText_' + t.id + '" placeholder="Call notes — family preferences, urgency, language, hospital contact, any special instructions..."></textarea>' +
           '<button class="btn btn-primary" onclick="saveCallNote(\'' + t.id + '\')" style="background:#6366F1;padding:8px 20px;font-size:0.85rem;"><i class="fas fa-save"></i> Save Notes</button>' +
         '</div>' +
         (notes.length > 0 ? '<div style="margin-top:12px;"><strong style="font-size:0.85rem;">Previous Notes:</strong>' +
@@ -1779,6 +2227,75 @@ async function renderCoordinatorDashboard() {
   } catch(err) {
     console.error('Coordinator dashboard error:', err);
     showToast('Error loading cases.');
+  }
+}
+
+// Coordinator: confirm payment after reviewing screenshot
+async function confirmPayment(bookingId) {
+  if (!confirm('Confirm that payment has been received in UPI account?')) return;
+  try {
+    await DB.update(bookingId, {
+      status: 'payment_confirmed',
+      paymentStatus: 'paid',
+      paymentConfirmedAt: new Date().toISOString(),
+      paymentConfirmedBy: currentCoordinator ? currentCoordinator.name : 'Admin'
+    });
+    auditLog('PAYMENT_CONFIRMED', 'Case: ' + bookingId + ' by ' + (currentCoordinator ? currentCoordinator.name : 'Admin'));
+    showToast('Payment confirmed. You can now assign a Sevadaar.');
+    if (currentCoordinator) renderCoordinatorDashboard();
+    else renderAdmin();
+  } catch(err) {
+    showToast('Error confirming payment.');
+    console.error(err);
+  }
+}
+
+// Coordinator: reject payment (send back to pending so patient re-uploads)
+async function rejectPayment(bookingId) {
+  var reason = prompt('Optional: reason to share with patient (leave blank to just reset)?');
+  if (reason === null) return;
+  try {
+    await DB.update(bookingId, {
+      status: 'pending',
+      paymentStatus: 'unpaid',
+      paymentProofUrl: '',
+      paymentRejectionReason: reason || ''
+    });
+    auditLog('PAYMENT_REJECTED', 'Case: ' + bookingId + ' Reason: ' + (reason || 'none'));
+    showToast('Payment rejected. Patient will be asked to re-upload.');
+    if (currentCoordinator) renderCoordinatorDashboard();
+    else renderAdmin();
+  } catch(err) {
+    showToast('Error.');
+    console.error(err);
+  }
+}
+
+// Coordinator: assign sevadaar + set ETA in one action
+async function assignAndDispatch(bookingId) {
+  var vendorInfo = document.getElementById('assignSevadaar_' + bookingId).value;
+  var etaHrs = document.getElementById('assignEta_' + bookingId).value;
+  if (!vendorInfo) { showToast('Please select a Sevadaar.'); return; }
+  if (!etaHrs) { showToast('Please select expected time.'); return; }
+  var parts = vendorInfo.split('|');
+  var deadline = new Date(Date.now() + parseInt(etaHrs) * 3600000).toISOString();
+  try {
+    await DB.update(bookingId, {
+      vendorId: parts[0],
+      vendorName: parts[1],
+      etaHours: parseInt(etaHrs),
+      etaSetAt: new Date().toISOString(),
+      etaSetBy: currentCoordinator ? currentCoordinator.name : 'Admin',
+      etaDeadline: deadline,
+      status: 'assigned'
+    });
+    auditLog('SEVADAAR_ASSIGNED', 'Case: ' + bookingId + ' Sevadaar: ' + parts[1] + ' ETA: ' + etaHrs + 'h');
+    showToast('Assigned to ' + parts[1] + ' with ' + etaHrs + 'h ETA.');
+    if (currentCoordinator) renderCoordinatorDashboard();
+    else renderAdmin();
+  } catch(err) {
+    showToast('Error assigning.');
+    console.error(err);
   }
 }
 
@@ -1933,6 +2450,138 @@ async function submitFeedback() {
   }
 }
 
+// ===== FREE SEVA REGISTRATION =====
+function toggleFreeSeva(e) {
+  e && e.preventDefault();
+  hideAllPortals();
+  document.getElementById('mainSite').style.display = 'none';
+  document.getElementById('freeSevaPage').classList.add('active');
+  document.getElementById('freeSevaFormContainer').style.display = 'block';
+  document.getElementById('freeSevaSuccess').classList.remove('active');
+  window.scrollTo(0, 0);
+}
+
+async function submitFreeSeva(e) {
+  e.preventDefault();
+  var patientName = document.getElementById('fsPatientName').value.trim();
+  var relativeName = document.getElementById('fsRelativeName').value.trim();
+  var mobile = document.getElementById('fsMobile').value.trim().replace(/\s/g, '');
+  var hospital = document.getElementById('fsHospital').value.trim();
+  var city = document.getElementById('fsCity').value.trim();
+  var condition = document.getElementById('fsCondition').value;
+  var templeEl = document.querySelector('input[name="fsTemple"]:checked');
+  var message = document.getElementById('fsMessage').value.trim();
+  var consent = document.getElementById('fsConsent').checked;
+
+  if (!patientName || !relativeName || !mobile || !hospital || !city) {
+    showToast('Please fill all required fields.');
+    return;
+  }
+  if (!templeEl) { showToast('Please select a temple.'); return; }
+  if (!consent) { showToast('Please give consent to proceed.'); return; }
+
+  var caseId = 'FS-' + Date.now().toString(36).toUpperCase();
+
+  try {
+    await db.collection('freeRegistrations').doc(caseId).set({
+      id: caseId,
+      patientName: patientName,
+      relativeName: relativeName,
+      mobile: mobile,
+      hospital: hospital,
+      city: city,
+      condition: condition,
+      temple: templeEl.value,
+      message: message,
+      status: 'pending',
+      proofUrl: '',
+      proofUploadedAt: '',
+      sevaCompletedAt: '',
+      convertedToPaid: false,
+      createdAt: new Date().toISOString()
+    });
+
+    auditLog('FREE_SEVA_REGISTERED', 'Case: ' + caseId + ' Patient: ' + patientName + ' Temple: ' + templeEl.value);
+    showToast('Prayer registered successfully!');
+
+    // Show success
+    document.getElementById('freeSevaFormContainer').style.display = 'none';
+    document.getElementById('freeSevaCase').textContent = caseId;
+    document.getElementById('freeSevaTempleConfirm').textContent = templeEl.value;
+    document.getElementById('freeSevaSuccess').classList.add('active');
+    window.scrollTo(0, 0);
+  } catch(err) {
+    showToast('Error registering. Please try again.');
+    console.error(err);
+  }
+}
+
+async function updateFreeSevaStatus(id, newStatus) {
+  try {
+    var updates = { status: newStatus };
+    if (newStatus === 'prayer_done') updates.sevaCompletedAt = new Date().toISOString();
+    await db.collection('freeRegistrations').doc(id).update(updates);
+    auditLog('FREE_SEVA_STATUS', 'Case: ' + id + ' → ' + newStatus);
+    showToast('Status updated to ' + newStatus);
+    renderAdmin();
+  } catch(err) {
+    showToast('Error updating status.');
+    console.error(err);
+  }
+}
+
+async function convertFreeToBooking(freeId) {
+  try {
+    var doc = await db.collection('freeRegistrations').doc(freeId).get();
+    if (!doc.exists) { showToast('Registration not found.'); return; }
+    var f = doc.data();
+    var sevaType = prompt('Which premium seva? (e.g., Mahamrityunjay Jap, Rudrabhishek, Navgraha Shanti, Gaushala Seva)');
+    if (!sevaType) return;
+    // Create a paid booking from the free seva data
+    var bookingId = 'PS-' + Date.now().toString(36).toUpperCase();
+    await db.collection('bookings').doc(bookingId).set({
+      id: bookingId,
+      sevaType: sevaType,
+      caregiverName: f.relativeName,
+      caregiverPhone: f.mobile,
+      patientName: f.patientName,
+      hospital: f.hospital,
+      city: f.city,
+      condition: f.condition || '',
+      status: 'pending',
+      paymentAmount: '',
+      paymentStatus: 'unpaid',
+      vendorId: '',
+      vendorName: '',
+      coordinatorId: '',
+      coordinatorName: '',
+      freeSevaOrigin: freeId,
+      createdAt: new Date().toISOString()
+    });
+    await db.collection('freeRegistrations').doc(freeId).update({ convertedToPaid: true, convertedBookingId: bookingId, status: 'converted' });
+    auditLog('FREE_TO_PAID', 'Free: ' + freeId + ' → Paid: ' + bookingId);
+    showToast('Converted! New booking ' + bookingId + ' created. Set payment amount in Bookings tab.');
+    renderAdmin();
+  } catch(err) {
+    showToast('Error converting.');
+    console.error(err);
+  }
+}
+
+function resetFreeSeva() {
+  document.getElementById('freeSevaFormContainer').style.display = 'block';
+  document.getElementById('freeSevaSuccess').classList.remove('active');
+  // Reset form
+  ['fsPatientName','fsRelativeName','fsMobile','fsHospital','fsCity','fsMessage'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('fsCondition').value = '';
+  document.getElementById('fsConsent').checked = false;
+  var checked = document.querySelector('input[name="fsTemple"]:checked');
+  if (checked) checked.checked = false;
+  window.scrollTo(0, 0);
+}
+
 // ===== UPI PAYMENT =====
 function generateUPILink(amount, bookingId) {
   var upiId = '9869692869@pthdfc';
@@ -1956,7 +2605,7 @@ document.addEventListener('click', function(e) {
 
 // ===== NAV & UI =====
 function hideAllPortals() {
-  ['adminPanel','adminLogin','vendorLogin','vendorPortal','patientLogin','patientPortal','coordinatorLogin','coordinatorPortal'].forEach(function(id) {
+  ['adminPanel','adminLogin','vendorLogin','vendorPortal','patientLogin','patientPortal','coordinatorLogin','coordinatorPortal','freeSevaPage'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.classList.remove('active');
   });
@@ -2060,6 +2709,14 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+// ===== HASH ROUTER (for QR code deep links) =====
+(function() {
+  var hash = window.location.hash;
+  if (hash === '#free-seva' || hash === '#free' || hash === '#free-prayer') {
+    toggleFreeSeva();
+  }
+})();
 
 // ===== SCROLL ANIMATIONS =====
 const observer = new IntersectionObserver((entries) => {
