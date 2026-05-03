@@ -19,9 +19,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<!-- Razorpay Checkout -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
@@ -182,6 +179,19 @@ img { max-width: 100%; display: block; }
 .success-state .next-steps ul { list-style: none; padding: 0; }
 .success-state .next-steps li { font-size: 0.88rem; color: var(--body-text); padding: 5px 0; display: flex; gap: 10px; }
 .success-state .next-steps li i { color: var(--saffron); margin-top: 4px; }
+
+/* PAY VIA UPI BLOCK */
+.pay-block { background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 100%); border-radius: 14px; padding: 22px; margin: 22px 0; border: 2px dashed var(--saffron); }
+.pay-block h4 { font-size: 1.1rem; color: var(--saffron-deep); margin-bottom: 6px; }
+.pay-block .pay-amt { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--saffron); margin: 6px 0 14px; }
+.pay-block .qr-wrap { background: var(--white); border-radius: 12px; padding: 14px; display: inline-block; box-shadow: var(--shadow); margin-bottom: 14px; }
+.pay-block .qr-wrap img { width: 200px; height: 200px; display: block; }
+.pay-block .upi-id-row { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--white); padding: 10px 14px; border-radius: 8px; margin: 8px auto 14px; max-width: 320px; font-family: monospace; font-size: 0.95rem; color: var(--dark); border: 1px solid var(--border); }
+.pay-block .upi-id-row .copy-btn { background: var(--saffron); color: white; border: none; padding: 5px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; }
+.pay-block .upi-id-row .copy-btn:hover { background: var(--saffron-deep); }
+.pay-block .upi-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+.pay-block .upi-actions .btn { padding: 11px 20px; font-size: 0.9rem; }
+.pay-block .pay-instr { font-size: 0.85rem; color: var(--saffron-deep); margin-top: 12px; font-weight: 500; }
 
 /* TESTIMONIAL STRIP */
 .trust-strip { padding: 50px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -378,8 +388,8 @@ img { max-width: 100%; display: block; }
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h4>Pay</h4>
-        <p>Pay ₹151 or ₹251 securely via UPI or card.</p>
+        <h4>Pay via UPI</h4>
+        <p>Scan our UPI QR with any app — GPay, PhonePe, Paytm. Send screenshot on WhatsApp.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
@@ -452,7 +462,7 @@ img { max-width: 100%; display: block; }
           <span>I understand this is a faith-seva offering performed on my behalf and accept that PunyaSeva does not guarantee any specific exam outcome. I consent to receiving WhatsApp/SMS updates on the mobile number provided.</span>
         </label>
 
-        <button type="submit" class="btn btn-primary form-submit"><i class="fas fa-pray"></i> <span id="submitText">Continue to Payment</span></button>
+        <button type="submit" class="btn btn-primary form-submit"><i class="fas fa-pray"></i> <span id="submitText">Enroll & Get UPI QR</span></button>
         <div class="form-note"><i class="fas fa-lock"></i> Your details are kept confidential. Used only for performing the seva and sharing proof.</div>
       </form>
 
@@ -461,17 +471,34 @@ img { max-width: 100%; display: block; }
         <h3>Sankalp received 🙏</h3>
         <p>Your seva for <strong id="successStudent"></strong> has been registered.</p>
         <div class="ref-badge" id="successRef"></div>
+
+        <div class="pay-block">
+          <h4>Step 1 of 2 — Complete the payment</h4>
+          <div class="pay-amt">₹<span id="successAmount">0</span></div>
+          <div class="qr-wrap">
+            <img src="upi-qr.png" alt="UPI QR Code">
+          </div>
+          <div class="upi-id-row">
+            <span id="upiIdText">9869692869@pthdfc</span>
+            <button class="copy-btn" onclick="copyUpi()"><i class="fas fa-copy"></i> Copy</button>
+          </div>
+          <div class="upi-actions">
+            <a id="upiAppLink" href="#" class="btn btn-primary"><i class="fas fa-mobile-screen-button"></i> Open UPI App</a>
+          </div>
+          <div class="pay-instr"><i class="fas fa-info-circle"></i> Scan the QR or tap "Open UPI App" to pay ₹<span id="successAmount2">0</span> to PunyaSeva.</div>
+        </div>
+
         <div class="next-steps">
-          <h4>What happens next:</h4>
+          <h4>Step 2 — Send payment screenshot on WhatsApp:</h4>
           <ul>
-            <li><i class="fab fa-whatsapp"></i> A WhatsApp confirmation will open — tap <strong>Send</strong> to confirm with our team</li>
-            <li><i class="fas fa-phone"></i> Our coordinator will call within 2 hours if any detail needs clarifying</li>
-            <li><i class="fas fa-pray"></i> Your seva will be performed within 48 hours</li>
-            <li><i class="fas fa-image"></i> Photo, video & prasad blessing shared on WhatsApp</li>
+            <li><i class="fab fa-whatsapp"></i> Tap the green WhatsApp button below — your message is already pre-filled</li>
+            <li><i class="fas fa-paperclip"></i> Attach your payment screenshot in the same chat</li>
+            <li><i class="fas fa-pray"></i> We confirm & perform the seva within 48 hours</li>
+            <li><i class="fas fa-image"></i> Photo, video & prasad blessing shared back on WhatsApp</li>
           </ul>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
-          <button class="btn btn-primary" id="manualWaBtn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> Open WhatsApp Confirmation</button>
+          <button class="btn btn-primary" id="manualWaBtn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> Send Screenshot on WhatsApp</button>
           <button class="btn btn-outline" onclick="resetForm()">Enroll Another Aspirant</button>
         </div>
       </div>
@@ -577,15 +604,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// === RAZORPAY ===
-// IMPORTANT: Replace this with your live key when going to production.
-// Get from: https://dashboard.razorpay.com/app/keys
-// Test mode is fine for now — payments won't be charged.
-const RAZORPAY_KEY = 'rzp_test_REPLACE_WITH_YOUR_KEY';
-
-// === PUNYASEVA CONTACT ===
+// === PUNYASEVA CONTACT + PAYMENT ===
 const PUNYASEVA_WHATSAPP = '919869692869'; // country code + number, no +
 const PUNYASEVA_PHONE    = '+91 98696 92869';
+const UPI_ID             = '9869692869@pthdfc';
+const UPI_PAYEE_NAME     = 'PunyaSeva';
 
 const SEVAS = {
   gauseva:  { name: 'Gauseva',                     price: 151, location: 'Network gaushala'             },
@@ -612,20 +635,40 @@ document.querySelectorAll('.faq-item').forEach(item => {
 
 // === WHATSAPP HANDOFF ===
 // Opens parent's WhatsApp with a pre-filled message TO PunyaSeva.
-// Parent taps Send → PunyaSeva WhatsApp inbox receives the lead instantly.
-// (For true automated outbound replies FROM PunyaSeva, an API like Wati/Gupshup
-//  is needed — that's a backend integration, not possible from a static page.)
+// Parent attaches the payment screenshot in the same chat → confirmation done.
 function openWhatsAppHandoff(enrollment) {
   const msg =
     `Namaste 🙏\n\n` +
     `I have just enrolled my child *${enrollment.studentName}* for *${enrollment.sevaName}* (₹${enrollment.amount}) through ExamPrayers.\n\n` +
     `*Booking ID:* ${enrollment.id}\n` +
     `*Parent:* ${enrollment.parentName}\n` +
-    `*City:* ${enrollment.city}\n` +
-    `*Payment:* ${enrollment.paymentStatus === 'paid' ? '✅ Paid' : '⏳ Pending — please share UPI/payment link'}\n\n` +
-    `Please confirm the seva date.`;
+    `*City:* ${enrollment.city}\n\n` +
+    `📎 Sharing the payment screenshot in the next message. Please confirm the seva date.`;
   const url = `https://wa.me/${PUNYASEVA_WHATSAPP}?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
+}
+
+// === BUILD UPI DEEP LINK ===
+// Format: upi://pay?pa={UPI_ID}&pn={NAME}&am={AMOUNT}&cu=INR&tn={NOTE}
+// On Android phones this opens the UPI app picker (GPay, PhonePe, Paytm, etc.)
+function buildUpiLink(enrollment) {
+  const params = new URLSearchParams({
+    pa: UPI_ID,
+    pn: UPI_PAYEE_NAME,
+    am: enrollment.amount.toString(),
+    cu: 'INR',
+    tn: `ExamPrayers ${enrollment.id} - ${enrollment.sevaName}`
+  });
+  return 'upi://pay?' + params.toString();
+}
+
+// === COPY UPI ID ===
+function copyUpi() {
+  navigator.clipboard.writeText(UPI_ID).then(() => {
+    showToast('UPI ID copied');
+  }).catch(() => {
+    showToast('Could not copy — please long-press the UPI ID', true);
+  });
 }
 
 // === SHOW SUCCESS STATE ===
@@ -633,78 +676,17 @@ function showSuccessState(enrollment) {
   document.getElementById('enrollForm').style.display = 'none';
   document.getElementById('successStudent').textContent = enrollment.studentName;
   document.getElementById('successRef').textContent = enrollment.id;
+  document.getElementById('successAmount').textContent  = enrollment.amount;
+  document.getElementById('successAmount2').textContent = enrollment.amount;
+  document.getElementById('upiIdText').textContent = UPI_ID;
+  document.getElementById('upiAppLink').href = buildUpiLink(enrollment);
   document.getElementById('successState').classList.add('active');
   document.getElementById('successState').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  // Wire up the manual fallback WhatsApp button (browsers often block auto-popups)
+  // Wire up the manual WhatsApp button
   const manualBtn = document.getElementById('manualWaBtn');
   if (manualBtn) {
     manualBtn.onclick = () => openWhatsAppHandoff(enrollment);
   }
-}
-
-// === RAZORPAY CHECKOUT ===
-function openRazorpay(enrollment) {
-  return new Promise((resolve) => {
-    const options = {
-      key: RAZORPAY_KEY,
-      amount: enrollment.amount * 100, // Razorpay uses paise
-      currency: 'INR',
-      name: 'ExamPrayers by PunyaSeva',
-      description: enrollment.sevaName + ' for ' + enrollment.studentName,
-      image: 'https://punyaseva.shop/logo-icon.svg',
-      prefill: {
-        name: enrollment.parentName,
-        contact: enrollment.mobile,
-      },
-      notes: {
-        booking_id: enrollment.id,
-        student: enrollment.studentName,
-        seva: enrollment.sevaName,
-        city: enrollment.city,
-        type: 'examprayers'
-      },
-      theme: { color: '#EA580C' },
-      handler: async function (response) {
-        // Payment success
-        try {
-          await db.collection('examprayers').doc(enrollment.id).update({
-            paymentStatus: 'paid',
-            razorpayPaymentId: response.razorpay_payment_id,
-            paidAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-          });
-          if (typeof gtag === 'function') {
-            gtag('event', 'examprayers_payment_success', {
-              seva: enrollment.sevaName,
-              amount: enrollment.amount,
-              transaction_id: response.razorpay_payment_id
-            });
-          }
-        } catch (e) { console.error(e); }
-        enrollment.paymentStatus = 'paid';
-        resolve({ paid: true, response });
-      },
-      modal: {
-        ondismiss: function () {
-          // User closed Razorpay without paying — lead is preserved
-          resolve({ paid: false });
-        }
-      }
-    };
-
-    if (typeof Razorpay === 'undefined' || RAZORPAY_KEY.includes('REPLACE')) {
-      // Razorpay not configured yet — fall back gracefully
-      resolve({ paid: false, fallback: true });
-      return;
-    }
-
-    const rzp = new Razorpay(options);
-    rzp.on('payment.failed', function (resp) {
-      console.error('Razorpay payment failed:', resp.error);
-      resolve({ paid: false, error: resp.error });
-    });
-    rzp.open();
-  });
 }
 
 // === FORM SUBMIT ===
@@ -737,6 +719,7 @@ document.getElementById('enrollForm').addEventListener('submit', async function(
     amount: seva.price,
     status: 'pending',
     paymentStatus: 'unpaid',
+    paymentMethod: 'upi-qr',
     source: 'examprayers.html',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
@@ -750,7 +733,6 @@ document.getElementById('enrollForm').addEventListener('submit', async function(
   btnText.textContent = 'Saving...';
 
   try {
-    // Step 1: persist the lead — even if payment is abandoned, you have the lead
     await db.collection('examprayers').doc(enrollment.id).set(enrollment);
 
     if (typeof gtag === 'function') {
@@ -760,29 +742,17 @@ document.getElementById('enrollForm').addEventListener('submit', async function(
       });
     }
 
-    // Step 2: open Razorpay
-    btnText.textContent = 'Opening payment...';
-    const payResult = await openRazorpay(enrollment);
-
-    // Step 3: show success state (regardless of payment outcome — lead is captured)
     showSuccessState(enrollment);
+    showToast('Enrollment saved. Pay via UPI & send screenshot on WhatsApp 🙏');
 
-    if (payResult.paid) {
-      showToast('Payment received 🎉  Sankalp will be taken in your child\'s name.');
-    } else if (payResult.fallback) {
-      showToast('Enrollment saved. Our team will call to take payment & confirm seva.');
-    } else {
-      showToast('Enrollment saved. Complete payment from WhatsApp or wait for our call.');
-    }
-
-    // Step 4: WhatsApp handoff — opens after a short delay so user can read the success state
-    setTimeout(() => openWhatsAppHandoff(enrollment), 1200);
+    // Auto-open WhatsApp after a short delay so the parent reads the QR section first
+    setTimeout(() => openWhatsAppHandoff(enrollment), 2500);
 
   } catch (err) {
     console.error(err);
     showToast('Could not submit. Please call ' + PUNYASEVA_PHONE + ' or try again.', true);
     btn.disabled = false;
-    btnText.textContent = 'Continue to Payment';
+    btnText.textContent = 'Enroll & Get UPI QR';
   }
 });
 
