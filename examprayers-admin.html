@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamPrayers · Coordinator Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #EA580C;
+  --primary-dark: #7C2D12;
+  --sage: #7BA085;
+  --sage-dark: #5F7E67;
+  --cream: #FAF5F0;
+  --warm: #FFF7ED;
+  --dark: #2D1B14;
+  --body-text: #4A3728;
+  --muted: #8B7355;
+  --white: #FFFFFF;
+  --border: #E8DDD3;
+  --shadow: 0 4px 20px rgba(45,27,20,0.08);
+  --shadow-lg: 0 12px 40px rgba(45,27,20,0.12);
+}
+body { font-family: 'Inter', sans-serif; color: var(--body-text); background: #F5EDE6; line-height: 1.5; min-height: 100vh; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--dark); }
+button { font-family: 'Inter', sans-serif; cursor: pointer; border: none; }
+
+/* === LOGIN === */
+.login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 100%); }
+.login-card { background: var(--white); border-radius: 18px; padding: 44px 36px; box-shadow: var(--shadow-lg); max-width: 420px; width: 100%; text-align: center; border-top: 5px solid var(--primary); }
+.login-card .login-icon { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); font-size: 1.6rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; }
+.login-card h2 { font-size: 1.6rem; color: var(--primary-dark); margin-bottom: 6px; }
+.login-card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 26px; }
+.login-card input { width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 1rem; background: var(--cream); margin-bottom: 14px; transition: border 0.2s; }
+.login-card input:focus { outline: none; border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 3px rgba(234,88,12,0.12); }
+.login-card .err { color: #DC2626; font-size: 0.85rem; margin-bottom: 12px; min-height: 1.2em; }
+.login-card button { width: 100%; padding: 14px; background: var(--primary); color: var(--white); border-radius: 10px; font-weight: 700; font-size: 1rem; transition: background 0.2s; }
+.login-card button:hover { background: var(--primary-dark); }
+.login-card .hint { font-size: 0.78rem; color: var(--muted); margin-top: 18px; }
+
+/* === DASHBOARD === */
+.dashboard { display: none; }
+.dashboard.active { display: block; }
+.topbar { background: var(--primary-dark); color: var(--white); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; }
+.topbar h1 { font-size: 1.25rem; color: var(--white); display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.topbar h1 i { color: #FED7AA; }
+.topbar .topbar-actions { display: flex; gap: 12px; align-items: center; }
+.topbar .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ADE80; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.topbar .live-text { font-size: 0.82rem; color: rgba(255,255,255,0.85); display: flex; align-items: center; gap: 8px; }
+.topbar button.logout-btn { background: rgba(255,255,255,0.15); color: var(--white); padding: 7px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; }
+.topbar button.logout-btn:hover { background: rgba(255,255,255,0.25); }
+
+.container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+.stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 22px; }
+.stat-card { background: var(--white); border-radius: 12px; padding: 18px; box-shadow: var(--shadow); border-left: 4px solid var(--primary); }
+.stat-card.green { border-left-color: var(--sage); }
+.stat-card.amber { border-left-color: #F59E0B; }
+.stat-card.blue  { border-left-color: #3B82F6; }
+.stat-card.red   { border-left-color: #DC2626; }
+.stat-card .stat-num { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--primary-dark); line-height: 1.1; }
+.stat-card .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.stat-card .stat-amt { font-size: 0.78rem; color: var(--sage-dark); margin-top: 4px; font-weight: 600; }
+
+.controls { background: var(--white); border-radius: 12px; padding: 14px 18px; margin-bottom: 18px; box-shadow: var(--shadow); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.controls input, .controls select { padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.9rem; background: var(--cream); }
+.controls input:focus, .controls select:focus { outline: none; border-color: var(--primary); }
+.controls input { flex: 1; min-width: 220px; }
+.controls .export-btn { padding: 9px 16px; background: var(--sage); color: var(--white); border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
+.controls .export-btn:hover { background: var(--sage-dark); }
+
+/* === TABLE === */
+.table-wrap { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
+.table-empty { padding: 60px 24px; text-align: center; color: var(--muted); }
+.table-empty i { font-size: 2.4rem; color: var(--border); margin-bottom: 12px; }
+table.leads { width: 100%; border-collapse: collapse; }
+table.leads thead { background: var(--primary-dark); }
+table.leads th { color: var(--white); text-align: left; padding: 12px 14px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; }
+table.leads td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 0.88rem; vertical-align: top; }
+table.leads tr:hover td { background: var(--cream); }
+table.leads .id-cell { font-family: monospace; font-size: 0.78rem; color: var(--primary); font-weight: 700; }
+table.leads .name-cell strong { display: block; color: var(--dark); font-size: 0.92rem; margin-bottom: 2px; }
+table.leads .name-cell .sub { color: var(--muted); font-size: 0.78rem; }
+table.leads .seva-cell { font-weight: 600; color: var(--primary-dark); }
+table.leads .amt-cell { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--primary); font-size: 1.05rem; }
+table.leads .time-cell { color: var(--muted); font-size: 0.78rem; white-space: nowrap; }
+
+.badge { display: inline-block; padding: 3px 10px; border-radius: 14px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
+.badge.pending  { background: #FEF3C7; color: #92400E; }
+.badge.called   { background: #DBEAFE; color: #1E40AF; }
+.badge.paid     { background: #D1FAE5; color: #065F46; }
+.badge.unpaid   { background: #FEE2E2; color: #991B1B; }
+.badge.done     { background: #E0E7FF; color: #3730A3; }
+.badge.completed { background: #E0E7FF; color: #3730A3; }
+
+.action-cell { white-space: nowrap; }
+.action-cell button, .action-cell a { display: inline-flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 6px; font-size: 0.74rem; font-weight: 600; margin-right: 4px; margin-bottom: 4px; text-decoration: none; transition: opacity 0.2s; }
+.action-cell button:hover, .action-cell a:hover { opacity: 0.85; }
+.act-call    { background: #3B82F6; color: white; }
+.act-wa      { background: #25D366; color: white; }
+.act-paid    { background: var(--sage); color: white; }
+.act-done    { background: #6366F1; color: white; }
+.act-note    { background: #F3F4F6; color: var(--dark); border: 1px solid var(--border); }
+
+/* === MOBILE === */
+@media (max-width: 1024px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  table.leads thead { display: none; }
+  table.leads, table.leads tbody, table.leads tr, table.leads td { display: block; width: 100%; }
+  table.leads tr { border-bottom: 6px solid var(--cream); padding: 12px; }
+  table.leads td { border: none; padding: 4px 0; }
+  table.leads td::before { content: attr(data-label); font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; display: block; margin-bottom: 2px; }
+}
+
+/* === MODAL === */
+.modal-bg { position: fixed; inset: 0; background: rgba(45,27,20,0.6); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 200; padding: 24px; }
+.modal-bg.active { display: flex; }
+.modal { background: var(--white); border-radius: 14px; padding: 28px; max-width: 480px; width: 100%; box-shadow: var(--shadow-lg); }
+.modal h3 { font-size: 1.25rem; color: var(--primary-dark); margin-bottom: 14px; }
+.modal textarea { width: 100%; min-height: 100px; padding: 12px; border: 1.5px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.92rem; resize: vertical; margin-bottom: 14px; background: var(--cream); }
+.modal textarea:focus { outline: none; border-color: var(--primary); }
+.modal .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+.modal button { padding: 10px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; }
+.modal .btn-cancel { background: var(--cream); color: var(--dark); }
+.modal .btn-save { background: var(--primary); color: white; }
+
+/* === TOAST === */
+.toast { position: fixed; top: 80px; right: 20px; background: var(--sage); color: var(--white); padding: 12px 18px; border-radius: 10px; font-size: 0.88rem; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 3000; transform: translateX(120%); transition: transform 0.4s; max-width: 360px; }
+.toast.show { transform: translateX(0); }
+.toast.error { background: #DC2626; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-icon"><i class="fas fa-shield-alt"></i></div>
+    <h2>ExamPrayers</h2>
+    <p>Coordinator Dashboard</p>
+    <input type="password" id="passInput" placeholder="Password" autocomplete="current-password" autofocus>
+    <div class="err" id="loginErr"></div>
+    <button id="loginBtn">Sign in</button>
+    <div class="hint">Authorized PunyaSeva staff only</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="topbar">
+    <h1><i class="fas fa-om"></i> ExamPrayers · Coordinator</h1>
+    <div class="topbar-actions">
+      <span class="live-text"><span class="live-dot"></span> Live</span>
+      <button class="logout-btn" onclick="logout()"><i class="fas fa-right-from-bracket"></i> Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-num" id="statTotal">0</div>
+        <div class="stat-label">Total Enrollments</div>
+        <div class="stat-amt" id="statTotalAmt">₹0 booked</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-num" id="statToday">0</div>
+        <div class="stat-label">Today</div>
+        <div class="stat-amt" id="statTodayAmt">₹0</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-num" id="statPending">0</div>
+        <div class="stat-label">Pending Call</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-num" id="statPaid">0</div>
+        <div class="stat-label">Paid</div>
+        <div class="stat-amt" id="statPaidAmt">₹0 received</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-num" id="statDone">0</div>
+        <div class="stat-label">Seva Done</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <input type="text" id="search" placeholder="Search by name, mobile, city, booking ID...">
+      <select id="filterStatus">
+        <option value="">All statuses</option>
+        <option value="pending">Pending call</option>
+        <option value="called">Called</option>
+        <option value="paid">Paid</option>
+        <option value="completed">Seva done</option>
+      </select>
+      <select id="filterSeva">
+        <option value="">All sevas</option>
+        <option value="gauseva">Gauseva ₹151</option>
+        <option value="mahakal">Mahakal Prarthana ₹251</option>
+      </select>
+      <button class="export-btn" onclick="exportCSV()"><i class="fas fa-download"></i> Export CSV</button>
+    </div>
+
+    <div class="table-wrap" id="tableWrap">
+      <div class="table-empty" id="emptyState">
+        <i class="fas fa-inbox"></i>
+        <div>No enrollments yet. Live updates will appear here.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTE MODAL -->
+<div class="modal-bg" id="noteModal">
+  <div class="modal">
+    <h3>Call notes</h3>
+    <p id="noteFor" style="font-size:0.9rem;color:var(--muted);margin-bottom:10px;"></p>
+    <textarea id="noteText" placeholder="What did the parent say? Confirmed exam date? Preferred seva time? Special instructions..."></textarea>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeNoteModal()">Cancel</button>
+      <button class="btn-save" onclick="saveNote()">Save & Mark Called</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script>
+// === FIREBASE (same project) ===
+const firebaseConfig = {
+  apiKey: "AIzaSyDamox4FVBpCq91JEsn8xn-lozWZboA7-4",
+  authDomain: "punyaseva-8e9a0.firebaseapp.com",
+  projectId: "punyaseva-8e9a0",
+  storageBucket: "punyaseva-8e9a0.firebasestorage.app",
+  messagingSenderId: "235501009473",
+  appId: "1:235501009473:web:f326b7b53565069541e4c0"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// === AUTH ===
+// Default password: examprayers2026  (CHANGE THIS — see hint at bottom of file)
+// To change: compute SHA256 of new password, paste hash below.
+const PASS_HASH = '4210f322dbcce85c617790cb64d7916c5d5b6b574ef9237fe2502429f318c4e6';
+const SESSION_KEY = 'ep_admin_session';
+const SESSION_HOURS = 8;
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function isLoggedIn() {
+  try {
+    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null');
+    return s && (Date.now() - s.ts < SESSION_HOURS * 3600 * 1000);
+  } catch { return false; }
+}
+
+function logout() {
+  sessionStorage.removeItem(SESSION_KEY);
+  if (unsubscribeListener) unsubscribeListener();
+  document.getElementById('dashboard').classList.remove('active');
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+
+document.getElementById('loginBtn').addEventListener('click', tryLogin);
+document.getElementById('passInput').addEventListener('keypress', e => { if (e.key === 'Enter') tryLogin(); });
+
+async function tryLogin() {
+  const pwd = document.getElementById('passInput').value;
+  const errEl = document.getElementById('loginErr');
+  if (!pwd) { errEl.textContent = 'Enter password'; return; }
+  const hash = await sha256(pwd);
+  if (hash === PASS_HASH) {
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify({ ts: Date.now() }));
+    showDashboard();
+  } else {
+    errEl.textContent = 'Incorrect password';
+    document.getElementById('passInput').value = '';
+  }
+}
+
+function showDashboard() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').classList.add('active');
+  startListening();
+}
+
+// === DATA ===
+let allLeads = [];
+let unsubscribeListener = null;
+
+function startListening() {
+  unsubscribeListener = db.collection('examprayers')
+    .orderBy('createdAt', 'desc')
+    .onSnapshot(snap => {
+      allLeads = snap.docs.map(d => d.data());
+      renderStats();
+      renderTable();
+    }, err => {
+      console.error(err);
+      showToast('Could not connect to database. Check Firestore rules.', true);
+    });
+}
+
+// === STATS ===
+function renderStats() {
+  const today = new Date().toISOString().slice(0, 10);
+  const todayLeads = allLeads.filter(l => (l.createdAt || '').startsWith(today));
+  const pendingCall = allLeads.filter(l => !l.status || l.status === 'pending');
+  const paid = allLeads.filter(l => l.paymentStatus === 'paid');
+  const done = allLeads.filter(l => l.status === 'completed');
+
+  const sum = arr => arr.reduce((a, l) => a + (l.amount || 0), 0);
+
+  document.getElementById('statTotal').textContent     = allLeads.length;
+  document.getElementById('statTotalAmt').textContent  = '₹' + sum(allLeads).toLocaleString('en-IN') + ' booked';
+  document.getElementById('statToday').textContent     = todayLeads.length;
+  document.getElementById('statTodayAmt').textContent  = '₹' + sum(todayLeads).toLocaleString('en-IN');
+  document.getElementById('statPending').textContent   = pendingCall.length;
+  document.getElementById('statPaid').textContent      = paid.length;
+  document.getElementById('statPaidAmt').textContent   = '₹' + sum(paid).toLocaleString('en-IN') + ' received';
+  document.getElementById('statDone').textContent      = done.length;
+}
+
+// === TABLE ===
+document.getElementById('search').addEventListener('input', renderTable);
+document.getElementById('filterStatus').addEventListener('change', renderTable);
+document.getElementById('filterSeva').addEventListener('change', renderTable);
+
+function renderTable() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  const fs = document.getElementById('filterStatus').value;
+  const fsv = document.getElementById('filterSeva').value;
+
+  let filtered = allLeads.filter(l => {
+    if (fs) {
+      if (fs === 'pending' && l.status && l.status !== 'pending') return false;
+      if (fs === 'paid' && l.paymentStatus !== 'paid') return false;
+      if (fs !== 'pending' && fs !== 'paid' && l.status !== fs) return false;
+    }
+    if (fsv && l.sevaKey !== fsv) return false;
+    if (q) {
+      const hay = (
+        (l.studentName || '') + ' ' +
+        (l.parentName  || '') + ' ' +
+        (l.mobile      || '') + ' ' +
+        (l.city        || '') + ' ' +
+        (l.id          || '')
+      ).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const wrap = document.getElementById('tableWrap');
+  if (filtered.length === 0) {
+    wrap.innerHTML = `<div class="table-empty"><i class="fas fa-inbox"></i><div>No matching enrollments.</div></div>`;
+    return;
+  }
+
+  let html = `
+    <table class="leads">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Booking ID</th>
+          <th>Student / Parent</th>
+          <th>Mobile</th>
+          <th>City</th>
+          <th>Seva</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  for (const l of filtered) {
+    const t = l.createdAt ? new Date(l.createdAt) : null;
+    const tStr = t ? t.toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—';
+    const payBadge = l.paymentStatus === 'paid' ? `<span class="badge paid">Paid</span>` : `<span class="badge unpaid">Unpaid</span>`;
+    const statusBadge = `<span class="badge ${l.status || 'pending'}">${(l.status || 'pending').replace('_', ' ')}</span>`;
+
+    const waMsg = encodeURIComponent(`Namaste ${l.parentName} 🙏\n\nThis is from ExamPrayers (PunyaSeva). Confirming your enrollment for ${l.studentName} — ${l.sevaName} (₹${l.amount}).\nBooking ID: ${l.id}\n\nWhen would you like the seva to be performed?`);
+
+    html += `
+      <tr>
+        <td data-label="Time" class="time-cell">${tStr}</td>
+        <td data-label="Booking ID" class="id-cell">${l.id}</td>
+        <td data-label="Student / Parent" class="name-cell">
+          <strong>${l.studentName || '—'}</strong>
+          <span class="sub">Parent: ${l.parentName || '—'}</span>
+        </td>
+        <td data-label="Mobile">${l.mobile || '—'}</td>
+        <td data-label="City">${l.city || '—'}</td>
+        <td data-label="Seva" class="seva-cell">${l.sevaName || '—'}</td>
+        <td data-label="Amount" class="amt-cell">₹${l.amount || 0}</td>
+        <td data-label="Status">${payBadge} ${statusBadge}</td>
+        <td data-label="Actions" class="action-cell">
+          <a href="tel:+91${l.mobile}" class="act-call"><i class="fas fa-phone"></i> Call</a>
+          <a href="https://wa.me/91${l.mobile}?text=${waMsg}" target="_blank" class="act-wa"><i class="fab fa-whatsapp"></i> WA</a>
+          <button class="act-note" onclick="openNoteModal('${l.id}')"><i class="fas fa-pen"></i> Note</button>
+          ${l.paymentStatus !== 'paid' ? `<button class="act-paid" onclick="markPaid('${l.id}')"><i class="fas fa-rupee-sign"></i> Mark Paid</button>` : ''}
+          ${l.status !== 'completed' ? `<button class="act-done" onclick="markDone('${l.id}')"><i class="fas fa-check"></i> Seva Done</button>` : ''}
+        </td>
+      </tr>
+    `;
+  }
+
+  html += '</tbody></table>';
+  wrap.innerHTML = html;
+}
+
+// === ACTIONS ===
+async function markPaid(id) {
+  if (!confirm('Mark this enrollment as PAID?')) return;
+  try {
+    await db.collection('examprayers').doc(id).update({
+      paymentStatus: 'paid',
+      paidAt: new Date().toISOString(),
+      paidBy: 'coordinator-manual',
+      updatedAt: new Date().toISOString()
+    });
+    showToast('Marked as paid');
+  } catch (e) { showToast('Could not update', true); }
+}
+
+async function markDone(id) {
+  if (!confirm('Mark seva as COMPLETED? (Make sure you have shared the photo proof on WhatsApp)')) return;
+  try {
+    await db.collection('examprayers').doc(id).update({
+      status: 'completed',
+      completedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    });
+    showToast('Marked as completed 🙏');
+  } catch (e) { showToast('Could not update', true); }
+}
+
+let currentNoteId = null;
+function openNoteModal(id) {
+  const lead = allLeads.find(l => l.id === id);
+  if (!lead) return;
+  currentNoteId = id;
+  document.getElementById('noteFor').textContent = `${lead.studentName} (${lead.parentName} · ${lead.mobile})`;
+  document.getElementById('noteText').value = lead.callNote || '';
+  document.getElementById('noteModal').classList.add('active');
+}
+function closeNoteModal() {
+  document.getElementById('noteModal').classList.remove('active');
+  currentNoteId = null;
+}
+async function saveNote() {
+  if (!currentNoteId) return;
+  const note = document.getElementById('noteText').value.trim();
+  try {
+    await db.collection('examprayers').doc(currentNoteId).update({
+      callNote: note,
+      status: 'called',
+      lastCalledAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    });
+    showToast('Note saved · marked Called');
+    closeNoteModal();
+  } catch (e) { showToast('Could not save', true); }
+}
+
+// === EXPORT ===
+function exportCSV() {
+  if (allLeads.length === 0) { showToast('No data to export', true); return; }
+  const headers = ['Booking ID', 'Created', 'Student', 'Parent', 'Mobile', 'City', 'Seva', 'Amount', 'Payment', 'Status', 'Note'];
+  const rows = allLeads.map(l => [
+    l.id, l.createdAt, l.studentName, l.parentName, l.mobile, l.city,
+    l.sevaName, l.amount, l.paymentStatus, l.status || 'pending', (l.callNote || '').replace(/\n/g, ' ')
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(c => `"${String(c == null ? '' : c).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `examprayers-leads-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+// === TOAST ===
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.toggle('error', !!isError);
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// === BOOT ===
+if (isLoggedIn()) showDashboard();
+</script>
+
+<!--
+=============================================================
+HOW TO CHANGE THE PASSWORD
+=============================================================
+Default password: examprayers2026
+
+To change:
+1. Open Chrome console on this page (F12)
+2. Run:  await crypto.subtle.digest('SHA-256', new TextEncoder().encode('YOUR_NEW_PASSWORD')).then(b => Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join(''))
+3. Copy the printed hex hash
+4. Replace PASS_HASH constant above with the new hash
+5. Save the file. Re-deploy.
+
+This is a static-page password — adequate for an internal coordinator
+tool but NOT bank-grade security. For stronger auth, move to Firebase Auth
+with email/password and Firestore Security Rules.
+=============================================================
+-->
+
+</body>
+</html>

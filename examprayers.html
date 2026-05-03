@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamPrayers — Blessings for Your NEET Aspirant | PunyaSeva</title>
+<meta name="description" content="When your child appears for NEET, let faith stand with effort. Sponsor a Gauseva or Mahakal Temple Prarthana in their name and receive real-time photo proof.">
+
+<!-- Google tag (gtag.js) - Analytics + Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-775EPP74FB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-775EPP74FB');
+  gtag('config', 'AW-18094295083');
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Razorpay Checkout -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #B85042;
+  --primary-dark: #8B3A30;
+  --accent: #D4763A;
+  --saffron: #EA580C;
+  --saffron-deep: #7C2D12;
+  --sage: #7BA085;
+  --sage-dark: #5F7E67;
+  --cream: #FAF5F0;
+  --warm: #FFF7ED;
+  --dark: #2D1B14;
+  --body-text: #4A3728;
+  --muted: #8B7355;
+  --white: #FFFFFF;
+  --light-card: #F5EDE6;
+  --border: #E8DDD3;
+  --shadow: 0 4px 24px rgba(45,27,20,0.08);
+  --shadow-lg: 0 12px 48px rgba(45,27,20,0.12);
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'Inter', sans-serif; color: var(--body-text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--dark); line-height: 1.3; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 32px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; cursor: pointer; border: none; transition: var(--transition); font-family: 'Inter', sans-serif; }
+.btn-primary { background: var(--saffron); color: var(--white); }
+.btn-primary:hover { background: var(--saffron-deep); transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn-outline { background: transparent; color: var(--saffron); border: 2px solid var(--saffron); }
+.btn-outline:hover { background: var(--saffron); color: var(--white); }
+.btn-white { background: var(--white); color: var(--saffron); }
+.btn-white:hover { background: var(--cream); }
+
+/* NAV */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,247,237,0.94); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--saffron); display: flex; align-items: center; gap: 8px; }
+.nav-logo span { color: var(--dark); font-weight: 600; }
+.nav-logo i { color: var(--saffron); }
+.nav-cta { padding: 10px 22px; font-size: 0.85rem; }
+
+/* HERO */
+.hero { padding: 120px 0 70px; background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 50%, #FFEDD5 100%); position: relative; overflow: hidden; }
+.hero::before { content: 'ॐ'; position: absolute; top: 50%; right: -40px; font-size: 22rem; color: rgba(124,45,18,0.05); font-family: serif; transform: translateY(-50%); pointer-events: none; }
+.hero::after { content: ''; position: absolute; top: -120px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(234,88,12,0.12) 0%, transparent 70%); pointer-events: none; }
+.hero-inner { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(124,45,18,0.08); color: var(--saffron-deep); border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px; }
+.hero h1 { font-size: 3.2rem; line-height: 1.12; margin-bottom: 18px; color: var(--saffron-deep); }
+.hero h1 .highlight { color: var(--saffron); }
+.hero .hero-sub { font-size: 1.08rem; color: var(--body-text); margin-bottom: 14px; line-height: 1.75; max-width: 540px; }
+.hero .hero-hindi { font-size: 1.05rem; color: var(--muted); margin-bottom: 28px; font-style: italic; }
+.hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+.hero-trust { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
+.hero-trust .trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--saffron-deep); font-weight: 500; }
+.hero-trust .trust-item i { color: var(--sage); font-size: 1rem; }
+
+.hero-card { background: var(--white); border-radius: 18px; padding: 28px; box-shadow: var(--shadow-lg); border-top: 5px solid var(--saffron); }
+.hero-card h3 { font-size: 1.15rem; color: var(--saffron-deep); margin-bottom: 6px; }
+.hero-card .hero-card-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
+.hero-card .quick-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.hero-card .quick-row:last-of-type { border-bottom: none; }
+.hero-card .quick-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--warm); color: var(--saffron); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.hero-card .quick-text { flex: 1; }
+.hero-card .quick-text strong { display: block; font-size: 0.95rem; color: var(--dark); margin-bottom: 2px; }
+.hero-card .quick-text span { font-size: 0.82rem; color: var(--muted); }
+.hero-card .quick-price { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--saffron); }
+
+/* WHY SECTION */
+.why { padding: 70px 0 40px; background: var(--cream); }
+.why-inner { text-align: center; max-width: 760px; margin: 0 auto; }
+.why .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--saffron); margin-bottom: 14px; }
+.why h2 { font-size: 2.2rem; color: var(--saffron-deep); margin-bottom: 18px; }
+.why p { font-size: 1.05rem; color: var(--body-text); line-height: 1.8; }
+.why .signature { margin-top: 22px; font-style: italic; color: var(--muted); font-size: 0.95rem; }
+
+/* SEVA CARDS */
+.sevas { padding: 60px 0 80px; background: var(--cream); }
+.sevas-header { text-align: center; margin-bottom: 44px; }
+.sevas-header .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--saffron); margin-bottom: 12px; }
+.sevas-header h2 { font-size: 2.2rem; color: var(--saffron-deep); margin-bottom: 12px; }
+.sevas-header p { color: var(--muted); font-size: 1.02rem; max-width: 560px; margin: 0 auto; }
+.sevas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 920px; margin: 0 auto; }
+.seva-card { background: var(--white); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); border: 2px solid transparent; display: flex; flex-direction: column; }
+.seva-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(234,88,12,0.2); }
+.seva-banner { padding: 28px 28px 22px; color: var(--white); position: relative; overflow: hidden; }
+.seva-banner.gauseva { background: linear-gradient(135deg, #7BA085 0%, #5F7E67 100%); }
+.seva-banner.mahakal { background: linear-gradient(135deg, #B85042 0%, #7C2D12 100%); }
+.seva-banner::after { content: ''; position: absolute; top: -30px; right: -30px; width: 140px; height: 140px; background: rgba(255,255,255,0.08); border-radius: 50%; }
+.seva-banner h3 { color: var(--white); font-size: 1.5rem; margin-bottom: 4px; position: relative; }
+.seva-banner .seva-loc { font-size: 0.88rem; opacity: 0.9; position: relative; }
+.seva-banner .seva-icon { position: absolute; top: 22px; right: 24px; font-size: 2.4rem; opacity: 0.35; z-index: 1; }
+.seva-body { padding: 24px 28px; flex: 1; }
+.seva-price { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--saffron-deep); margin-bottom: 6px; }
+.seva-price .pcurr { font-size: 1.3rem; font-weight: 600; }
+.seva-price .ptag { font-size: 0.82rem; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 400; margin-left: 6px; }
+.seva-desc { font-size: 0.95rem; color: var(--body-text); line-height: 1.7; margin: 14px 0 18px; }
+.seva-features { list-style: none; margin-bottom: 22px; }
+.seva-features li { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; font-size: 0.9rem; color: var(--body-text); }
+.seva-features li i { color: var(--sage); margin-top: 4px; font-size: 0.85rem; }
+.seva-cta-wrap { padding: 0 28px 28px; }
+.seva-cta-wrap .btn { width: 100%; }
+
+/* HOW IT WORKS */
+.how { padding: 70px 0; background: var(--white); }
+.how-header { text-align: center; margin-bottom: 50px; }
+.how-header .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--saffron); margin-bottom: 12px; }
+.how-header h2 { font-size: 2.2rem; color: var(--saffron-deep); }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; max-width: 1000px; margin: 0 auto; }
+.step { text-align: center; padding: 16px; }
+.step-num { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--saffron), var(--saffron-deep)); color: var(--white); font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: var(--shadow); }
+.step h4 { font-size: 1.05rem; color: var(--saffron-deep); margin-bottom: 8px; }
+.step p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+/* ENROLL FORM */
+.enroll { padding: 80px 0; background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 50%, #FFEDD5 100%); position: relative; }
+.enroll::before { content: '🪔'; position: absolute; top: 30px; right: 5%; font-size: 4rem; opacity: 0.15; }
+.enroll-header { text-align: center; margin-bottom: 36px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.enroll-header h2 { font-size: 2.2rem; color: var(--saffron-deep); margin-bottom: 12px; }
+.enroll-header p { color: var(--body-text); font-size: 1rem; line-height: 1.7; }
+.form-wrap { max-width: 640px; margin: 0 auto; background: var(--white); border-radius: 18px; padding: 40px; box-shadow: var(--shadow-lg); border-top: 5px solid var(--saffron); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+.form-group label .req { color: var(--saffron); }
+.form-group input, .form-group select { width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--dark); background: var(--cream); transition: var(--transition); }
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--saffron); background: var(--white); box-shadow: 0 0 0 3px rgba(234,88,12,0.12); }
+.form-group .helper { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+
+.seva-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
+.seva-picker label { padding: 16px 14px; border: 2px solid var(--border); border-radius: 12px; cursor: pointer; transition: var(--transition); background: var(--cream); display: flex; flex-direction: column; gap: 4px; }
+.seva-picker label:has(input:checked) { border-color: var(--saffron); background: var(--warm); box-shadow: 0 0 0 3px rgba(234,88,12,0.1); }
+.seva-picker input[type="radio"] { display: none; }
+.seva-picker .pick-name { font-weight: 700; font-size: 0.95rem; color: var(--saffron-deep); display: flex; align-items: center; gap: 8px; }
+.seva-picker .pick-name i { color: var(--saffron); }
+.seva-picker .pick-loc { font-size: 0.78rem; color: var(--muted); }
+.seva-picker .pick-price { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--saffron); margin-top: 6px; }
+
+.consent { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 22px; font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+.consent input { margin-top: 3px; accent-color: var(--saffron); }
+
+.form-submit { width: 100%; padding: 16px; font-size: 1.02rem; font-weight: 700; }
+.form-note { text-align: center; margin-top: 16px; font-size: 0.82rem; color: var(--muted); }
+.form-note i { color: var(--sage); }
+
+/* SUCCESS STATE */
+.success-state { display: none; text-align: center; padding: 20px 8px; }
+.success-state.active { display: block; }
+.success-state .check-circle { width: 84px; height: 84px; border-radius: 50%; background: var(--sage); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; margin: 0 auto 22px; }
+.success-state h3 { font-size: 1.6rem; color: var(--saffron-deep); margin-bottom: 12px; }
+.success-state p { color: var(--body-text); margin-bottom: 14px; line-height: 1.7; }
+.success-state .ref-badge { display: inline-block; padding: 8px 18px; background: var(--warm); color: var(--saffron-deep); border-radius: 20px; font-family: monospace; font-weight: 700; font-size: 1rem; margin: 8px 0 18px; letter-spacing: 1px; }
+.success-state .next-steps { background: var(--cream); border-radius: 12px; padding: 18px; text-align: left; margin: 18px 0; }
+.success-state .next-steps h4 { font-size: 0.95rem; color: var(--saffron-deep); margin-bottom: 10px; }
+.success-state .next-steps ul { list-style: none; padding: 0; }
+.success-state .next-steps li { font-size: 0.88rem; color: var(--body-text); padding: 5px 0; display: flex; gap: 10px; }
+.success-state .next-steps li i { color: var(--saffron); margin-top: 4px; }
+
+/* TESTIMONIAL STRIP */
+.trust-strip { padding: 50px 0; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1000px; margin: 0 auto; }
+.trust-card { text-align: center; padding: 16px; }
+.trust-card .ti { font-size: 2rem; color: var(--saffron); margin-bottom: 12px; }
+.trust-card h4 { font-size: 1.05rem; margin-bottom: 6px; color: var(--saffron-deep); }
+.trust-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+/* FAQ */
+.faq { padding: 70px 0; background: var(--cream); }
+.faq-header { text-align: center; margin-bottom: 36px; }
+.faq-header h2 { font-size: 2rem; color: var(--saffron-deep); }
+.faq-list { max-width: 760px; margin: 0 auto; }
+.faq-item { background: var(--white); border-radius: 12px; margin-bottom: 12px; box-shadow: var(--shadow); overflow: hidden; }
+.faq-q { padding: 18px 22px; font-weight: 600; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.98rem; }
+.faq-q i { color: var(--saffron); transition: transform 0.3s; }
+.faq-item.open .faq-q i { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0 22px; color: var(--body-text); font-size: 0.92rem; line-height: 1.7; }
+.faq-item.open .faq-a { max-height: 300px; padding: 0 22px 18px; }
+
+/* FOOTER */
+.footer { background: var(--saffron-deep); color: rgba(255,255,255,0.78); padding: 50px 0 24px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 36px; margin-bottom: 32px; }
+.footer-brand .nav-logo { color: var(--white); margin-bottom: 12px; display: inline-block; }
+.footer-brand .nav-logo span { color: rgba(255,255,255,0.85); }
+.footer-brand p { font-size: 0.88rem; line-height: 1.7; max-width: 320px; }
+.footer-col h4 { color: var(--white); font-size: 0.95rem; margin-bottom: 14px; font-family: 'Inter', sans-serif; font-weight: 600; }
+.footer-col a { display: block; font-size: 0.85rem; padding: 4px 0; color: rgba(255,255,255,0.7); transition: var(--transition); }
+.footer-col a:hover { color: var(--white); }
+.footer-col p { font-size: 0.85rem; line-height: 1.7; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 18px; font-size: 0.78rem; text-align: center; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.6rem; }
+  .sevas-grid { grid-template-columns: 1fr; max-width: 480px; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 100px 0 50px; }
+  .hero h1 { font-size: 2.1rem; }
+  .hero .hero-sub { font-size: 1rem; }
+  .why h2, .sevas-header h2, .how-header h2, .enroll-header h2 { font-size: 1.7rem; }
+  .form-wrap { padding: 28px 22px; }
+  .form-row { grid-template-columns: 1fr; }
+  .seva-picker { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .nav-cta { padding: 8px 14px; font-size: 0.78rem; }
+  .nav-logo { font-size: 1.2rem; }
+}
+
+/* TOAST */
+.toast { position: fixed; top: 86px; left: 50%; transform: translateX(-50%) translateY(-180%); background: var(--sage); color: var(--white); padding: 14px 22px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 3000; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); max-width: 90%; text-align: center; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.error { background: #DC2626; }
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">
+      <i class="fas fa-om"></i> ExamPrayers <span>by PunyaSeva</span>
+    </a>
+    <a href="#enroll" class="btn btn-primary nav-cta">Enroll Your Child</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge"><i class="fas fa-graduation-cap"></i> NEET 2026 · Aspirants Edition</div>
+      <h1>When effort meets <span class="highlight">prayer</span>, results follow.</h1>
+      <p class="hero-sub">Your child has studied for years. On exam day, stand with them in the only way still in your hands — through seva and dua, performed in their name at sacred places of healing and learning.</p>
+      <p class="hero-hindi">"विद्या ददाति विनयं, विनयाद् याति पात्रताम्" — let the divine bless what your child has earned.</p>
+      <div class="hero-cta-row">
+        <a href="#enroll" class="btn btn-primary"><i class="fas fa-pray"></i> Enroll Your Child</a>
+        <a href="#sevas" class="btn btn-outline">View Sevas</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><i class="fas fa-check-circle"></i> Photo proof on WhatsApp</div>
+        <div class="trust-item"><i class="fas fa-check-circle"></i> Performed in 24–48 hrs</div>
+        <div class="trust-item"><i class="fas fa-check-circle"></i> 100% transparent</div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h3>Two simple sevas. One sacred intent.</h3>
+      <p class="hero-card-sub">Choose either — or both — for your NEET aspirant.</p>
+      <div class="quick-row">
+        <div class="quick-icon"><i class="fas fa-cow"></i></div>
+        <div class="quick-text">
+          <strong>Gauseva</strong>
+          <span>Feed & care for cows in your child's name</span>
+        </div>
+        <div class="quick-price">₹151</div>
+      </div>
+      <div class="quick-row">
+        <div class="quick-icon"><i class="fas fa-place-of-worship"></i></div>
+        <div class="quick-text">
+          <strong>Mahakal Prarthana</strong>
+          <span>Special prayer at Mahakaleshwar, Ujjain</span>
+        </div>
+        <div class="quick-price">₹251</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="container">
+    <div class="why-inner">
+      <div class="section-label">Why ExamPrayers</div>
+      <h2>You've done everything humanly possible. Now do the divine.</h2>
+      <p>For months your child has woken before dawn, sat through coaching, sacrificed festivals and friends. As parents, we've prayed quietly each night. ExamPrayers channels that prayer into action — a real seva, performed by real hands, in your child's name, at places known for blessings of knowledge and good fortune.</p>
+      <div class="signature">— Backed by PunyaSeva, India's trusted faith-seva platform</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEVAS -->
+<section class="sevas" id="sevas">
+  <div class="container">
+    <div class="sevas-header">
+      <div class="section-label">Choose Your Seva</div>
+      <h2>Two sacred offerings for your aspirant</h2>
+      <p>Each seva is performed by verified partners with photo & video proof shared on your WhatsApp.</p>
+    </div>
+    <div class="sevas-grid">
+      <div class="seva-card">
+        <div class="seva-banner gauseva">
+          <i class="fas fa-cow seva-icon"></i>
+          <h3>Gauseva</h3>
+          <div class="seva-loc">Feeding & care of Indian cows</div>
+        </div>
+        <div class="seva-body">
+          <div class="seva-price"><span class="pcurr">₹</span>151<span class="ptag">/ per offering</span></div>
+          <p class="seva-desc">In Hindu tradition, seva of the gau mata is among the most auspicious karmas — believed to grant clarity of mind, removal of obstacles, and blessings for new beginnings. Especially powerful at the start of an exam.</p>
+          <ul class="seva-features">
+            <li><i class="fas fa-check"></i> Fresh green chara, jaggery & water for cows</li>
+            <li><i class="fas fa-check"></i> Sankalp taken in the student's name</li>
+            <li><i class="fas fa-check"></i> Photos & 30-sec video of the seva on WhatsApp</li>
+            <li><i class="fas fa-check"></i> Completed within 24–48 hours of booking</li>
+          </ul>
+        </div>
+        <div class="seva-cta-wrap">
+          <button class="btn btn-primary" onclick="selectAndScroll('gauseva')"><i class="fas fa-arrow-right"></i> Sponsor Gauseva</button>
+        </div>
+      </div>
+
+      <div class="seva-card">
+        <div class="seva-banner mahakal">
+          <i class="fas fa-place-of-worship seva-icon"></i>
+          <h3>Mahakal Prarthana</h3>
+          <div class="seva-loc">Mahakaleshwar Temple, Ujjain</div>
+        </div>
+        <div class="seva-body">
+          <div class="seva-price"><span class="pcurr">₹</span>251<span class="ptag">/ per prayer</span></div>
+          <p class="seva-desc">Mahakaleshwar — the swayambhu Jyotirlinga of Ujjain — is the lord of time itself. A prarthana here is believed to grant courage, focus, and the right outcome at the right moment. Sought by lakhs of students each year.</p>
+          <ul class="seva-features">
+            <li><i class="fas fa-check"></i> Sankalp & special prarthana in student's name</li>
+            <li><i class="fas fa-check"></i> Bilva patra & flowers offered to the Jyotirlinga</li>
+            <li><i class="fas fa-check"></i> Prasad photo & temple darshan video on WhatsApp</li>
+            <li><i class="fas fa-check"></i> Performed within 48 hours by verified pandit</li>
+          </ul>
+        </div>
+        <div class="seva-cta-wrap">
+          <button class="btn btn-primary" onclick="selectAndScroll('mahakal')"><i class="fas fa-arrow-right"></i> Book Mahakal Prarthana</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how">
+  <div class="container">
+    <div class="how-header">
+      <div class="section-label">How It Works</div>
+      <h2>From your phone to the temple, in 4 steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Enroll</h4>
+        <p>Fill the simple form below — student name, your name, mobile, city.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Pay</h4>
+        <p>Pay ₹151 or ₹251 securely via UPI or card.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Seva is performed</h4>
+        <p>Our verified partners perform the seva in your child's name within 48 hours.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Proof on WhatsApp</h4>
+        <p>You receive photos, video and prasad blessings directly on your phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENROLL FORM -->
+<section class="enroll" id="enroll">
+  <div class="container">
+    <div class="enroll-header">
+      <h2>Enroll your aspirant</h2>
+      <p>Takes less than a minute. We'll send a confirmation on WhatsApp and call to confirm the seva date.</p>
+    </div>
+
+    <div class="form-wrap">
+      <form id="enrollForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Student's Full Name <span class="req">*</span></label>
+            <input type="text" id="studentName" required placeholder="e.g. Riya Sharma">
+            <div class="helper">As you'd like the sankalp to be taken</div>
+          </div>
+          <div class="form-group">
+            <label>Parent's Full Name <span class="req">*</span></label>
+            <input type="text" id="parentName" required placeholder="e.g. Sunita Sharma">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Parent's Mobile Number <span class="req">*</span></label>
+            <input type="tel" id="mobile" required pattern="[6-9]{1}[0-9]{9}" maxlength="10" placeholder="10-digit mobile">
+            <div class="helper">We'll send seva proof on WhatsApp here</div>
+          </div>
+          <div class="form-group">
+            <label>City <span class="req">*</span></label>
+            <input type="text" id="city" required placeholder="e.g. Mumbai">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Choose Your Seva <span class="req">*</span></label>
+          <div class="seva-picker">
+            <label>
+              <input type="radio" name="seva" value="gauseva" id="picker-gauseva" required>
+              <div class="pick-name"><i class="fas fa-cow"></i> Gauseva</div>
+              <div class="pick-loc">Feeding & care of cows</div>
+              <div class="pick-price">₹151</div>
+            </label>
+            <label>
+              <input type="radio" name="seva" value="mahakal" id="picker-mahakal">
+              <div class="pick-name"><i class="fas fa-place-of-worship"></i> Mahakal Prarthana</div>
+              <div class="pick-loc">Mahakaleshwar, Ujjain</div>
+              <div class="pick-price">₹251</div>
+            </label>
+          </div>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" id="consent" required>
+          <span>I understand this is a faith-seva offering performed on my behalf and accept that PunyaSeva does not guarantee any specific exam outcome. I consent to receiving WhatsApp/SMS updates on the mobile number provided.</span>
+        </label>
+
+        <button type="submit" class="btn btn-primary form-submit"><i class="fas fa-pray"></i> <span id="submitText">Continue to Payment</span></button>
+        <div class="form-note"><i class="fas fa-lock"></i> Your details are kept confidential. Used only for performing the seva and sharing proof.</div>
+      </form>
+
+      <div class="success-state" id="successState">
+        <div class="check-circle"><i class="fas fa-check"></i></div>
+        <h3>Sankalp received 🙏</h3>
+        <p>Your seva for <strong id="successStudent"></strong> has been registered.</p>
+        <div class="ref-badge" id="successRef"></div>
+        <div class="next-steps">
+          <h4>What happens next:</h4>
+          <ul>
+            <li><i class="fab fa-whatsapp"></i> A WhatsApp confirmation will open — tap <strong>Send</strong> to confirm with our team</li>
+            <li><i class="fas fa-phone"></i> Our coordinator will call within 2 hours if any detail needs clarifying</li>
+            <li><i class="fas fa-pray"></i> Your seva will be performed within 48 hours</li>
+            <li><i class="fas fa-image"></i> Photo, video & prasad blessing shared on WhatsApp</li>
+          </ul>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+          <button class="btn btn-primary" id="manualWaBtn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> Open WhatsApp Confirmation</button>
+          <button class="btn btn-outline" onclick="resetForm()">Enroll Another Aspirant</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="trust-strip">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="ti"><i class="fas fa-shield-heart"></i></div>
+        <h4>Verified seva partners</h4>
+        <p>Every gaushala and pandit on our network is personally vetted by the PunyaSeva team.</p>
+      </div>
+      <div class="trust-card">
+        <div class="ti"><i class="fas fa-mobile-screen"></i></div>
+        <h4>Real-time photo proof</h4>
+        <p>You see the seva happening — not a stock image. Time-stamped photos & video.</p>
+      </div>
+      <div class="trust-card">
+        <div class="ti"><i class="fas fa-rotate-left"></i></div>
+        <h4>100% refund if not done</h4>
+        <p>If for any reason your seva isn't performed within 5 days, we refund in full.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="faq-header">
+      <h2>Common Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">When should I book the seva — before or on the day of NEET? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">Most parents book 2–7 days before the exam so the seva is completed and the blessings reach the student before they sit for the paper. You can also book the night before — we'll perform it at the earliest sunrise.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I book both sevas together? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">Yes — you can submit the form twice (once for each seva), or call us and we'll combine both into one ₹402 enrollment with both proofs delivered on the same day.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does my child need to be present? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">No. The seva is performed in the student's name with a sankalp. Your child can simply focus on their preparation and the exam.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Will this guarantee my child clears NEET? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">We are honest with you — no seva, prayer, or person on earth can guarantee an exam result. What we offer is a way to channel your love and worry into a real, time-honoured act of faith. The hard work has been done by your child. This is your blessing.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How will I receive the proof? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">Photos and a short video are sent on WhatsApp to the mobile number you provided. For Mahakal Prarthana, you'll also receive a prasad image and the pandit's name and contact for verification.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><i class="fas fa-om"></i> ExamPrayers <span>by PunyaSeva</span></div>
+        <p>A focused initiative for parents of NEET aspirants. Channel your prayers into real seva, performed transparently, with proof on your phone.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Sevas</h4>
+        <a href="#sevas">Gauseva ₹151</a>
+        <a href="#sevas">Mahakal Prarthana ₹251</a>
+        <a href="#enroll">Enroll Now</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>care@punyaseva.shop<br>WhatsApp support: 9 AM – 9 PM</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 PunyaSeva · ExamPrayers · Made with faith for India's parents 🙏
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script>
+// === FIREBASE (same project as PunyaSeva — separate collection) ===
+const firebaseConfig = {
+  apiKey: "AIzaSyDamox4FVBpCq91JEsn8xn-lozWZboA7-4",
+  authDomain: "punyaseva-8e9a0.firebaseapp.com",
+  projectId: "punyaseva-8e9a0",
+  storageBucket: "punyaseva-8e9a0.firebasestorage.app",
+  messagingSenderId: "235501009473",
+  appId: "1:235501009473:web:f326b7b53565069541e4c0"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// === RAZORPAY ===
+// IMPORTANT: Replace this with your live key when going to production.
+// Get from: https://dashboard.razorpay.com/app/keys
+// Test mode is fine for now — payments won't be charged.
+const RAZORPAY_KEY = 'rzp_test_REPLACE_WITH_YOUR_KEY';
+
+// === PUNYASEVA CONTACT ===
+const PUNYASEVA_WHATSAPP = '919869692869'; // country code + number, no +
+const PUNYASEVA_PHONE    = '+91 98696 92869';
+
+const SEVAS = {
+  gauseva:  { name: 'Gauseva',                     price: 151, location: 'Network gaushala'             },
+  mahakal:  { name: 'Mahakal Prarthana',           price: 251, location: 'Mahakaleshwar Temple, Ujjain' }
+};
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.toggle('error', !!isError);
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function selectAndScroll(seva) {
+  document.getElementById('picker-' + seva).checked = true;
+  document.getElementById('enroll').scrollIntoView({ behavior: 'smooth' });
+}
+
+// FAQ
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.querySelector('.faq-q').addEventListener('click', () => item.classList.toggle('open'));
+});
+
+// === WHATSAPP HANDOFF ===
+// Opens parent's WhatsApp with a pre-filled message TO PunyaSeva.
+// Parent taps Send → PunyaSeva WhatsApp inbox receives the lead instantly.
+// (For true automated outbound replies FROM PunyaSeva, an API like Wati/Gupshup
+//  is needed — that's a backend integration, not possible from a static page.)
+function openWhatsAppHandoff(enrollment) {
+  const msg =
+    `Namaste 🙏\n\n` +
+    `I have just enrolled my child *${enrollment.studentName}* for *${enrollment.sevaName}* (₹${enrollment.amount}) through ExamPrayers.\n\n` +
+    `*Booking ID:* ${enrollment.id}\n` +
+    `*Parent:* ${enrollment.parentName}\n` +
+    `*City:* ${enrollment.city}\n` +
+    `*Payment:* ${enrollment.paymentStatus === 'paid' ? '✅ Paid' : '⏳ Pending — please share UPI/payment link'}\n\n` +
+    `Please confirm the seva date.`;
+  const url = `https://wa.me/${PUNYASEVA_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+// === SHOW SUCCESS STATE ===
+function showSuccessState(enrollment) {
+  document.getElementById('enrollForm').style.display = 'none';
+  document.getElementById('successStudent').textContent = enrollment.studentName;
+  document.getElementById('successRef').textContent = enrollment.id;
+  document.getElementById('successState').classList.add('active');
+  document.getElementById('successState').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // Wire up the manual fallback WhatsApp button (browsers often block auto-popups)
+  const manualBtn = document.getElementById('manualWaBtn');
+  if (manualBtn) {
+    manualBtn.onclick = () => openWhatsAppHandoff(enrollment);
+  }
+}
+
+// === RAZORPAY CHECKOUT ===
+function openRazorpay(enrollment) {
+  return new Promise((resolve) => {
+    const options = {
+      key: RAZORPAY_KEY,
+      amount: enrollment.amount * 100, // Razorpay uses paise
+      currency: 'INR',
+      name: 'ExamPrayers by PunyaSeva',
+      description: enrollment.sevaName + ' for ' + enrollment.studentName,
+      image: 'https://punyaseva.shop/logo-icon.svg',
+      prefill: {
+        name: enrollment.parentName,
+        contact: enrollment.mobile,
+      },
+      notes: {
+        booking_id: enrollment.id,
+        student: enrollment.studentName,
+        seva: enrollment.sevaName,
+        city: enrollment.city,
+        type: 'examprayers'
+      },
+      theme: { color: '#EA580C' },
+      handler: async function (response) {
+        // Payment success
+        try {
+          await db.collection('examprayers').doc(enrollment.id).update({
+            paymentStatus: 'paid',
+            razorpayPaymentId: response.razorpay_payment_id,
+            paidAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          });
+          if (typeof gtag === 'function') {
+            gtag('event', 'examprayers_payment_success', {
+              seva: enrollment.sevaName,
+              amount: enrollment.amount,
+              transaction_id: response.razorpay_payment_id
+            });
+          }
+        } catch (e) { console.error(e); }
+        enrollment.paymentStatus = 'paid';
+        resolve({ paid: true, response });
+      },
+      modal: {
+        ondismiss: function () {
+          // User closed Razorpay without paying — lead is preserved
+          resolve({ paid: false });
+        }
+      }
+    };
+
+    if (typeof Razorpay === 'undefined' || RAZORPAY_KEY.includes('REPLACE')) {
+      // Razorpay not configured yet — fall back gracefully
+      resolve({ paid: false, fallback: true });
+      return;
+    }
+
+    const rzp = new Razorpay(options);
+    rzp.on('payment.failed', function (resp) {
+      console.error('Razorpay payment failed:', resp.error);
+      resolve({ paid: false, error: resp.error });
+    });
+    rzp.open();
+  });
+}
+
+// === FORM SUBMIT ===
+document.getElementById('enrollForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const mobile = document.getElementById('mobile').value.trim();
+  if (!/^[6-9]\d{9}$/.test(mobile)) {
+    showToast('Please enter a valid 10-digit Indian mobile number', true);
+    return;
+  }
+
+  const sevaKey = document.querySelector('input[name="seva"]:checked')?.value;
+  if (!sevaKey) {
+    showToast('Please select a seva', true);
+    return;
+  }
+  const seva = SEVAS[sevaKey];
+
+  const enrollment = {
+    type: 'examprayers',
+    examName: 'NEET 2026',
+    studentName: document.getElementById('studentName').value.trim(),
+    parentName:  document.getElementById('parentName').value.trim(),
+    mobile,
+    city: document.getElementById('city').value.trim(),
+    sevaKey,
+    sevaName: seva.name,
+    sevaLocation: seva.location,
+    amount: seva.price,
+    status: 'pending',
+    paymentStatus: 'unpaid',
+    source: 'examprayers.html',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+
+  enrollment.id = 'EP-' + Date.now().toString(36).toUpperCase();
+
+  const btn = document.querySelector('.form-submit');
+  const btnText = document.getElementById('submitText');
+  btn.disabled = true;
+  btnText.textContent = 'Saving...';
+
+  try {
+    // Step 1: persist the lead — even if payment is abandoned, you have the lead
+    await db.collection('examprayers').doc(enrollment.id).set(enrollment);
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'examprayers_enrollment', {
+        seva: seva.name,
+        amount: seva.price
+      });
+    }
+
+    // Step 2: open Razorpay
+    btnText.textContent = 'Opening payment...';
+    const payResult = await openRazorpay(enrollment);
+
+    // Step 3: show success state (regardless of payment outcome — lead is captured)
+    showSuccessState(enrollment);
+
+    if (payResult.paid) {
+      showToast('Payment received 🎉  Sankalp will be taken in your child\'s name.');
+    } else if (payResult.fallback) {
+      showToast('Enrollment saved. Our team will call to take payment & confirm seva.');
+    } else {
+      showToast('Enrollment saved. Complete payment from WhatsApp or wait for our call.');
+    }
+
+    // Step 4: WhatsApp handoff — opens after a short delay so user can read the success state
+    setTimeout(() => openWhatsAppHandoff(enrollment), 1200);
+
+  } catch (err) {
+    console.error(err);
+    showToast('Could not submit. Please call ' + PUNYASEVA_PHONE + ' or try again.', true);
+    btn.disabled = false;
+    btnText.textContent = 'Continue to Payment';
+  }
+});
+
+function resetForm() {
+  document.getElementById('enrollForm').reset();
+  document.getElementById('enrollForm').style.display = 'block';
+  document.getElementById('successState').classList.remove('active');
+  const btn = document.querySelector('.form-submit');
+  btn.disabled = false;
+  document.getElementById('submitText').textContent = 'Continue to Payment';
+  document.getElementById('enroll').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
