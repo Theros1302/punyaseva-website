@@ -251,6 +251,29 @@ img { max-width: 100%; display: block; }
 .free-seva-temples label { display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--cream); border-radius:8px; cursor:pointer; font-size:0.9rem; border:2px solid transparent; transition:var(--transition); }
 .free-seva-temples label:has(input:checked) { border-color:#EA580C; background:#FFF7ED; }
 .free-seva-temples input[type="radio"] { accent-color:#EA580C; }
+/* ===== Religion-first prayer flow ===== */
+.wizard-step { margin-bottom:22px; padding:18px 18px 16px; background:#FFFBF5; border:1px solid #FED7AA; border-radius:12px; }
+.wizard-step-head { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.wizard-step-num { width:28px; height:28px; border-radius:50%; background:#EA580C; color:#fff; font-weight:700; font-size:0.9rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.wizard-step-title { font-weight:700; color:#7C2D12; font-size:1rem; line-height:1.3; }
+.faith-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:8px; }
+.faith-grid label { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:14px 8px; background:var(--cream); border-radius:10px; cursor:pointer; font-size:0.9rem; font-weight:600; color:var(--dark); border:2px solid transparent; transition:var(--transition); text-align:center; }
+.faith-grid label:hover { border-color:#FED7AA; transform:translateY(-1px); }
+.faith-grid label:has(input:checked) { border-color:#EA580C; background:#FFF7ED; box-shadow:0 4px 12px rgba(234,88,12,0.15); }
+.faith-grid input[type="radio"] { display:none; }
+.faith-grid .faith-icon { font-size:1.6rem; color:#EA580C; line-height:1; }
+.faith-grid .faith-name { font-size:0.92rem; }
+.prayer-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px; }
+.prayer-grid label { display:flex; flex-direction:column; gap:4px; padding:12px 14px; background:var(--cream); border-radius:8px; cursor:pointer; font-size:0.9rem; border:2px solid transparent; transition:var(--transition); }
+.prayer-grid label:hover { border-color:#FED7AA; }
+.prayer-grid label:has(input:checked) { border-color:#EA580C; background:#FFF7ED; }
+.prayer-grid input[type="radio"] { display:none; }
+.prayer-grid .prayer-title { font-weight:700; color:var(--dark); font-size:0.95rem; }
+.prayer-grid .prayer-desc { font-size:0.82rem; color:var(--muted); line-height:1.4; }
+#prayerTypeWrap { display:none; }
+#prayerTypeWrap.active { display:block; animation:fadeInPrayer 240ms ease; }
+@keyframes fadeInPrayer { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
+.prayer-hint { font-size:0.82rem; color:var(--muted); margin-top:6px; font-style:italic; }
 .free-seva-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:40px auto; max-width:800px; }
 .free-step { text-align:center; padding:20px 12px; }
 .free-step .step-num { width:40px; height:40px; background:#EA580C; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; margin:0 auto 10px; }
@@ -262,8 +285,14 @@ img { max-width: 100%; display: block; }
 @media (max-width:768px) {
   .free-seva-form .form-row { grid-template-columns:1fr; }
   .free-seva-temples { grid-template-columns:1fr; }
+  .faith-grid { grid-template-columns:repeat(3,1fr); }
+  .faith-grid label:nth-child(4), .faith-grid label:nth-child(5) { grid-column:span 1; }
+  .prayer-grid { grid-template-columns:1fr; }
   .free-seva-steps { grid-template-columns:1fr 1fr; }
   .free-seva-hero h1 { font-size:1.6rem; }
+}
+@media (max-width:480px) {
+  .faith-grid { grid-template-columns:repeat(2,1fr); }
 }
 
 .eta-banner { margin:16px 0; padding:20px; background:linear-gradient(135deg,#FEF3C7,#FED7AA); border-radius:12px; border-left:4px solid #EA580C; }
@@ -767,73 +796,109 @@ img { max-width: 100%; display: block; }
 <div class="container">
   <div class="free-seva-hero">
     <p class="hero-hindi">आपके प्रियजन के स्वास्थ्य के लिए हम प्रार्थना करते हैं</p>
-    <h1><i class="fas fa-om" style="color:#EA580C"></i> Free Prayer for Your Loved One</h1>
-    <p>We perform a prayer in your loved one's name at one of India's most sacred temples — absolutely free. You'll receive photo and video proof.</p>
+    <h1><i class="fas fa-hands-praying" style="color:#EA580C"></i> Free Prayer for Your Loved One</h1>
+    <p>Whatever your faith — Hindu, Muslim, Sikh, Christian or Buddhist — we will arrange a prayer in your loved one's name at a temple, mosque, gurudwara, church or monastery. Absolutely free. You'll receive photo and video proof.</p>
   </div>
 
   <div class="free-seva-steps">
-    <div class="free-step"><div class="step-num">1</div><h4>Register</h4><p>Fill in patient details below</p></div>
-    <div class="free-step"><div class="step-num">2</div><h4>We Pray</h4><p>Prayer at sacred temple in their name</p></div>
-    <div class="free-step"><div class="step-num">3</div><h4>Get Proof</h4><p>Photo & video sent to you</p></div>
-    <div class="free-step"><div class="step-num">4</div><h4>Blessings</h4><p>Divine blessings for recovery</p></div>
+    <div class="free-step"><div class="step-num">1</div><h4>Pick your faith</h4><p>Hindu, Muslim, Sikh, Christian or Buddhist</p></div>
+    <div class="free-step"><div class="step-num">2</div><h4>Pick a prayer</h4><p>Faith-specific options shown to you</p></div>
+    <div class="free-step"><div class="step-num">3</div><h4>We Pray</h4><p>At your chosen place of worship</p></div>
+    <div class="free-step"><div class="step-num">4</div><h4>Get Proof</h4><p>Photo & video sent to your WhatsApp</p></div>
   </div>
 
   <div class="free-seva-form" id="freeSevaFormContainer">
     <h3><i class="fas fa-hands-praying" style="color:#EA580C;"></i> Register for Free Prayer</h3>
+
     <form onsubmit="submitFreeSeva(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Patient Name *</label>
-          <input type="text" id="fsPatientName" placeholder="Patient's full name" required>
-        </div>
-        <div class="form-group">
-          <label>Relative / Caregiver Name *</label>
-          <input type="text" id="fsRelativeName" placeholder="Your name" required>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Mobile Number *</label>
-          <input type="tel" id="fsMobile" placeholder="+91 XXXXX XXXXX" required>
-        </div>
-        <div class="form-group">
-          <label>Hospital Name *</label>
-          <input type="text" id="fsHospital" placeholder="Where patient is admitted" required>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>City *</label>
-          <input type="text" id="fsCity" placeholder="City" required>
-        </div>
-        <div class="form-group">
-          <label>Clinical Condition</label>
-          <select id="fsCondition">
-            <option value="">Select condition...</option>
-            <option value="Surgery / Post-Surgery">Surgery / Post-Surgery</option>
-            <option value="Cancer Treatment">Cancer Treatment</option>
-            <option value="ICU / Critical Care">ICU / Critical Care</option>
-            <option value="Cardiac / Heart">Cardiac / Heart</option>
-            <option value="Accident / Trauma">Accident / Trauma</option>
-            <option value="Organ Transplant">Organ Transplant</option>
-            <option value="Pregnancy / Maternity">Pregnancy / Maternity</option>
-            <option value="Neurological">Neurological</option>
-            <option value="Other">Other</option>
-          </select>
+
+      <!-- ===== STEP 1 · Religion ===== -->
+      <div class="wizard-step">
+        <div class="wizard-step-head"><span class="wizard-step-num">1</span><span class="wizard-step-title">Which faith would you like the prayer offered in?</span></div>
+        <div class="faith-grid" id="fsFaithGrid">
+          <label>
+            <input type="radio" name="fsFaith" value="hindu" required onchange="onFaithChange(this)">
+            <span class="faith-icon"><i class="fas fa-om"></i></span>
+            <span class="faith-name">Hindu</span>
+          </label>
+          <label>
+            <input type="radio" name="fsFaith" value="muslim" onchange="onFaithChange(this)">
+            <span class="faith-icon"><i class="fas fa-mosque"></i></span>
+            <span class="faith-name">Muslim</span>
+          </label>
+          <label>
+            <input type="radio" name="fsFaith" value="sikh" onchange="onFaithChange(this)">
+            <span class="faith-icon"><i class="fas fa-khanda"></i></span>
+            <span class="faith-name">Sikh</span>
+          </label>
+          <label>
+            <input type="radio" name="fsFaith" value="christian" onchange="onFaithChange(this)">
+            <span class="faith-icon"><i class="fas fa-cross"></i></span>
+            <span class="faith-name">Christian</span>
+          </label>
+          <label>
+            <input type="radio" name="fsFaith" value="buddhist" onchange="onFaithChange(this)">
+            <span class="faith-icon"><i class="fas fa-dharmachakra"></i></span>
+            <span class="faith-name">Buddhist</span>
+          </label>
         </div>
       </div>
 
-      <div class="form-group" style="margin-bottom:16px;">
-        <label>Choose a Sacred Temple for the Prayer *</label>
-        <div class="free-seva-temples">
-          <label><input type="radio" name="fsTemple" value="Siddhivinayak Temple, Mumbai" required> <i class="fas fa-gopuram" style="color:#EA580C;"></i> Siddhivinayak, Mumbai</label>
-          <label><input type="radio" name="fsTemple" value="Mahakal Temple, Ujjain"> <i class="fas fa-gopuram" style="color:#EA580C;"></i> Mahakal, Ujjain</label>
-        </div>
+      <!-- ===== STEP 2 · Prayer type — appears after faith is picked ===== -->
+      <div class="wizard-step" id="prayerTypeWrap">
+        <div class="wizard-step-head"><span class="wizard-step-num">2</span><span class="wizard-step-title" id="fsPrayerLabel">Choose a prayer</span></div>
+        <div class="prayer-grid" id="fsPrayerGrid"><!-- populated by JS --></div>
+        <p class="prayer-hint" id="fsPrayerHint">We can also arrange a prayer at your local place of worship — pick the closest option and tell us in the message below.</p>
       </div>
 
-      <div class="form-group" style="margin-bottom:16px;">
-        <label>Any Special Message for the Prayer (Optional)</label>
-        <textarea id="fsMessage" rows="2" placeholder="E.g., Please pray for speedy recovery of my father..."></textarea>
+      <!-- ===== STEP 3 · Your details ===== -->
+      <div class="wizard-step">
+        <div class="wizard-step-head"><span class="wizard-step-num">3</span><span class="wizard-step-title">Your details</span></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Patient Name *</label>
+            <input type="text" id="fsPatientName" placeholder="Patient's full name" required>
+          </div>
+          <div class="form-group">
+            <label>Relative / Caregiver Name *</label>
+            <input type="text" id="fsRelativeName" placeholder="Your name" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="fsMobile" placeholder="+91 XXXXX XXXXX" required>
+          </div>
+          <div class="form-group">
+            <label>Hospital Name *</label>
+            <input type="text" id="fsHospital" placeholder="Where patient is admitted" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>City *</label>
+            <input type="text" id="fsCity" placeholder="City" required>
+          </div>
+          <div class="form-group">
+            <label>Clinical Condition</label>
+            <select id="fsCondition">
+              <option value="">Select condition...</option>
+              <option value="Surgery / Post-Surgery">Surgery / Post-Surgery</option>
+              <option value="Cancer Treatment">Cancer Treatment</option>
+              <option value="ICU / Critical Care">ICU / Critical Care</option>
+              <option value="Cardiac / Heart">Cardiac / Heart</option>
+              <option value="Accident / Trauma">Accident / Trauma</option>
+              <option value="Organ Transplant">Organ Transplant</option>
+              <option value="Pregnancy / Maternity">Pregnancy / Maternity</option>
+              <option value="Neurological">Neurological</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:12px;">
+          <label>Any Special Message for the Prayer (Optional)</label>
+          <textarea id="fsMessage" rows="2" placeholder="E.g., Please pray for speedy recovery of my father..."></textarea>
+        </div>
       </div>
 
       <div style="margin-bottom:20px;">
@@ -858,7 +923,7 @@ img { max-width: 100%; display: block; }
     <i class="fas fa-check-circle"></i>
     <h2 style="color:#7C2D12;margin-bottom:12px;">Prayer Registered!</h2>
     <p style="font-size:1.1rem;color:var(--body-text);margin-bottom:8px;">Your Case ID: <strong id="freeSevaCase" style="color:#EA580C;font-size:1.3rem;"></strong></p>
-    <p style="color:var(--muted);max-width:480px;margin:0 auto 24px;">Your prayer has been registered. We will perform the prayer at <strong id="freeSevaTempleConfirm"></strong> and send you photo/video proof on your mobile number.</p>
+    <p style="color:var(--muted);max-width:480px;margin:0 auto 24px;">Your prayer has been registered: <strong id="freeSevaTempleConfirm"></strong>. We'll send you photo/video proof on your mobile number.</p>
     <div style="background:#FFF7ED;border-radius:12px;padding:20px;max-width:480px;margin:0 auto 24px;border:1px solid #FED7AA;">
       <p style="font-weight:700;color:#7C2D12;margin-bottom:8px;"><i class="fas fa-star"></i> Want deeper healing?</p>
       <p style="font-size:0.9rem;color:var(--body-text);margin-bottom:14px;">Explore our premium sevas: Mahamrityunjay Jap, Rudrabhishek, Navgraha Shanti, Gaushala Seva, and more — all delivered with proof.</p>
@@ -1286,17 +1351,37 @@ const ProofDB = {
 };
 
 // ===== BOOKING HANDLER =====
+// Price lookup from seva type (fuzzy match supports form values and manual entries)
+function getSevaPrice(sevaType) {
+  if (!sevaType) return 0;
+  var s = sevaType.toLowerCase();
+  if (s.indexOf('mrityunjay') !== -1 || s.indexOf('maha m') !== -1) return 11001;
+  if (s.indexOf('navagraha') !== -1 || s.indexOf('navgrah') !== -1) return 5101;
+  if (s.indexOf('rudrabhishek') !== -1) return 5101;
+  if (s.indexOf('custom') !== -1) return 11001;
+  if (s.indexOf('gaushala') !== -1 || s.indexOf('cow') !== -1) return 2101;
+  if (s.indexOf('108') !== -1) return 10001;
+  if (s.indexOf('bhandara') !== -1 || s.indexOf('51') !== -1) return 5101;
+  if (s.indexOf('monthly') !== -1) return 21001;
+  if (s.indexOf('weekly') !== -1 || s.indexOf('combo') !== -1) return 11001;
+  return 0;
+}
+
 async function handleBooking(e) {
   e.preventDefault();
   try {
+    var sevaType = document.getElementById('sevaType').value;
+    var price = getSevaPrice(sevaType);
     const booking = await DB.create({
       caregiverName: document.getElementById('caregiverName').value,
       caregiverPhone: document.getElementById('caregiverPhone').value,
       patientName: document.getElementById('patientName').value,
       hospital: document.getElementById('hospital').value,
-      sevaType: document.getElementById('sevaType').value,
+      sevaType: sevaType,
       email: document.getElementById('caregiverEmail').value,
       instructions: document.getElementById('specialInstructions').value,
+      paymentAmount: price,
+      paymentStatus: 'unpaid',
     });
     document.getElementById('bookingId').textContent = booking.id;
     document.getElementById('successModal').classList.add('active');
@@ -1893,7 +1978,16 @@ async function renderPatientPortal() {
       }
     }
 
-    // Payment section
+    // Payment section — auto-fill amount from seva type if missing
+    if (!b.paymentAmount && b.sevaType) {
+      var autoPrice = getSevaPrice(b.sevaType);
+      if (autoPrice) {
+        b.paymentAmount = autoPrice;
+        b.paymentStatus = b.paymentStatus || 'unpaid';
+        // Persist the auto-filled amount
+        DB.update(b.id, { paymentAmount: autoPrice, paymentStatus: b.paymentStatus || 'unpaid' }).catch(function(e){console.error(e);});
+      }
+    }
     let paymentHtml = '';
     if (b.paymentAmount) {
       if (b.paymentStatus === 'paid' || b.status === 'payment_confirmed' || b.status === 'assigned' || b.status === 'completed') {
@@ -2155,7 +2249,18 @@ async function renderCoordinatorDashboard() {
           (t.etaDeadline ? ' &middot; ETA: ' + new Date(t.etaDeadline).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '') +
           '</div>';
       } else if (t.status === 'pending') {
-        paymentBlock = '<div style="margin-top:14px;padding:12px;background:#FEF3C7;border-radius:8px;color:#92400E;font-size:0.9rem;"><i class="fas fa-hourglass-half"></i> Waiting for patient to upload payment screenshot.</div>';
+        var currentAmt = t.paymentAmount ? Number(t.paymentAmount) : getSevaPrice(t.sevaType);
+        paymentBlock = '<div style="margin-top:14px;padding:16px;background:#FEF3C7;border-radius:10px;border-left:4px solid #EA580C;">' +
+          '<strong style="color:#7C2D12;"><i class="fas fa-rupee-sign"></i> Push Payment Request to Patient</strong>' +
+          '<p style="font-size:0.85rem;color:#78716C;margin-top:6px;">Set the payment amount and push it. Patient will see QR code + upload option when they log in.</p>' +
+          '<div style="display:flex;gap:10px;align-items:end;margin-top:10px;flex-wrap:wrap;">' +
+            '<div><label style="font-size:0.8rem;color:#7C2D12;">Amount (Rs.)</label>' +
+              '<input type="number" id="coordPayAmt_' + t.id + '" value="' + (currentAmt || '') + '" placeholder="e.g. 5101" style="width:120px;padding:8px;border-radius:6px;border:1px solid var(--border);margin-top:4px;">' +
+            '</div>' +
+            '<button class="btn btn-primary" onclick="coordPushPayment(\'' + t.id + '\')" style="background:#EA580C;padding:8px 16px;font-size:0.85rem;"><i class="fas fa-paper-plane"></i> Push to Patient</button>' +
+          '</div>' +
+          (currentAmt ? '<p style="font-size:0.8rem;color:#065F46;margin-top:6px;"><i class="fas fa-check-circle"></i> Auto-detected: Rs. ' + currentAmt.toLocaleString('en-IN') + ' for ' + t.sevaType + '</p>' : '') +
+        '</div>';
       }
 
       // Assignment block (only after payment_confirmed)
@@ -2214,6 +2319,26 @@ async function renderCoordinatorDashboard() {
   } catch(err) {
     console.error('Coordinator dashboard error:', err);
     showToast('Error loading cases.');
+  }
+}
+
+// Coordinator: push payment request to patient
+async function coordPushPayment(bookingId) {
+  var amtInput = document.getElementById('coordPayAmt_' + bookingId);
+  var amount = amtInput ? Number(amtInput.value) : 0;
+  if (!amount || amount < 100) { showToast('Please enter a valid amount (min Rs. 100).'); return; }
+  try {
+    await DB.update(bookingId, {
+      paymentAmount: amount,
+      paymentStatus: 'unpaid'
+    });
+    auditLog('PAYMENT_PUSHED', 'Case: ' + bookingId + ' Amount: ' + amount + ' by ' + (currentCoordinator ? currentCoordinator.name : 'Admin'));
+    showToast('Payment request of Rs. ' + amount.toLocaleString('en-IN') + ' pushed! Patient will see QR code on login.');
+    if (currentCoordinator) renderCoordinatorDashboard();
+    else renderAdmin();
+  } catch(err) {
+    showToast('Error pushing payment.');
+    console.error(err);
   }
 }
 
@@ -2448,6 +2573,98 @@ function toggleFreeSeva(e) {
   window.scrollTo(0, 0);
 }
 
+/* ===== Religion-neutral prayer catalogue =====
+   Single source of truth for the free-prayer flow.
+   Each faith maps to a "place" string (used in DB + success message) and a list of prayer types.
+   Add prayer entries here without changing form layout.
+*/
+window.PunyaFaiths = {
+  hindu: {
+    name: 'Hindu',
+    place: 'Temple',
+    placeArticle: 'a temple',
+    familyLabel: 'Gotra / family deity (optional)',
+    prayers: [
+      { id: 'ganesha',  title: 'Ganesha temple prayer',  desc: 'Remover of obstacles — for healing journeys.' },
+      { id: 'shiva',    title: 'Shiva temple prayer',    desc: 'Mahamrityunjaya — protection from illness.' },
+      { id: 'hanuman',  title: 'Hanuman temple prayer',  desc: 'Strength, courage and recovery.' },
+      { id: 'durga',    title: 'Durga / Devi prayer',    desc: 'Blessing and protection from the goddess.' },
+      { id: 'lakshmi',  title: 'Lakshmi prayer',         desc: 'Wellbeing, prosperity and harmony.' },
+      { id: 'family',   title: 'Family deity (kuldevta)',desc: 'Tell us your kuldevta in the message below.' }
+    ]
+  },
+  muslim: {
+    name: 'Muslim',
+    place: 'Mosque',
+    placeArticle: 'a mosque',
+    familyLabel: "Father's name (optional)",
+    prayers: [
+      { id: 'dua',     title: 'Special dua',             desc: 'A personal supplication for healing.' },
+      { id: 'fatiha',  title: 'Surah Fatiha recitation', desc: 'The opening chapter recited in their name.' },
+      { id: 'yaseen',  title: 'Yaseen recitation',       desc: 'For ease, healing and protection.' },
+      { id: 'khwani',  title: 'Quran khwani',            desc: 'A complete recitation of the Quran.' },
+      { id: 'friday',  title: "Jumu'ah prayer mention",  desc: 'Name mentioned at Friday congregational prayer.' }
+    ]
+  },
+  sikh: {
+    name: 'Sikh',
+    place: 'Gurudwara',
+    placeArticle: 'a gurudwara',
+    familyLabel: 'Family name (optional)',
+    prayers: [
+      { id: 'ardas',    title: 'Ardas',               desc: 'A formal prayer offered by a granthi.' },
+      { id: 'sukhmani', title: 'Sukhmani Sahib path', desc: 'Recitation for peace and healing.' },
+      { id: 'akhand',   title: 'Akhand Path',         desc: 'Continuous recitation of the Guru Granth Sahib.' },
+      { id: 'sehaj',    title: 'Sehaj Path',          desc: 'Recitation across several days, at our pace.' }
+    ]
+  },
+  christian: {
+    name: 'Christian',
+    place: 'Church',
+    placeArticle: 'a church',
+    familyLabel: 'Surname (optional)',
+    prayers: [
+      { id: 'mass',      title: 'Mass intention',       desc: 'Their name read out at the Holy Mass.' },
+      { id: 'novena',    title: 'Novena (9-day prayer)',desc: 'Nine consecutive days of intercession.' },
+      { id: 'card',      title: 'Prayer card',          desc: 'A personalised prayer card sent to the family.' },
+      { id: 'anointing', title: 'Special blessing',     desc: 'For healing and strength during illness.' }
+    ]
+  },
+  buddhist: {
+    name: 'Buddhist',
+    place: 'Monastery',
+    placeArticle: 'a monastery',
+    familyLabel: 'Family name (optional)',
+    prayers: [
+      { id: 'sutra',  title: 'Healing sutra recitation', desc: 'Recitation of the Healing Buddha sutra.' },
+      { id: 'chant',  title: 'Karuna chant',             desc: 'Compassion chant for relief from suffering.' },
+      { id: 'merit',  title: 'Merit dedication',         desc: 'Merit dedicated to the patient\'s wellbeing.' },
+      { id: 'puja',   title: 'Healing puja',             desc: 'A formal monastic puja in the patient\'s name.' }
+    ]
+  }
+};
+
+/* Show prayer-type cards when a faith is picked */
+function onFaithChange(input) {
+  var faith = input.value;
+  var data = window.PunyaFaiths[faith];
+  if (!data) return;
+  var grid = document.getElementById('fsPrayerGrid');
+  var wrap = document.getElementById('prayerTypeWrap');
+  var label = document.getElementById('fsPrayerLabel');
+  label.textContent = 'Choose a ' + data.place.toLowerCase() + ' prayer';
+  var html = '';
+  data.prayers.forEach(function(p, i){
+    html += '<label>'
+         +   '<input type="radio" name="fsPrayer" value="' + p.id + '" required' + (i === 0 ? '' : '') + '>'
+         +   '<span class="prayer-title">' + p.title + '</span>'
+         +   '<span class="prayer-desc">' + p.desc + '</span>'
+         + '</label>';
+  });
+  grid.innerHTML = html;
+  wrap.classList.add('active');
+}
+
 async function submitFreeSeva(e) {
   e.preventDefault();
   var patientName = document.getElementById('fsPatientName').value.trim();
@@ -2456,7 +2673,8 @@ async function submitFreeSeva(e) {
   var hospital = document.getElementById('fsHospital').value.trim();
   var city = document.getElementById('fsCity').value.trim();
   var condition = document.getElementById('fsCondition').value;
-  var templeEl = document.querySelector('input[name="fsTemple"]:checked');
+  var faithEl = document.querySelector('input[name="fsFaith"]:checked');
+  var prayerEl = document.querySelector('input[name="fsPrayer"]:checked');
   var message = document.getElementById('fsMessage').value.trim();
   var consent = document.getElementById('fsConsent').checked;
 
@@ -2464,8 +2682,16 @@ async function submitFreeSeva(e) {
     showToast('Please fill all required fields.');
     return;
   }
-  if (!templeEl) { showToast('Please select a temple.'); return; }
-  if (!consent) { showToast('Please give consent to proceed.'); return; }
+  if (!faithEl)  { showToast('Please select your faith.'); return; }
+  if (!prayerEl) { showToast('Please select a prayer type.'); return; }
+  if (!consent)  { showToast('Please give consent to proceed.'); return; }
+
+  // Resolve faith + prayer into human-readable strings
+  var faithData = window.PunyaFaiths[faithEl.value] || {};
+  var prayerData = (faithData.prayers || []).find(function(p){ return p.id === prayerEl.value; }) || {};
+  // For backward compatibility, populate the `temple` field with a religion-neutral summary
+  // so existing admin / exports / audit-log code keeps working.
+  var placeSummary = faithData.name + ' — ' + (prayerData.title || prayerEl.value) + ' at ' + (faithData.placeArticle || 'a place of worship');
 
   var caseId = 'FS-' + Date.now().toString(36).toUpperCase();
 
@@ -2478,7 +2704,14 @@ async function submitFreeSeva(e) {
       hospital: hospital,
       city: city,
       condition: condition,
-      temple: templeEl.value,
+      // Backward-compatible field — combined religion-neutral summary
+      temple: placeSummary,
+      // New structured fields — preferred for future code
+      faith: faithEl.value,
+      faithName: faithData.name,
+      placeOfWorship: faithData.place,
+      prayerType: prayerEl.value,
+      prayerTitle: prayerData.title,
       message: message,
       status: 'pending',
       proofUrl: '',
@@ -2488,13 +2721,13 @@ async function submitFreeSeva(e) {
       createdAt: new Date().toISOString()
     });
 
-    auditLog('FREE_SEVA_REGISTERED', 'Case: ' + caseId + ' Patient: ' + patientName + ' Temple: ' + templeEl.value);
+    auditLog('FREE_SEVA_REGISTERED', 'Case: ' + caseId + ' Patient: ' + patientName + ' Prayer: ' + placeSummary);
     showToast('Prayer registered successfully!');
 
     // Show success
     document.getElementById('freeSevaFormContainer').style.display = 'none';
     document.getElementById('freeSevaCase').textContent = caseId;
-    document.getElementById('freeSevaTempleConfirm').textContent = templeEl.value;
+    document.getElementById('freeSevaTempleConfirm').textContent = placeSummary;
     document.getElementById('freeSevaSuccess').classList.add('active');
     window.scrollTo(0, 0);
   } catch(err) {
@@ -2564,8 +2797,12 @@ function resetFreeSeva() {
   });
   document.getElementById('fsCondition').value = '';
   document.getElementById('fsConsent').checked = false;
-  var checked = document.querySelector('input[name="fsTemple"]:checked');
-  if (checked) checked.checked = false;
+  // Clear faith + prayer selections (new religion-neutral flow)
+  document.querySelectorAll('input[name="fsFaith"]:checked, input[name="fsPrayer"]:checked').forEach(function(el){ el.checked = false; });
+  var prayerWrap = document.getElementById('prayerTypeWrap');
+  if (prayerWrap) prayerWrap.classList.remove('active');
+  var prayerGrid = document.getElementById('fsPrayerGrid');
+  if (prayerGrid) prayerGrid.innerHTML = '';
   window.scrollTo(0, 0);
 }
 
