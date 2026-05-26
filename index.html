@@ -676,25 +676,44 @@ img { max-width: 100%; display: block; }
           <option value="">Choose a seva...</option>
           <optgroup label="Hindu — Temple Prayers">
             <option value="Temple Prayer - Maha Mrityunjaya">Temple Prayer — Maha Mrityunjaya Jap (₹11,001)</option>
-            <option value="Temple Prayer - Navagraha Shanti">Temple Prayer — Navagraha Shanti (₹5,101)</option>
             <option value="Temple Prayer - Rudrabhishek">Temple Prayer — Rudrabhishek (₹5,101)</option>
+            <option value="Temple Prayer - Navagraha Shanti">Temple Prayer — Navagraha Shanti (₹5,101)</option>
+            <option value="Temple Prayer - Satyanarayan Katha">Temple Prayer — Satyanarayan Katha (₹5,101)</option>
+            <option value="Temple Prayer - Durga Saptashati">Temple Prayer — Durga Saptashati Path (₹7,101)</option>
+            <option value="Temple Prayer - Lakshmi Puja">Temple Prayer — Lakshmi Puja (₹5,101)</option>
+            <option value="Temple Prayer - Ganesh Atharvashirsha">Temple Prayer — Ganesh Atharvashirsha (₹3,101)</option>
+            <option value="Temple Prayer - Hanuman Chalisa 108">Temple Prayer — Hanuman Chalisa 108 paath (₹5,101)</option>
+            <option value="Temple Prayer - Sundarkand">Temple Prayer — Sundarkand paath (₹7,101)</option>
             <option value="Temple Prayer - Custom">Temple Prayer — Custom puja (₹11,001+)</option>
           </optgroup>
           <optgroup label="Muslim — Mosque Prayers">
-            <option value="Mosque Prayer - Quran Khwani">Mosque Prayer — Quran Khwani for shifa (₹5,101)</option>
+            <option value="Mosque Prayer - Special Dua">Mosque Prayer — Special dua for shifa (₹2,101)</option>
             <option value="Mosque Prayer - Yaseen Recitation">Mosque Prayer — Yaseen Recitation (₹3,101)</option>
+            <option value="Mosque Prayer - Quran Khwani">Mosque Prayer — Quran Khwani for shifa (₹5,101)</option>
+            <option value="Mosque Prayer - Quran Khatm">Mosque Prayer — Complete Quran Khatm (₹11,001)</option>
+            <option value="Mosque Prayer - Milad / Mehfil">Mosque Prayer — Milad / Mehfil for shifa (₹7,101)</option>
+            <option value="Mosque Prayer - Tahajjud Dua">Mosque Prayer — Tahajjud dua for healing (₹3,101)</option>
           </optgroup>
           <optgroup label="Sikh — Gurudwara Prayers">
+            <option value="Gurudwara Prayer - Ardas">Gurudwara Prayer — Ardas for chardi kala (₹2,101)</option>
             <option value="Gurudwara Prayer - Sukhmani Sahib">Gurudwara Prayer — Sukhmani Sahib path (₹5,101)</option>
-            <option value="Gurudwara Prayer - Akhand Path">Gurudwara Prayer — Akhand Path (₹11,001)</option>
+            <option value="Gurudwara Prayer - Sehaj Path">Gurudwara Prayer — Sehaj Path (₹7,101)</option>
+            <option value="Gurudwara Prayer - Akhand Path">Gurudwara Prayer — Akhand Path 48-hour (₹11,001)</option>
+            <option value="Gurudwara Prayer - Kirtan">Gurudwara Prayer — Kirtan / Gurbani for healing (₹5,101)</option>
           </optgroup>
           <optgroup label="Christian — Church Prayers">
             <option value="Church Prayer - Healing Mass">Church Prayer — Healing Mass intention (₹5,101)</option>
             <option value="Church Prayer - Healing Novena">Church Prayer — 9-day Healing Novena (₹7,101)</option>
+            <option value="Church Prayer - Anointing of the Sick">Church Prayer — Anointing of the Sick (₹5,101)</option>
+            <option value="Church Prayer - Adoration">Church Prayer — Eucharistic Adoration for healing (₹3,101)</option>
+            <option value="Church Prayer - Rosary">Church Prayer — Rosary for healing (₹2,101)</option>
           </optgroup>
           <optgroup label="Buddhist — Monastery Prayers">
             <option value="Monastery Prayer - Healing Puja">Monastery Prayer — Healing Buddha puja (₹5,101)</option>
             <option value="Monastery Prayer - Sutra Recitation">Monastery Prayer — Healing sutra recitation (₹3,101)</option>
+            <option value="Monastery Prayer - Karuna Chant">Monastery Prayer — Karuna chant (₹2,101)</option>
+            <option value="Monastery Prayer - Green Tara Puja">Monastery Prayer — Green Tara puja (₹5,101)</option>
+            <option value="Monastery Prayer - Butter Lamp 108">Monastery Prayer — 108 Butter-lamp offering (₹3,101)</option>
           </optgroup>
           <optgroup label="Welfare & Community">
             <option value="Animal Welfare Seva - Standard">Animal Welfare Seva — Feed animals at a shelter (₹2,101)</option>
@@ -1433,6 +1452,16 @@ async function renderAdmin() {
     // Render free seva table
     var freeRegs = fsSnap.docs.map(function(d) { return d.data(); }).sort(function(a,b) { return (b.createdAt||'').localeCompare(a.createdAt||''); });
     document.getElementById('freeSevaTable').innerHTML = freeRegs.map(function(f) {
+      // Build the prayer cell — prefer the newer structured fields, with a BASIC pill for free-seva default prayers
+      var faithName = f.faithName || '';
+      var placeOfW  = f.placeOfWorship || '';
+      var prayerNm  = f.prayerTitle || f.temple || '—';
+      var isBasic   = (f.prayerType === 'basic');
+      var basicPill = isBasic
+        ? '<span style="display:inline-block;margin-left:6px;padding:2px 8px;background:#FEF3C7;color:#92400E;font-size:0.65rem;font-weight:700;letter-spacing:0.4px;border-radius:10px;vertical-align:middle;">BASIC</span>'
+        : '';
+      var prayerCell = '<span style="color:#EA580C;font-weight:600;">' + prayerNm + '</span>' + basicPill +
+        (faithName ? '<br><span style="color:var(--muted);font-size:0.75rem;">' + faithName + (placeOfW ? ' · ' + placeOfW : '') + '</span>' : '');
       return '<tr>' +
         '<td><strong>' + f.id + '</strong></td>' +
         '<td>' + f.patientName + '</td>' +
@@ -1440,7 +1469,7 @@ async function renderAdmin() {
         '<td><a href="tel:' + f.mobile + '">' + f.mobile + '</a></td>' +
         '<td>' + f.hospital + '<br><span style="color:var(--muted);font-size:0.8rem;">' + f.city + '</span></td>' +
         '<td>' + (f.condition || '—') + '</td>' +
-        '<td><span style="color:#EA580C;font-weight:600;">' + f.temple + '</span></td>' +
+        '<td>' + prayerCell + '</td>' +
         '<td><select onchange="updateFreeSevaStatus(\'' + f.id + '\',this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;">' +
           '<option value="pending"' + (f.status==='pending'?' selected':'') + '>Pending</option>' +
           '<option value="prayer_done"' + (f.status==='prayer_done'?' selected':'') + '>Prayer Done</option>' +
@@ -2606,10 +2635,16 @@ window.PunyaFaiths = {
     place: 'Temple',
     placeArticle: 'a temple',
     familyLabel: 'Gotra (optional)',
+    /* Single, basic prayer offered in the FREE seva flow */
+    freePrayer: { id: 'basic', title: 'Healing prayer at a temple', desc: 'A simple healing prayer offered in your loved one\'s name by a priest at a temple.' },
+    /* Richer, deity-specific options used in the PAID flow only */
     prayers: [
-      { id: 'ganesha',  title: 'Ganesha temple prayer',  desc: 'Remover of obstacles — for the patient\'s healing journey.' },
-      { id: 'shiva',    title: 'Shiva temple prayer',    desc: 'Mahamrityunjaya jap — protection from illness and long life.' },
-      { id: 'hanuman',  title: 'Hanuman temple prayer',  desc: 'Strength, courage and a speedy recovery.' }
+      { id: 'ganesha',     title: 'Ganesha temple prayer',     desc: 'Remover of obstacles — for the patient\'s healing journey.' },
+      { id: 'shiva',       title: 'Shiva temple prayer',       desc: 'Mahamrityunjaya jap — protection from illness and long life.' },
+      { id: 'hanuman',     title: 'Hanuman temple prayer',     desc: 'Strength, courage and a speedy recovery.' },
+      { id: 'satyanarayan',title: 'Satyanarayan katha',        desc: 'For family wellbeing and the patient\'s safe recovery.' },
+      { id: 'durga',       title: 'Durga Saptashati path',     desc: 'Invoking Devi\'s protection against illness and danger.' },
+      { id: 'lakshmi',     title: 'Lakshmi puja',              desc: 'For prosperity and ease through the recovery period.' }
     ]
   },
   muslim: {
@@ -2617,10 +2652,14 @@ window.PunyaFaiths = {
     place: 'Mosque',
     placeArticle: 'a mosque',
     familyLabel: "Father's name (optional)",
+    freePrayer: { id: 'basic', title: 'Dua for shifa at a mosque', desc: 'A simple supplication for the patient\'s healing offered at a mosque.' },
     prayers: [
-      { id: 'dua',    title: 'Special dua for shifa',    desc: 'A personal supplication for the patient\'s healing.' },
-      { id: 'yaseen', title: 'Yaseen recitation',        desc: 'For ease, shifa (healing) and protection.' },
-      { id: 'fatiha', title: 'Surah Fatiha recitation',  desc: 'The opening chapter recited in the patient\'s name for shifa.' }
+      { id: 'dua',         title: 'Special dua for shifa',     desc: 'A personal supplication for the patient\'s healing.' },
+      { id: 'yaseen',      title: 'Yaseen recitation',         desc: 'For ease, shifa (healing) and protection.' },
+      { id: 'fatiha',      title: 'Surah Fatiha recitation',   desc: 'The opening chapter recited in the patient\'s name for shifa.' },
+      { id: 'quranKhwani', title: 'Quran Khwani for shifa',    desc: 'Group recitation of the Quran in the patient\'s name.' },
+      { id: 'quranKhatm',  title: 'Complete Quran Khatm',      desc: 'A full Quran recitation dedicated to the patient\'s healing.' },
+      { id: 'milad',       title: 'Milad / Mehfil for shifa',  desc: 'A gathering of dua and naat for the patient\'s recovery.' }
     ]
   },
   sikh: {
@@ -2628,9 +2667,13 @@ window.PunyaFaiths = {
     place: 'Gurudwara',
     placeArticle: 'a gurudwara',
     familyLabel: 'Family name (optional)',
+    freePrayer: { id: 'basic', title: 'Ardas at a gurudwara', desc: 'A simple ardas offered by a granthi for the patient\'s healing.' },
     prayers: [
-      { id: 'ardas',    title: 'Ardas for chardi kala', desc: 'A formal prayer by a granthi for healing and high spirits.' },
-      { id: 'sukhmani', title: 'Sukhmani Sahib path',   desc: 'Recitation for peace (shanti) and healing.' }
+      { id: 'ardas',     title: 'Ardas for chardi kala',  desc: 'A formal prayer by a granthi for healing and high spirits.' },
+      { id: 'sukhmani',  title: 'Sukhmani Sahib path',    desc: 'Recitation for peace (shanti) and healing.' },
+      { id: 'akhandPath',title: 'Akhand Path',            desc: 'Continuous 48-hour recitation of Guru Granth Sahib for the patient.' },
+      { id: 'sehajPath', title: 'Sehaj Path',             desc: 'Unhurried full recitation of Guru Granth Sahib for the patient.' },
+      { id: 'kirtan',    title: 'Kirtan / Gurbani for healing', desc: 'Devotional singing dedicated to the patient\'s recovery.' }
     ]
   },
   christian: {
@@ -2638,10 +2681,13 @@ window.PunyaFaiths = {
     place: 'Church',
     placeArticle: 'a church',
     familyLabel: 'Surname (optional)',
+    freePrayer: { id: 'basic', title: 'Healing prayer at a church', desc: 'A simple healing prayer offered in the patient\'s name at a church.' },
     prayers: [
-      { id: 'mass',      title: 'Healing Mass intention', desc: 'The patient\'s name read out at Holy Mass for recovery.' },
-      { id: 'novena',    title: 'Healing novena',         desc: 'Nine consecutive days of intercession for healing.' },
-      { id: 'anointing', title: 'Special healing blessing', desc: 'For strength and recovery during illness.' }
+      { id: 'mass',       title: 'Healing Mass intention',    desc: 'The patient\'s name read out at Holy Mass for recovery.' },
+      { id: 'novena',     title: 'Healing novena',            desc: 'Nine consecutive days of intercession for healing.' },
+      { id: 'anointing',  title: 'Anointing of the sick',     desc: 'Sacramental anointing for strength and recovery during illness.' },
+      { id: 'adoration',  title: 'Adoration for healing',     desc: 'Eucharistic adoration offered for the patient\'s recovery.' },
+      { id: 'rosary',     title: 'Rosary for healing',        desc: 'A full rosary dedicated to the patient\'s healing.' }
     ]
   },
   buddhist: {
@@ -2649,15 +2695,19 @@ window.PunyaFaiths = {
     place: 'Monastery',
     placeArticle: 'a monastery',
     familyLabel: 'Family name (optional)',
+    freePrayer: { id: 'basic', title: 'Healing prayer at a monastery', desc: 'A simple healing prayer offered by monks at a monastery.' },
     prayers: [
       { id: 'sutra', title: 'Healing sutra recitation', desc: 'Recitation of the Medicine Buddha (Healing Buddha) sutra.' },
       { id: 'chant', title: 'Karuna chant',             desc: 'Compassion chant for relief from suffering and peace.' },
-      { id: 'puja',  title: 'Healing puja',             desc: 'A formal monastic puja for the patient\'s recovery.' }
+      { id: 'puja',  title: 'Healing puja',             desc: 'A formal monastic puja for the patient\'s recovery.' },
+      { id: 'tara',  title: 'Green Tara puja',          desc: 'Invoking Tara\'s swift protection from illness and harm.' },
+      { id: 'butterLamp', title: 'Butter-lamp offering', desc: '108 butter-lamps offered in the patient\'s name for healing.' }
     ]
   }
 };
 
-/* Show prayer-type cards when a faith is picked */
+/* Show the single basic prayer card when a faith is picked (FREE seva flow).
+   Detailed deity-specific options are reserved for the PAID seva flow. */
 function onFaithChange(input) {
   var faith = input.value;
   var data = window.PunyaFaiths[faith];
@@ -2665,16 +2715,20 @@ function onFaithChange(input) {
   var grid = document.getElementById('fsPrayerGrid');
   var wrap = document.getElementById('prayerTypeWrap');
   var label = document.getElementById('fsPrayerLabel');
-  label.textContent = 'Choose a ' + data.place.toLowerCase() + ' prayer';
-  var html = '';
-  data.prayers.forEach(function(p, i){
-    html += '<label>'
-         +   '<input type="radio" name="fsPrayer" value="' + p.id + '" required' + (i === 0 ? '' : '') + '>'
-         +   '<span class="prayer-title">' + p.title + '</span>'
-         +   '<span class="prayer-desc">' + p.desc + '</span>'
-         + '</label>';
-  });
+  var hint  = document.getElementById('fsPrayerHint');
+  label.textContent = 'Your free ' + data.place.toLowerCase() + ' prayer';
+  /* Fall back to first paid-flow prayer if freePrayer isn't defined for some reason */
+  var fp = data.freePrayer || (data.prayers && data.prayers[0]) || { id: 'basic', title: 'Healing prayer', desc: '' };
+  var html = ''
+    + '<label>'
+    +   '<input type="radio" name="fsPrayer" value="' + fp.id + '" required checked>'
+    +   '<span class="prayer-title">' + fp.title + '</span>'
+    +   '<span class="prayer-desc">' + fp.desc + '</span>'
+    + '</label>';
   grid.innerHTML = html;
+  if (hint) {
+    hint.textContent = 'Want a specific puja (e.g., Mahamrityunjaya, Quran Khatm, Akhand Path, Healing Mass)? Those are available in our premium sevas after registration.';
+  }
   wrap.classList.add('active');
 }
 
@@ -2701,10 +2755,21 @@ async function submitFreeSeva(e) {
 
   // Resolve faith + prayer into human-readable strings
   var faithData = window.PunyaFaiths[faithEl.value] || {};
-  var prayerData = (faithData.prayers || []).find(function(p){ return p.id === prayerEl.value; }) || {};
+  // Free seva uses the single freePrayer; look there first, then the deity-specific list
+  var prayerData = null;
+  if (faithData.freePrayer && faithData.freePrayer.id === prayerEl.value) {
+    prayerData = faithData.freePrayer;
+  } else {
+    prayerData = (faithData.prayers || []).find(function(p){ return p.id === prayerEl.value; }) || {};
+  }
   // For backward compatibility, populate the `temple` field with a religion-neutral summary
   // so existing admin / exports / audit-log code keeps working.
-  var placeSummary = faithData.name + ' — ' + (prayerData.title || prayerEl.value) + ' at ' + (faithData.placeArticle || 'a place of worship');
+  // For 'basic' free prayers, the title already mentions the place ("Healing prayer at a temple"),
+  // so we don't append "at a temple" again.
+  var isBasicFree = (prayerEl.value === 'basic');
+  var placeSummary = isBasicFree
+    ? faithData.name + ' — ' + (prayerData.title || 'Basic healing prayer') + ' (Free seva)'
+    : faithData.name + ' — ' + (prayerData.title || prayerEl.value) + ' at ' + (faithData.placeArticle || 'a place of worship');
 
   var caseId = 'FS-' + Date.now().toString(36).toUpperCase();
 
